@@ -1,28 +1,25 @@
-# Perfect Client — Ultra Website
+# Perfect Client Premium Website
 
-This is a static, GitHub + Cloudflare Pages-ready website.
+A complete static landing page for GitHub + Cloudflare Pages.
 
-## Files
-- `index.html`
-- `styles.css`
-- `app.js`
-- `assets/hero-terrain.svg`
-- `assets/brand-fallback.svg`
-- `assets/social-card.svg`
-- `_headers`
-- `wrangler.toml`
-- `404.html`
-- `robots.txt`
+## Important
+This rebuild deliberately uses **no Minecraft skins anywhere except the Skin Studio preview**.
+The provided `Vexo.png` skin is bundled as:
 
-## Add your real logo
-Put your real Perfect Client logo in the repository root as:
+- `assets/vexo-skin.png`
+- `assets/vexo-preview.png`
+
+It is referenced only by the Studio skin tab.
+
+## Add your real Perfect Client logo
+Place your logo in the repository root as:
 
 `logo.png`
 
-If it is missing, the site automatically uses `assets/brand-fallback.svg` instead of showing a broken-image icon.
+If it is missing, the site automatically falls back to `assets/brand.svg`.
 
-## Add GitHub / release links
-Open `app.js` and edit:
+## GitHub + release links
+Edit the top of `app.js`:
 
 ```js
 const CONFIG = {
@@ -31,16 +28,7 @@ const CONFIG = {
 };
 ```
 
-Example:
-
-```js
-const CONFIG = {
-  githubUrl: "https://github.com/YOURNAME/YOURREPO",
-  releaseUrl: "https://github.com/YOURNAME/YOURREPO/releases/latest"
-};
-```
-
-Until `releaseUrl` exists, the page honestly says that the Windows build is in development.
+When `releaseUrl` is present, the CTA automatically becomes **Download for Windows**.
 
 ## Cloudflare Pages
 - Framework preset: None
@@ -48,13 +36,12 @@ Until `releaseUrl` exists, the page honestly says that the Windows build is in d
 - Build output directory: `.`
 - Root directory: `/`
 
-## External data
-- Minecraft character renders: MCHeads
-- Discover preview: public Modrinth API
-
-The public website does not collect Microsoft/Minecraft credentials.
-
-
-## Included custom skin assets
-This version includes your uploaded launcher skin and uses it across the site.
-Only the Studio demo still shows Steve as the editing example.
+## Included
+- responsive high-resolution vector artwork
+- smooth reveal / parallax / pointer glow
+- profile marketing section without skins
+- real Modrinth search + project artwork
+- interactive Perfect Studio
+- Java + Bedrock section without skins
+- 404 page
+- Cloudflare security headers

@@ -4,25 +4,35 @@ const CONFIG = {
   releaseUrl: ""
 };
 
+/* Header / progress */
 const header = document.getElementById("siteHeader");
-window.addEventListener("scroll", () => {
-  header?.classList.toggle("scrolled", window.scrollY > 16);
-});
+const progress = document.getElementById("scrollProgress");
 
+function updateScrollUI() {
+  const y = window.scrollY;
+  header?.classList.toggle("scrolled", y > 16);
+
+  const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+  if (progress) progress.style.width = `${Math.min(100, (y / max) * 100)}%`;
+}
+window.addEventListener("scroll", updateScrollUI, { passive: true });
+updateScrollUI();
+
+/* Logo fallback */
 document.querySelectorAll("img[data-fallback]").forEach((img) => {
   img.addEventListener("error", () => {
     const fallback = img.dataset.fallback;
-    if (fallback && img.src !== fallback) img.src = fallback;
+    if (fallback && !img.src.endsWith(fallback)) img.src = fallback;
   }, { once: true });
 });
 
+/* Links */
 if (CONFIG.githubUrl) {
   ["headerGithub", "bottomGithub"].forEach((id) => {
     const link = document.getElementById(id);
-    if (link) {
-      link.href = CONFIG.githubUrl;
-      link.classList.remove("hidden");
-    }
+    if (!link) return;
+    link.href = CONFIG.githubUrl;
+    link.classList.remove("hidden");
   });
 }
 
@@ -34,63 +44,76 @@ if (CONFIG.releaseUrl && releaseButton) {
   releaseButton.removeAttribute("aria-disabled");
 }
 
-const observer = new IntersectionObserver((entries) => {
+/* Reveal */
+const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
       entry.target.classList.add("visible");
-      observer.unobserve(entry.target);
+      revealObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.10 });
+}, { threshold: 0.1 });
 
-document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
 
-/* Smooth pointer glow */
-const mouseGlow = document.getElementById("mouseGlow");
-let mx = innerWidth / 2, my = innerHeight / 2, gx = mx, gy = my;
+/* Smooth cursor glow */
+const cursorGlow = document.getElementById("cursorGlow");
+let targetX = innerWidth / 2;
+let targetY = innerHeight / 2;
+let glowX = targetX;
+let glowY = targetY;
 
-window.addEventListener("pointermove", (event) => {
-  mx = event.clientX;
-  my = event.clientY;
-});
+window.addEventListener("pointermove", (e) => {
+  targetX = e.clientX;
+  targetY = e.clientY;
+}, { passive: true });
 
 function animateGlow() {
-  gx += (mx - gx) * 0.08;
-  gy += (my - gy) * 0.08;
-  if (mouseGlow) mouseGlow.style.transform = `translate(${gx - 210}px, ${gy - 210}px)`;
+  glowX += (targetX - glowX) * 0.08;
+  glowY += (targetY - glowY) * 0.08;
+  if (cursorGlow) cursorGlow.style.transform = `translate(${glowX - 215}px, ${glowY - 215}px)`;
   requestAnimationFrame(animateGlow);
 }
 requestAnimationFrame(animateGlow);
 
 /* Hero parallax */
-const heroArt = document.getElementById("heroArt");
-const parallaxEls = heroArt ? [...heroArt.querySelectorAll(".parallax")] : [];
-let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+const heroShowcase = document.getElementById("heroShowcase");
+const parallaxItems = heroShowcase ? [...heroShowcase.querySelectorAll(".parallax")] : [];
 
-if (heroArt && matchMedia("(pointer:fine)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  heroArt.addEventListener("pointermove", (event) => {
-    const rect = heroArt.getBoundingClientRect();
-    targetX = ((event.clientX - rect.left) / rect.width - .5) * 2;
-    targetY = ((event.clientY - rect.top) / rect.height - .5) * 2;
+if (
+  heroShowcase &&
+  matchMedia("(pointer:fine)").matches &&
+  !matchMedia("(prefers-reduced-motion: reduce)").matches
+) {
+  let tx = 0, ty = 0, cx = 0, cy = 0;
+
+  heroShowcase.addEventListener("pointermove", (event) => {
+    const r = heroShowcase.getBoundingClientRect();
+    tx = ((event.clientX - r.left) / r.width - 0.5) * 2;
+    ty = ((event.clientY - r.top) / r.height - 0.5) * 2;
   });
-  heroArt.addEventListener("pointerleave", () => {
-    targetX = 0;
-    targetY = 0;
+
+  heroShowcase.addEventListener("pointerleave", () => {
+    tx = 0;
+    ty = 0;
   });
 
   const tick = () => {
-    currentX += (targetX - currentX) * .08;
-    currentY += (targetY - currentY) * .08;
-    parallaxEls.forEach((el) => {
-      const depth = Number(el.dataset.depth || .1);
-      el.style.translate = `${currentX * depth * 20}px ${currentY * depth * 14}px`;
+    cx += (tx - cx) * 0.08;
+    cy += (ty - cy) * 0.08;
+
+    parallaxItems.forEach((item) => {
+      const depth = Number(item.dataset.depth || 0.1);
+      item.style.translate = `${cx * depth * 18}px ${cy * depth * 12}px`;
     });
+
     requestAnimationFrame(tick);
   };
+
   requestAnimationFrame(tick);
 }
 
-/* Studio */
+/* Studio — THE ONLY PLACE THE USER SKIN APPEARS */
 const studioPreview = document.getElementById("studioPreview");
 const studioTabs = [...document.querySelectorAll(".studio-tab")];
 
@@ -98,39 +121,61 @@ const studioData = {
   skin: {
     label: "SKIN STUDIO",
     title: "Paint the pixels. See the character.",
-    description: "Edit the texture and preview the result on a real Minecraft character.",
+    description: "Your uploaded skin appears here as the preview character — and nowhere else on the website.",
     demo: `
       <div class="studio-demo skin-demo">
         <div class="demo-toolbar">
-          <span class="tool active">✎</span><span class="tool">◇</span><span class="tool">▣</span><span class="tool">↶</span><span class="tool">?</span>
+          <span class="tool active">✎</span>
+          <span class="tool">◇</span>
+          <span class="tool">▣</span>
+          <span class="tool">↶</span>
+          <span class="tool">?</span>
         </div>
-        <div class="demo-stage">
-          <img src="https://mc-heads.net/body/MHF_Steve/380/right" alt="Steve preview" class="pixel-render">
+
+        <div class="demo-skin-stage">
+          <img src="./assets/vexo-preview.png" alt="Your custom Minecraft skin preview">
         </div>
-        <div class="palette">
-          <i style="--c:#54dcff"></i><i style="--c:#7b69ff"></i><i style="--c:#c28e69"></i>
-          <i style="--c:#397aca"></i><i style="--c:#26336c"></i><i style="--c:#ffffff"></i>
+
+        <div class="skin-properties">
+          <span>ACTIVE SKIN</span>
+          <strong>Vexo</strong>
+          <small>Classic · 64×64</small>
+
+          <div class="palette">
+            <i style="--c:#e6ccc6"></i>
+            <i style="--c:#2e385a"></i>
+            <i style="--c:#15151e"></i>
+            <i style="--c:#5f7193"></i>
+            <i style="--c:#b1a399"></i>
+            <i style="--c:#ffffff"></i>
+          </div>
         </div>
       </div>`
   },
+
   texture: {
     label: "TEXTURE STUDIO",
     title: "Build packs without leaving the client.",
-    description: "Edit pixel textures, preview them and export a proper resource pack.",
+    description: "Paint block textures, preview them and export a clean resource pack.",
     demo: `
       <div class="studio-demo texture-demo">
         <div class="demo-toolbar">
-          <span class="tool active">✎</span><span class="tool">◇</span><span class="tool">▣</span><span class="tool">⌁</span><span class="tool">?</span>
+          <span class="tool active">✎</span>
+          <span class="tool">◇</span>
+          <span class="tool">▣</span>
+          <span class="tool">⌁</span>
+          <span class="tool">?</span>
         </div>
-        <div class="demo-stage">
+        <div class="demo-skin-stage">
           <div class="texture-grid">${"<i></i>".repeat(256)}</div>
         </div>
       </div>`
   },
+
   hud: {
     label: "HUD STUDIO",
-    title: "Drag the HUD where you want it.",
-    description: "Arrange FPS, coordinates, keystrokes and other widgets with snapping and presets.",
+    title: "Put every HUD element exactly where you want it.",
+    description: "Arrange FPS, coordinates, keystrokes and more with snapping, guides and presets.",
     demo: `
       <div class="studio-demo hud-demo">
         <div class="hud-widget fps">FPS 248</div>
@@ -138,14 +183,18 @@ const studioData = {
         <div class="hud-keys"><i></i><i></i><i></i><i></i></div>
       </div>`
   },
+
   theme: {
     label: "THEME STUDIO",
-    title: "Make Perfect Client look like yours.",
+    title: "Make Perfect Client feel like yours.",
     description: "Tune accent colors, surfaces, radius and motion while the preview updates live.",
     demo: `
       <div class="studio-demo theme-demo">
         <div class="theme-card">
-          <div class="theme-title"></div><div class="theme-line"></div><div class="theme-line short"></div><div class="theme-button"></div>
+          <div class="theme-title"></div>
+          <div class="theme-line"></div>
+          <div class="theme-line short"></div>
+          <div class="theme-button"></div>
         </div>
         <div class="theme-controls"><i></i><i></i><i></i><i></i><i></i></div>
       </div>`
@@ -155,6 +204,7 @@ const studioData = {
 function renderStudio(key) {
   const item = studioData[key];
   if (!studioPreview || !item) return;
+
   studioPreview.innerHTML = `
     <div class="studio-panel-copy">
       <span>${item.label}</span>
@@ -162,8 +212,10 @@ function renderStudio(key) {
       <p>${item.description}</p>
       <div class="help-chip"><b>?</b>Need help? Every real Studio tool will explain itself.</div>
     </div>
-    ${item.demo}`;
+    ${item.demo}
+  `;
 }
+
 renderStudio("skin");
 
 studioTabs.forEach((tab) => {
@@ -174,7 +226,7 @@ studioTabs.forEach((tab) => {
   });
 });
 
-/* Modrinth discover */
+/* Discover / Modrinth */
 const projectGrid = document.getElementById("projectGrid");
 const discoverForm = document.getElementById("discoverForm");
 const discoverInput = document.getElementById("discoverInput");
@@ -182,7 +234,6 @@ const discoverLabel = document.getElementById("discoverLabel");
 const discoverTabs = [...document.querySelectorAll(".discover-tab")];
 
 let activeType = "mod";
-let activeQuery = "";
 
 const defaults = {
   mod: "performance",
@@ -201,7 +252,10 @@ function esc(value = "") {
 }
 
 function compact(value) {
-  return new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 1 }).format(Number(value) || 0);
+  return new Intl.NumberFormat("en", {
+    notation: "compact",
+    maximumFractionDigits: 1
+  }).format(Number(value) || 0);
 }
 
 function setSkeletons() {
@@ -209,44 +263,52 @@ function setSkeletons() {
   projectGrid.innerHTML = '<article class="project-card skeleton"></article>'.repeat(4);
 }
 
-function projectUrl(project) {
+function modrinthUrl(project) {
   const type = project.project_type === "resourcepack" ? "resourcepack" : project.project_type;
   return `https://modrinth.com/${type}/${project.slug}`;
 }
 
-function card(project) {
+function projectCard(project) {
   const title = esc(project.title || "Minecraft project");
   const icon = project.icon_url
     ? `<img src="${esc(project.icon_url)}" alt="" loading="lazy">`
     : `<div class="project-fallback">${esc(title.slice(0,1))}</div>`;
+
   const tags = Array.isArray(project.categories) ? project.categories.slice(0,3) : [];
 
   return `
     <article class="project-card">
       <div class="project-image">${icon}</div>
       <div class="project-body">
-        <div class="project-title-row"><strong>${title}</strong></div>
+        <strong>${title}</strong>
         <div class="project-meta">${compact(project.downloads)} downloads · Modrinth</div>
         <p class="project-desc">${esc(project.description || "Minecraft content from Modrinth.")}</p>
         <div class="project-tags">${tags.map((tag) => `<span>${esc(tag)}</span>`).join("")}</div>
-        <a class="project-link" href="${projectUrl(project)}" target="_blank" rel="noreferrer">View on Modrinth →</a>
+        <a class="project-link" href="${modrinthUrl(project)}" target="_blank" rel="noreferrer">View project →</a>
       </div>
     </article>`;
 }
 
-async function searchProjects(type, query) {
+async function searchProjects(type, query = "") {
   setSkeletons();
-  if (discoverLabel) discoverLabel.textContent = query ? `Search: ${query}` : `Featured ${type}s`;
+
+  if (discoverLabel) {
+    discoverLabel.textContent = query ? `Search: ${query}` : `Featured ${type}s`;
+  }
 
   const facets = encodeURIComponent(JSON.stringify([[`project_type:${type}`]]));
-  const url = `https://api.modrinth.com/v2/search?query=${encodeURIComponent(query || defaults[type] || "")}&limit=4&index=downloads&facets=${facets}`;
+  const url =
+    `https://api.modrinth.com/v2/search?query=${encodeURIComponent(query || defaults[type] || "")}` +
+    `&limit=4&index=downloads&facets=${facets}`;
 
   try {
     const response = await fetch(url);
     if (!response.ok) throw new Error("Modrinth request failed");
+
     const data = await response.json();
     if (!data.hits?.length) throw new Error("No results");
-    projectGrid.innerHTML = data.hits.map(card).join("");
+
+    projectGrid.innerHTML = data.hits.map(projectCard).join("");
   } catch {
     projectGrid.innerHTML = `
       <article class="project-card">
@@ -254,7 +316,7 @@ async function searchProjects(type, query) {
         <div class="project-body">
           <strong>Discover preview unavailable</strong>
           <div class="project-meta">Modrinth could not be reached</div>
-          <p class="project-desc">The rest of the website still works. Real project artwork appears here whenever the public API is available.</p>
+          <p class="project-desc">The rest of the website still works. Public project artwork appears here whenever the API is available.</p>
         </div>
       </article>`;
   }
@@ -265,16 +327,14 @@ discoverTabs.forEach((tab) => {
     discoverTabs.forEach((x) => x.classList.remove("active"));
     tab.classList.add("active");
     activeType = tab.dataset.type;
-    activeQuery = "";
     if (discoverInput) discoverInput.value = "";
-    searchProjects(activeType, "");
+    searchProjects(activeType);
   });
 });
 
 discoverForm?.addEventListener("submit", (event) => {
   event.preventDefault();
-  activeQuery = discoverInput?.value.trim() || "";
-  searchProjects(activeType, activeQuery);
+  searchProjects(activeType, discoverInput?.value.trim() || "");
 });
 
-searchProjects("mod", "");
+searchProjects("mod");

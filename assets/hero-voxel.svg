@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="920" viewBox="0 0 1600 920">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#0c1220" stop-opacity="0"/><stop offset="1" stop-color="#06080d"/></linearGradient>
+  <linearGradient id="top" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1f3340"/><stop offset="1" stop-color="#101a25"/></linearGradient>
+  <linearGradient id="side" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#111c29"/><stop offset="1" stop-color="#0a1018"/></linearGradient>
+</defs>
+<rect width="1600" height="920" fill="url(#sky)"/>
+<g opacity=".78">
+  <path d="M0 670 210 555 390 630 580 510 790 610 1010 480 1230 590 1420 520 1600 610 1600 920 0 920Z" fill="#0c141d"/>
+  <path d="M0 730 240 650 440 700 640 615 850 695 1040 610 1260 685 1450 630 1600 690 1600 920 0 920Z" fill="#081019"/>
+</g>
+<g transform="translate(1040 520)" opacity=".52">
+  <path d="M0 40 70 0 140 40 70 80Z" fill="url(#top)"/>
+  <path d="M0 40 70 80 70 160 0 120Z" fill="url(#side)"/>
+  <path d="M140 40 70 80 70 160 140 120Z" fill="#0c151f"/>
+</g>
+<g transform="translate(1260 590)" opacity=".38">
+  <path d="M0 35 60 0 120 35 60 70Z" fill="url(#top)"/>
+  <path d="M0 35 60 70 60 138 0 103Z" fill="url(#side)"/>
+  <path d="M120 35 60 70 60 138 120 103Z" fill="#0c151f"/>
+</g>
+<g transform="translate(320 570)" opacity=".32">
+  <path d="M0 32 56 0 112 32 56 64Z" fill="url(#top)"/>
+  <path d="M0 32 56 64 56 128 0 96Z" fill="url(#side)"/>
+  <path d="M112 32 56 64 56 128 112 96Z" fill="#0c151f"/>
+</g>
+</svg>
