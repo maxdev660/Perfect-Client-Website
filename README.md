@@ -1,25 +1,32 @@
-# Perfect Client Premium Website
+# Perfect Client — One Skin Website
 
-A complete static landing page for GitHub + Cloudflare Pages.
+A completely new static website concept for GitHub + Cloudflare Pages.
 
-## Important
-This rebuild deliberately uses **no Minecraft skins anywhere except the Skin Studio preview**.
-The provided `Vexo.png` skin is bundled as:
+## Main rule implemented
+The website uses **one skin only once**.
 
+- File: `assets/vexo-skin.png`
+- Usage: shown only in the **Skin Studio** preview
+- Nowhere else on the site are skins/characters rendered
+
+## Files
+- `index.html`
+- `styles.css`
+- `app.js`
+- `404.html`
+- `_headers`
+- `robots.txt`
+- `wrangler.toml`
+- `assets/brand.svg`
+- `assets/social-card.svg`
 - `assets/vexo-skin.png`
-- `assets/vexo-preview.png`
 
-It is referenced only by the Studio skin tab.
+## Optional logo
+If you want your real logo, place `logo.png` in the site root.
+If it does not exist, the site automatically falls back to `assets/brand.svg`.
 
-## Add your real Perfect Client logo
-Place your logo in the repository root as:
-
-`logo.png`
-
-If it is missing, the site automatically falls back to `assets/brand.svg`.
-
-## GitHub + release links
-Edit the top of `app.js`:
+## GitHub / Release links
+At the top of `app.js`:
 
 ```js
 const CONFIG = {
@@ -28,20 +35,9 @@ const CONFIG = {
 };
 ```
 
-When `releaseUrl` is present, the CTA automatically becomes **Download for Windows**.
+When `releaseUrl` is filled in, the download button becomes active automatically.
 
 ## Cloudflare Pages
 - Framework preset: None
 - Build command: leave empty
 - Build output directory: `.`
-- Root directory: `/`
-
-## Included
-- responsive high-resolution vector artwork
-- smooth reveal / parallax / pointer glow
-- profile marketing section without skins
-- real Modrinth search + project artwork
-- interactive Perfect Studio
-- Java + Bedrock section without skins
-- 404 page
-- Cloudflare security headers
