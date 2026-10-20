@@ -1,0 +1,3306 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#07090f"
+  >
+
+  <meta
+    name="description"
+    content="Perfect Client — Java und Bedrock. Profile, Mods, Skins, Discover und Perfect Studio in einem Minecraft Client."
+  >
+
+  <title>Perfect Client — Minecraft. Perfected.</title>
+
+  <style>
+    :root {
+      --bg: #07090f;
+      --bg-2: #090c13;
+      --surface: rgba(255, 255, 255, 0.035);
+      --surface-2: rgba(255, 255, 255, 0.055);
+
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.14);
+
+      --text: #f7f9fc;
+      --soft: #a2a9b7;
+      --muted: #626c7b;
+
+      --cyan: #49d4ff;
+      --blue: #5f8dff;
+      --purple: #7568ff;
+      --green: #4ce0a0;
+
+      --radius: 22px;
+      --small-radius: 13px;
+
+      --page: 1280px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+
+      color: var(--text);
+
+      font-family:
+        Inter,
+        "Segoe UI Variable",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at 50% -5%,
+          rgba(94, 108, 255, 0.16),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 15% 25%,
+          rgba(73, 212, 255, 0.06),
+          transparent 24%
+        ),
+        var(--bg);
+
+      overflow-x: hidden;
+
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+    }
+
+    ::selection {
+      color: white;
+      background: rgba(117, 104, 255, 0.55);
+    }
+
+    .page {
+      width: min(
+        calc(100% - 40px),
+        var(--page)
+      );
+
+      margin-inline: auto;
+    }
+
+    /* ======================================================
+       BACKGROUND
+       ====================================================== */
+
+    .noise {
+      position: fixed;
+      inset: 0;
+
+      z-index: 100;
+
+      pointer-events: none;
+
+      opacity: 0.025;
+
+      background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.7'/%3E%3C/svg%3E");
+    }
+
+    .orb {
+      position: absolute;
+
+      width: 700px;
+      height: 700px;
+
+      border-radius: 999px;
+
+      filter: blur(140px);
+
+      pointer-events: none;
+
+      opacity: 0.08;
+    }
+
+    .orb.one {
+      top: 900px;
+      left: -450px;
+
+      background: var(--cyan);
+    }
+
+    .orb.two {
+      top: 2050px;
+      right: -480px;
+
+      background: var(--purple);
+    }
+
+    /* ======================================================
+       NAVIGATION
+       ====================================================== */
+
+    nav {
+      height: 74px;
+
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+
+      z-index: 50;
+
+      transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        backdrop-filter 0.2s ease;
+
+      border-bottom: 1px solid transparent;
+    }
+
+    nav.scrolled {
+      background: rgba(7, 9, 15, 0.78);
+
+      border-color: var(--border);
+
+      backdrop-filter: blur(22px);
+    }
+
+    .nav-inner {
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+
+      gap: 34px;
+    }
+
+    .brand {
+      margin-right: auto;
+
+      display: flex;
+      align-items: center;
+
+      gap: 11px;
+    }
+
+    .brand img {
+      width: 38px;
+      height: 38px;
+
+      object-fit: contain;
+    }
+
+    .brand-text {
+      display: flex;
+      align-items: baseline;
+
+      gap: 6px;
+    }
+
+    .brand-text strong {
+      font-size: 16px;
+      font-weight: 900;
+
+      letter-spacing: -0.5px;
+    }
+
+    .brand-text span {
+      color: var(--cyan);
+
+      font-size: 10px;
+      font-weight: 900;
+
+      letter-spacing: 1.4px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+
+      gap: 27px;
+    }
+
+    .nav-links a {
+      color: var(--soft);
+
+      font-size: 13px;
+      font-weight: 600;
+
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .nav-download {
+      height: 41px;
+
+      padding: 0 17px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid rgba(117, 104, 255, 0.5);
+
+      border-radius: 11px;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(73, 212, 255, 0.12),
+          rgba(117, 104, 255, 0.19)
+        );
+
+      font-size: 12px;
+      font-weight: 800;
+
+      transition:
+        transform 0.15s ease,
+        border-color 0.15s ease;
+    }
+
+    .nav-download:hover {
+      transform: translateY(-1px);
+
+      border-color:
+        rgba(130, 120, 255, 0.85);
+    }
+
+    /* ======================================================
+       HERO
+       ====================================================== */
+
+    .hero {
+      min-height: 930px;
+
+      position: relative;
+
+      padding-top: 168px;
+
+      text-align: center;
+
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+
+      width: 900px;
+      height: 900px;
+
+      position: absolute;
+
+      top: -620px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      border-radius: 999px;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(73, 212, 255, 0.25),
+          rgba(117, 104, 255, 0.1) 38%,
+          transparent 70%
+        );
+
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      width: fit-content;
+
+      margin: 0 auto 27px;
+
+      padding: 8px 12px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 8px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 999px;
+
+      color: #bdc4d0;
+
+      background: rgba(255, 255, 255, 0.025);
+
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .hero-badge i {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+
+      box-shadow:
+        0 0 13px rgba(76, 224, 160, 0.6);
+    }
+
+    .hero h1 {
+      max-width: 1000px;
+
+      margin: 0 auto 25px;
+
+      font-size:
+        clamp(58px, 8.5vw, 110px);
+
+      line-height: 0.9;
+
+      font-weight: 900;
+
+      letter-spacing: -6px;
+    }
+
+    .hero h1 span {
+      color: transparent;
+
+      background:
+        linear-gradient(
+          90deg,
+          #5cddff,
+          #6d9cff 42%,
+          #8b73ff
+        );
+
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .hero-subtitle {
+      max-width: 660px;
+
+      margin: 0 auto;
+
+      color: var(--soft);
+
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      margin-top: 35px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 11px;
+
+      flex-wrap: wrap;
+    }
+
+    .button-primary,
+    .button-secondary {
+      height: 52px;
+
+      padding: 0 22px;
+
+      border-radius: 13px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 9px;
+
+      font-size: 13px;
+      font-weight: 800;
+
+      transition:
+        transform 0.17s ease,
+        border-color 0.17s ease,
+        background 0.17s ease;
+    }
+
+    .button-primary {
+      border: 0;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          120deg,
+          #49cfff,
+          #7165ff
+        );
+
+      box-shadow:
+        0 18px 55px rgba(100, 97, 255, 0.26);
+    }
+
+    .button-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-secondary {
+      border: 1px solid var(--border);
+
+      color: #d7dbe3;
+
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .button-secondary:hover {
+      transform: translateY(-2px);
+
+      border-color: var(--border-strong);
+    }
+
+    .hero-note {
+      margin-top: 15px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    /* ======================================================
+       LAUNCHER PREVIEW
+       ====================================================== */
+
+    .launcher-wrap {
+      width: min(
+        1120px,
+        calc(100% - 30px)
+      );
+
+      margin:
+        85px auto 0;
+
+      position: relative;
+
+      perspective: 1600px;
+    }
+
+    .launcher-glow {
+      position: absolute;
+
+      inset:
+        20% 15% -8% 15%;
+
+      z-index: -1;
+
+      filter: blur(70px);
+
+      opacity: 0.28;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--cyan),
+          var(--purple)
+        );
+    }
+
+    .launcher-window {
+      height: 590px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      display: flex;
+
+      border: 1px solid rgba(255, 255, 255, 0.11);
+
+      border-radius: 24px;
+
+      background: #090c12;
+
+      box-shadow: var(--shadow);
+
+      transform:
+        rotateX(3deg)
+        rotateY(-1deg);
+    }
+
+    .fake-sidebar {
+      width: 82px;
+
+      padding: 18px 10px;
+
+      flex-shrink: 0;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      gap: 13px;
+
+      border-right: 1px solid var(--border);
+
+      background:
+        linear-gradient(
+          180deg,
+          #0e1219,
+          #090c12
+        );
+    }
+
+    .fake-sidebar-logo {
+      width: 45px;
+      height: 45px;
+
+      padding: 6px;
+
+      margin-bottom: 12px;
+
+      border-radius: 13px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #45d0ff,
+          #7165ff
+        );
+    }
+
+    .fake-sidebar-logo img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: contain;
+    }
+
+    .fake-nav {
+      width: 50px;
+      height: 48px;
+
+      border-radius: 12px;
+
+      background:
+        rgba(255, 255, 255, 0.035);
+    }
+
+    .fake-nav.active {
+      border: 1px solid rgba(117, 104, 255, 0.3);
+
+      background:
+        rgba(117, 104, 255, 0.12);
+    }
+
+    .fake-window-main {
+      min-width: 0;
+
+      flex: 1;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    .fake-topbar {
+      height: 66px;
+
+      padding: 0 22px;
+
+      flex-shrink: 0;
+
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fake-top-brand {
+      width: 125px;
+      height: 12px;
+
+      border-radius: 20px;
+
+      background:
+        linear-gradient(
+          90deg,
+          white 0 55%,
+          var(--cyan) 55%
+        );
+
+      opacity: 0.75;
+    }
+
+    .fake-search {
+      width: 250px;
+      height: 34px;
+
+      margin-left: auto;
+
+      border: 1px solid var(--border);
+
+      border-radius: 9px;
+
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .fake-user {
+      width: 34px;
+      height: 34px;
+
+      border-radius: 10px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--cyan),
+          var(--purple)
+        );
+    }
+
+    .fake-content {
+      min-height: 0;
+
+      flex: 1;
+
+      padding: 20px;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        300px;
+
+      gap: 15px;
+    }
+
+    .fake-hero {
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 30px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 18px;
+
+      background:
+        radial-gradient(
+          circle at 82% 40%,
+          rgba(117, 104, 255, 0.2),
+          transparent 32%
+        ),
+        linear-gradient(
+          140deg,
+          #111722,
+          #0c1018
+        );
+    }
+
+    .fake-small {
+      width: 90px;
+      height: 8px;
+
+      border-radius: 50px;
+
+      background: var(--cyan);
+
+      opacity: 0.65;
+    }
+
+    .fake-title {
+      width: 62%;
+      height: 52px;
+
+      margin-top: 25px;
+
+      border-radius: 10px;
+
+      background:
+        linear-gradient(
+          90deg,
+          white,
+          #728fff
+        );
+
+      opacity: 0.87;
+    }
+
+    .fake-copy {
+      width: 48%;
+      height: 8px;
+
+      margin-top: 15px;
+
+      border-radius: 30px;
+
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .fake-copy.short {
+      width: 37%;
+    }
+
+    .fake-play {
+      width: 170px;
+      height: 48px;
+
+      margin-top: 32px;
+
+      border-radius: 12px;
+
+      background:
+        linear-gradient(
+          120deg,
+          var(--cyan),
+          var(--purple)
+        );
+
+      box-shadow:
+        0 15px 35px rgba(112, 101, 255, 0.2);
+    }
+
+    .fake-character {
+      width: 120px;
+      height: 270px;
+
+      position: absolute;
+
+      right: 48px;
+      top: 65px;
+
+      filter:
+        drop-shadow(
+          0 30px 25px rgba(0, 0, 0, 0.55)
+        );
+    }
+
+    .fake-head {
+      width: 74px;
+      height: 74px;
+
+      margin: 0 auto;
+
+      border-radius: 5px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #775b44,
+          #4c382e
+        );
+    }
+
+    .fake-body {
+      width: 90px;
+      height: 104px;
+
+      margin: 0 auto;
+
+      background:
+        linear-gradient(
+          135deg,
+          #4d72b5,
+          #304b80
+        );
+    }
+
+    .fake-legs {
+      width: 70px;
+      height: 92px;
+
+      margin: 0 auto;
+
+      background:
+        linear-gradient(
+          90deg,
+          #333b56 0 48%,
+          transparent 48% 52%,
+          #333b56 52%
+        );
+    }
+
+    .fake-right {
+      display: flex;
+      flex-direction: column;
+
+      gap: 11px;
+    }
+
+    .fake-card {
+      min-height: 115px;
+
+      padding: 16px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .fake-card-icon {
+      width: 37px;
+      height: 37px;
+
+      margin-bottom: 14px;
+
+      border-radius: 10px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(73, 212, 255, 0.3),
+          rgba(117, 104, 255, 0.4)
+        );
+    }
+
+    .fake-card-title {
+      width: 65%;
+      height: 8px;
+
+      border-radius: 20px;
+
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .fake-card-copy {
+      width: 83%;
+      height: 6px;
+
+      margin-top: 9px;
+
+      border-radius: 20px;
+
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    /* ======================================================
+       GLOBAL SECTIONS
+       ====================================================== */
+
+    .section {
+      position: relative;
+
+      padding:
+        130px 0;
+    }
+
+    .section-header {
+      max-width: 760px;
+
+      margin-bottom: 55px;
+    }
+
+    .section-header.center {
+      margin-inline: auto;
+
+      text-align: center;
+    }
+
+    .eyebrow {
+      color: var(--cyan);
+
+      font-size: 11px;
+      font-weight: 850;
+
+      letter-spacing: 1.7px;
+    }
+
+    .section-header h2 {
+      margin:
+        12px 0 17px;
+
+      font-size:
+        clamp(42px, 5vw, 70px);
+
+      line-height: 0.98;
+
+      letter-spacing: -3.5px;
+    }
+
+    .section-header p {
+      margin: 0;
+
+      color: var(--soft);
+
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ======================================================
+       JAVA BEDROCK
+       ====================================================== */
+
+    .edition-grid {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 16px;
+    }
+
+    .edition-card {
+      min-height: 420px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 34px;
+
+      border: 1px solid var(--border);
+
+      border-radius: var(--radius);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.045),
+          rgba(255, 255, 255, 0.018)
+        );
+    }
+
+    .edition-card::after {
+      content: "";
+
+      width: 300px;
+      height: 300px;
+
+      position: absolute;
+
+      right: -100px;
+      top: -100px;
+
+      border-radius: 50%;
+
+      filter: blur(20px);
+
+      opacity: 0.15;
+    }
+
+    .edition-card.java::after {
+      background: var(--cyan);
+    }
+
+    .edition-card.bedrock::after {
+      background: var(--purple);
+    }
+
+    .edition-badge {
+      width: fit-content;
+
+      padding: 7px 10px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 999px;
+
+      color: var(--soft);
+
+      background: rgba(255, 255, 255, 0.025);
+
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .edition-card h3 {
+      margin:
+        26px 0 10px;
+
+      font-size: 34px;
+
+      letter-spacing: -1.5px;
+    }
+
+    .edition-card > p {
+      max-width: 470px;
+
+      margin:
+        0 0 26px;
+
+      color: var(--soft);
+
+      line-height: 1.65;
+    }
+
+    .edition-list {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 10px;
+    }
+
+    .edition-list div {
+      min-height: 48px;
+
+      padding: 0 13px;
+
+      display: flex;
+      align-items: center;
+
+      border: 1px solid var(--border);
+
+      border-radius: 11px;
+
+      color: #c8cdd6;
+
+      background: rgba(255, 255, 255, 0.02);
+
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    /* ======================================================
+       PROFILE SECTION
+       ====================================================== */
+
+    .profile-showcase {
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 24px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #0e121a,
+          #090c12
+        );
+
+      box-shadow: var(--shadow);
+    }
+
+    .showcase-topbar {
+      min-height: 72px;
+
+      padding: 0 22px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 8px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .showcase-tab {
+      height: 34px;
+
+      padding: 0 14px;
+
+      display: flex;
+      align-items: center;
+
+      border-radius: 8px;
+
+      color: var(--muted);
+
+      background: transparent;
+
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .showcase-tab.active {
+      color: white;
+
+      background: rgba(117, 104, 255, 0.12);
+    }
+
+    .showcase-search {
+      width: 230px;
+      height: 35px;
+
+      margin-left: auto;
+
+      border: 1px solid var(--border);
+
+      border-radius: 9px;
+
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .profile-list {
+      padding: 10px;
+    }
+
+    .profile-row {
+      min-height: 91px;
+
+      padding:
+        12px 13px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 14px;
+
+      border-bottom: 1px solid
+        rgba(255, 255, 255, 0.045);
+    }
+
+    .profile-icon {
+      width: 54px;
+      height: 54px;
+
+      flex-shrink: 0;
+
+      border-radius: 13px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--cyan),
+          var(--purple)
+        );
+
+      box-shadow:
+        inset 0 0 0 1px
+        rgba(255, 255, 255, 0.09);
+    }
+
+    .profile-info {
+      flex: 1;
+    }
+
+    .profile-name {
+      display: flex;
+      align-items: center;
+
+      gap: 9px;
+    }
+
+    .profile-name strong {
+      font-size: 14px;
+    }
+
+    .badge-java,
+    .badge-bedrock {
+      padding: 4px 7px;
+
+      border-radius: 6px;
+
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .badge-java {
+      color: #64dbff;
+
+      background: rgba(73, 212, 255, 0.08);
+    }
+
+    .badge-bedrock {
+      color: #9b8cff;
+
+      background: rgba(117, 104, 255, 0.1);
+    }
+
+    .profile-info span {
+      display: block;
+
+      margin-top: 5px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    .profile-actions {
+      display: flex;
+
+      gap: 7px;
+    }
+
+    .profile-button {
+      height: 36px;
+
+      padding: 0 13px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 9px;
+
+      color: #c8ced8;
+
+      background: rgba(255, 255, 255, 0.025);
+
+      font-size: 10px;
+      font-weight: 750;
+    }
+
+    .profile-button.play {
+      border: 0;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          115deg,
+          #49ceff,
+          #7165ff
+        );
+    }
+
+    /* ======================================================
+       DISCOVER
+       ====================================================== */
+
+    .discover-window {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        235px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 24px;
+
+      background: #0a0d13;
+
+      box-shadow: var(--shadow);
+    }
+
+    .discover-main {
+      min-width: 0;
+
+      padding: 20px;
+    }
+
+    .discover-tabs {
+      display: flex;
+
+      gap: 6px;
+
+      margin-bottom: 16px;
+
+      overflow-x: auto;
+    }
+
+    .discover-tab {
+      height: 34px;
+
+      padding: 0 13px;
+
+      display: flex;
+      align-items: center;
+
+      border-radius: 8px;
+
+      color: var(--muted);
+
+      background: rgba(255, 255, 255, 0.025);
+
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .discover-tab.active {
+      color: white;
+
+      background: rgba(117, 104, 255, 0.13);
+    }
+
+    .discover-search {
+      height: 43px;
+
+      margin-bottom: 12px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 11px;
+
+      background:
+        rgba(255, 255, 255, 0.025);
+    }
+
+    .project-row {
+      min-height: 112px;
+
+      padding: 13px 0;
+
+      display: flex;
+      align-items: center;
+
+      gap: 14px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-icon {
+      width: 74px;
+      height: 74px;
+
+      flex-shrink: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 16px;
+
+      color: white;
+
+      font-size: 25px;
+      font-weight: 900;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(73, 212, 255, 0.28),
+          rgba(117, 104, 255, 0.38)
+        );
+
+      box-shadow:
+        inset 0 0 0 1px
+        rgba(255, 255, 255, 0.08);
+    }
+
+    .project-body {
+      min-width: 0;
+
+      flex: 1;
+    }
+
+    .project-body strong {
+      display: block;
+
+      font-size: 14px;
+    }
+
+    .project-body small {
+      display: block;
+
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+    .project-body p {
+      max-width: 600px;
+
+      margin:
+        7px 0 0;
+
+      color: var(--soft);
+
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .install-button {
+      height: 37px;
+
+      padding: 0 14px;
+
+      flex-shrink: 0;
+
+      border: 0;
+
+      border-radius: 9px;
+
+      color: white;
+
+      background: var(--purple);
+
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .filters {
+      padding: 20px;
+
+      border-left: 1px solid var(--border);
+
+      background:
+        rgba(255, 255, 255, 0.012);
+    }
+
+    .filters > strong {
+      display: block;
+
+      margin-bottom: 20px;
+
+      font-size: 12px;
+    }
+
+    .filter-block {
+      margin-bottom: 22px;
+    }
+
+    .filter-block span {
+      display: block;
+
+      margin-bottom: 8px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .filter-option {
+      height: 32px;
+
+      margin-bottom: 5px;
+
+      padding: 0 9px;
+
+      display: flex;
+      align-items: center;
+
+      border-radius: 8px;
+
+      color: #9fa7b4;
+
+      background: rgba(255, 255, 255, 0.025);
+
+      font-size: 10px;
+    }
+
+    /* ======================================================
+       STUDIO
+       ====================================================== */
+
+    .studio-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 15px;
+    }
+
+    .studio-card {
+      min-height: 330px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 29px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 22px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.045),
+          rgba(255, 255, 255, 0.018)
+        );
+
+      transition:
+        transform 0.18s ease,
+        border-color 0.18s ease;
+    }
+
+    .studio-card:hover {
+      transform: translateY(-4px);
+
+      border-color: var(--border-strong);
+    }
+
+    .studio-icon {
+      width: 48px;
+      height: 48px;
+
+      margin-bottom: 45px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 14px;
+
+      font-size: 21px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(73, 212, 255, 0.14),
+          rgba(117, 104, 255, 0.18)
+        );
+    }
+
+    .studio-card h3 {
+      margin:
+        0 0 9px;
+
+      font-size: 27px;
+
+      letter-spacing: -1.2px;
+    }
+
+    .studio-card p {
+      max-width: 430px;
+
+      margin: 0;
+
+      color: var(--soft);
+
+      line-height: 1.65;
+    }
+
+    .studio-preview {
+      width: 200px;
+      height: 120px;
+
+      position: absolute;
+
+      right: 20px;
+      top: 25px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(8, 1fr);
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      transform:
+        rotate(3deg);
+
+      opacity: 0.65;
+    }
+
+    .studio-preview i:nth-child(3n) {
+      background: rgba(73, 212, 255, 0.25);
+    }
+
+    .studio-preview i:nth-child(5n) {
+      background: rgba(117, 104, 255, 0.35);
+    }
+
+    .studio-preview i {
+      background: rgba(255, 255, 255, 0.035);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.025);
+    }
+
+    /* ======================================================
+       LOCAL FIRST
+       ====================================================== */
+
+    .local-card {
+      min-height: 420px;
+
+      padding: 60px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 28px;
+
+      background:
+        radial-gradient(
+          circle at 80% 50%,
+          rgba(73, 212, 255, 0.12),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 90% 35%,
+          rgba(117, 104, 255, 0.13),
+          transparent 25%
+        ),
+        linear-gradient(
+          140deg,
+          #10151e,
+          #090c12
+        );
+    }
+
+    .local-card h2 {
+      max-width: 650px;
+
+      margin:
+        12px 0 18px;
+
+      font-size:
+        clamp(42px, 5vw, 68px);
+
+      line-height: 0.98;
+
+      letter-spacing: -3px;
+    }
+
+    .local-card > p {
+      max-width: 580px;
+
+      margin: 0;
+
+      color: var(--soft);
+
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .local-points {
+      margin-top: 30px;
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 9px;
+    }
+
+    .local-point {
+      padding:
+        9px 12px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 9px;
+
+      color: #c3cad4;
+
+      background: rgba(255, 255, 255, 0.025);
+
+      font-size: 11px;
+      font-weight: 650;
+    }
+
+    /* ======================================================
+       DOWNLOAD
+       ====================================================== */
+
+    .download-section {
+      padding:
+        120px 0 150px;
+
+      text-align: center;
+    }
+
+    .download-box {
+      padding:
+        85px 30px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 30px;
+
+      background:
+        radial-gradient(
+          circle at 50% -15%,
+          rgba(73, 212, 255, 0.19),
+          transparent 40%
+        ),
+        radial-gradient(
+          circle at 50% 110%,
+          rgba(117, 104, 255, 0.16),
+          transparent 42%
+        ),
+        linear-gradient(
+          145deg,
+          #10151e,
+          #090c12
+        );
+    }
+
+    .download-logo {
+      width: 72px;
+      height: 72px;
+
+      margin:
+        0 auto 25px;
+
+      object-fit: contain;
+
+      filter:
+        drop-shadow(
+          0 18px 35px rgba(94, 105, 255, 0.28)
+        );
+    }
+
+    .download-box h2 {
+      margin:
+        0 0 15px;
+
+      font-size:
+        clamp(46px, 6vw, 78px);
+
+      letter-spacing: -4px;
+    }
+
+    .download-box p {
+      max-width: 570px;
+
+      margin:
+        0 auto 28px;
+
+      color: var(--soft);
+
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .download-meta {
+      margin-top: 14px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+    .not-ready {
+      max-width: 580px;
+
+      margin:
+        16px auto 0;
+
+      padding:
+        10px 12px;
+
+      display: none;
+
+      border: 1px solid
+        rgba(255, 197, 85, 0.18);
+
+      border-radius: 10px;
+
+      color: #e7bf75;
+
+      background:
+        rgba(255, 183, 55, 0.04);
+
+      font-size: 11px;
+    }
+
+    .not-ready.show {
+      display: block;
+    }
+
+    /* ======================================================
+       FOOTER
+       ====================================================== */
+
+    footer {
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      min-height: 125px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 20px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .footer-brand img {
+      width: 30px;
+      height: 30px;
+
+      object-fit: contain;
+    }
+
+    .footer-copy {
+      margin-left: auto;
+
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+    /* ======================================================
+       REVEAL
+       ====================================================== */
+
+    .reveal {
+      opacity: 0;
+
+      transform: translateY(24px);
+
+      transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+
+      transform: translateY(0);
+    }
+
+    /* ======================================================
+       RESPONSIVE
+       ====================================================== */
+
+    @media (
+      max-width: 1000px
+    ) {
+      .nav-links {
+        display: none;
+      }
+
+      .launcher-window {
+        height: 530px;
+      }
+
+      .fake-content {
+        grid-template-columns: 1fr;
+      }
+
+      .fake-right {
+        display: none;
+      }
+
+      .edition-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .discover-window {
+        grid-template-columns: 1fr;
+      }
+
+      .filters {
+        display: none;
+      }
+
+      .studio-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (
+      max-width: 720px
+    ) {
+      .page {
+        width:
+          min(
+            calc(100% - 26px),
+            var(--page)
+          );
+      }
+
+      .brand-text {
+        display: none;
+      }
+
+      .hero {
+        min-height: 800px;
+
+        padding-top: 140px;
+      }
+
+      .hero h1 {
+        letter-spacing: -3px;
+      }
+
+      .hero-subtitle {
+        font-size: 14px;
+      }
+
+      .nav-download {
+        padding: 0 12px;
+      }
+
+      .launcher-wrap {
+        margin-top: 65px;
+      }
+
+      .launcher-window {
+        height: 390px;
+      }
+
+      .fake-sidebar {
+        width: 60px;
+      }
+
+      .fake-topbar {
+        height: 52px;
+      }
+
+      .fake-search {
+        width: 120px;
+      }
+
+      .fake-content {
+        padding: 12px;
+      }
+
+      .fake-hero {
+        padding: 20px;
+      }
+
+      .fake-character {
+        right: 15px;
+
+        transform: scale(0.72);
+
+        transform-origin: top right;
+      }
+
+      .section {
+        padding: 85px 0;
+      }
+
+      .section-header h2 {
+        letter-spacing: -2px;
+      }
+
+      .edition-card {
+        padding: 25px;
+      }
+
+      .edition-list {
+        grid-template-columns: 1fr;
+      }
+
+      .showcase-topbar {
+        overflow-x: auto;
+      }
+
+      .showcase-search {
+        display: none;
+      }
+
+      .profile-row {
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+      }
+
+      .profile-info {
+        min-width: 190px;
+      }
+
+      .profile-actions {
+        width: 100%;
+
+        padding-left: 68px;
+      }
+
+      .discover-main {
+        padding: 13px;
+      }
+
+      .project-row {
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+      }
+
+      .install-button {
+        margin-left: 88px;
+      }
+
+      .studio-card {
+        min-height: 300px;
+      }
+
+      .studio-preview {
+        opacity: 0.3;
+      }
+
+      .local-card {
+        padding: 35px 24px;
+      }
+
+      .download-box {
+        padding:
+          60px 20px;
+      }
+
+      .footer-inner {
+        padding:
+          30px 0;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+      }
+
+      .footer-copy {
+        margin-left: 0;
+      }
+    }
+
+    @media (
+      prefers-reduced-motion: reduce
+    ) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="noise"></div>
+
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+
+
+  <!-- =====================================================
+       NAVIGATION
+       ===================================================== -->
+
+  <nav id="navbar">
+
+    <div class="page nav-inner">
+
+      <a
+        class="brand"
+        href="#top"
+      >
+
+        <img
+          src="logo.png"
+          alt="Perfect Client Logo"
+        >
+
+        <div class="brand-text">
+
+          <strong>
+            PERFECT
+          </strong>
+
+          <span>
+            CLIENT
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <div class="nav-links">
+
+        <a href="#profiles">
+          Profiles
+        </a>
+
+        <a href="#discover">
+          Discover
+        </a>
+
+        <a href="#studio">
+          Studio
+        </a>
+
+        <a href="#editions">
+          Java + Bedrock
+        </a>
+
+      </div>
+
+
+      <a
+        class="nav-download"
+        href="#download"
+      >
+        Download
+      </a>
+
+    </div>
+
+  </nav>
+
+
+  <!-- =====================================================
+       HERO
+       ===================================================== -->
+
+  <main id="top">
+
+    <section class="hero">
+
+      <div class="page">
+
+        <div class="hero-badge">
+
+          <i></i>
+
+          BUILT FOR MINECRAFT PLAYERS
+
+        </div>
+
+
+        <h1>
+          MINECRAFT.
+          <br>
+
+          <span>
+            PERFECTED.
+          </span>
+        </h1>
+
+
+        <p class="hero-subtitle">
+          One client for Java and Bedrock.
+          Build profiles, install content,
+          manage your skins and create your own
+          Minecraft experience.
+        </p>
+
+
+        <div class="hero-actions">
+
+          <a
+            class="button-primary"
+            href="#download"
+          >
+            Download for Windows
+          </a>
+
+
+          <a
+            class="button-secondary"
+            href="#profiles"
+          >
+            Explore Perfect Client
+          </a>
+
+        </div>
+
+
+        <div class="hero-note">
+          Windows 10 / 11 • Local First • No subscription required
+        </div>
+
+      </div>
+
+
+      <!-- LAUNCHER MOCKUP -->
+
+      <div class="launcher-wrap reveal">
+
+        <div class="launcher-glow"></div>
+
+
+        <div class="launcher-window">
+
+          <aside class="fake-sidebar">
+
+            <div class="fake-sidebar-logo">
+
+              <img
+                src="logo.png"
+                alt=""
+              >
+
+            </div>
+
+            <div class="fake-nav active"></div>
+            <div class="fake-nav"></div>
+            <div class="fake-nav"></div>
+            <div class="fake-nav"></div>
+            <div class="fake-nav"></div>
+
+          </aside>
+
+
+          <section class="fake-window-main">
+
+            <header class="fake-topbar">
+
+              <div class="fake-top-brand"></div>
+
+              <div class="fake-search"></div>
+
+              <div class="fake-user"></div>
+
+            </header>
+
+
+            <div class="fake-content">
+
+              <div class="fake-hero">
+
+                <div class="fake-small"></div>
+
+                <div class="fake-title"></div>
+
+                <div class="fake-copy"></div>
+
+                <div class="fake-copy short"></div>
+
+                <div class="fake-play"></div>
+
+
+                <div class="fake-character">
+
+                  <div class="fake-head"></div>
+
+                  <div class="fake-body"></div>
+
+                  <div class="fake-legs"></div>
+
+                </div>
+
+              </div>
+
+
+              <aside class="fake-right">
+
+                <div class="fake-card">
+
+                  <div class="fake-card-icon"></div>
+
+                  <div class="fake-card-title"></div>
+
+                  <div class="fake-card-copy"></div>
+
+                </div>
+
+
+                <div class="fake-card">
+
+                  <div class="fake-card-icon"></div>
+
+                  <div class="fake-card-title"></div>
+
+                  <div class="fake-card-copy"></div>
+
+                </div>
+
+
+                <div class="fake-card">
+
+                  <div class="fake-card-icon"></div>
+
+                  <div class="fake-card-title"></div>
+
+                  <div class="fake-card-copy"></div>
+
+                </div>
+
+              </aside>
+
+            </div>
+
+          </section>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         JAVA + BEDROCK
+         ===================================================== -->
+
+    <section
+      class="section"
+      id="editions"
+    >
+
+      <div class="page">
+
+        <header class="section-header center reveal">
+
+          <span class="eyebrow">
+            ONE CLIENT. TWO EDITIONS.
+          </span>
+
+          <h2>
+            Java and Bedrock.
+            <br>
+            Finally together.
+          </h2>
+
+          <p>
+            Perfect Client understands the difference.
+            Java profiles get Java content.
+            Bedrock profiles get Bedrock content.
+            No messy mixing.
+          </p>
+
+        </header>
+
+
+        <div class="edition-grid">
+
+          <article class="edition-card java reveal">
+
+            <div class="edition-badge">
+              JAVA EDITION
+            </div>
+
+            <h3>
+              Built for modded Minecraft.
+            </h3>
+
+            <p>
+              Create separate Java profiles with
+              their own versions, loaders, mods,
+              packs, shaders and settings.
+            </p>
+
+
+            <div class="edition-list">
+
+              <div>
+                Fabric
+              </div>
+
+              <div>
+                Forge
+              </div>
+
+              <div>
+                NeoForge
+              </div>
+
+              <div>
+                Mods
+              </div>
+
+              <div>
+                Modpacks
+              </div>
+
+              <div>
+                Shaders
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="edition-card bedrock reveal">
+
+            <div class="edition-badge">
+              BEDROCK EDITION
+            </div>
+
+            <h3>
+              Bedrock without the chaos.
+            </h3>
+
+            <p>
+              Manage Bedrock profiles separately
+              with their own Add-Ons, packs,
+              worlds and supported Bedrock content.
+            </p>
+
+
+            <div class="edition-list">
+
+              <div>
+                Add-Ons
+              </div>
+
+              <div>
+                Behavior Packs
+              </div>
+
+              <div>
+                Resource Packs
+              </div>
+
+              <div>
+                Worlds
+              </div>
+
+              <div>
+                Skins
+              </div>
+
+              <div>
+                Backups
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PROFILES
+         ===================================================== -->
+
+    <section
+      class="section"
+      id="profiles"
+    >
+
+      <div class="page">
+
+        <header class="section-header reveal">
+
+          <span class="eyebrow">
+            PROFILES
+          </span>
+
+          <h2>
+            Everything stays
+            where it belongs.
+          </h2>
+
+          <p>
+            Every profile owns its version,
+            loader, mods, packs, shaders,
+            worlds and settings.
+            Switch your setup without rebuilding everything.
+          </p>
+
+        </header>
+
+
+        <div class="profile-showcase reveal">
+
+          <div class="showcase-topbar">
+
+            <div class="showcase-tab active">
+              ALL
+            </div>
+
+            <div class="showcase-tab">
+              JAVA
+            </div>
+
+            <div class="showcase-tab">
+              BEDROCK
+            </div>
+
+            <div class="showcase-tab">
+              PVP
+            </div>
+
+            <div class="showcase-tab">
+              MODPACKS
+            </div>
+
+            <div class="showcase-search"></div>
+
+          </div>
+
+
+          <div class="profile-list">
+
+            <div class="profile-row">
+
+              <div class="profile-icon"></div>
+
+
+              <div class="profile-info">
+
+                <div class="profile-name">
+
+                  <strong>
+                    Perfect PvP
+                  </strong>
+
+                  <div class="badge-java">
+                    JAVA
+                  </div>
+
+                </div>
+
+                <span>
+                  1.8.9 • Fabric • 18 Mods • played 49m ago
+                </span>
+
+              </div>
+
+
+              <div class="profile-actions">
+
+                <button class="profile-button play">
+                  PLAY
+                </button>
+
+                <button class="profile-button">
+                  MODS
+                </button>
+
+                <button class="profile-button">
+                  SETTINGS
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="profile-row">
+
+              <div class="profile-icon"></div>
+
+
+              <div class="profile-info">
+
+                <div class="profile-name">
+
+                  <strong>
+                    Perfect Survival
+                  </strong>
+
+                  <div class="badge-java">
+                    JAVA
+                  </div>
+
+                </div>
+
+                <span>
+                  1.21.x • Fabric • 34 Mods • Complementary Shader
+                </span>
+
+              </div>
+
+
+              <div class="profile-actions">
+
+                <button class="profile-button play">
+                  PLAY
+                </button>
+
+                <button class="profile-button">
+                  MODS
+                </button>
+
+                <button class="profile-button">
+                  SETTINGS
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="profile-row">
+
+              <div class="profile-icon"></div>
+
+
+              <div class="profile-info">
+
+                <div class="profile-name">
+
+                  <strong>
+                    Bedrock Survival
+                  </strong>
+
+                  <div class="badge-bedrock">
+                    BEDROCK
+                  </div>
+
+                </div>
+
+                <span>
+                  Latest • 5 Add-Ons • 2 Packs • Survival World
+                </span>
+
+              </div>
+
+
+              <div class="profile-actions">
+
+                <button class="profile-button play">
+                  PLAY
+                </button>
+
+                <button class="profile-button">
+                  CONTENT
+                </button>
+
+                <button class="profile-button">
+                  SETTINGS
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DISCOVER
+         ===================================================== -->
+
+    <section
+      class="section"
+      id="discover"
+    >
+
+      <div class="page">
+
+        <header class="section-header reveal">
+
+          <span class="eyebrow">
+            DISCOVER
+          </span>
+
+          <h2>
+            Find it.
+            <br>
+            Install it.
+          </h2>
+
+          <p>
+            Mods, modpacks, resource packs and shaders
+            in one content browser.
+            Perfect Client already knows your active profile.
+          </p>
+
+        </header>
+
+
+        <div class="discover-window reveal">
+
+          <div class="discover-main">
+
+            <div class="discover-tabs">
+
+              <div class="discover-tab">
+                MODPACKS
+              </div>
+
+              <div class="discover-tab active">
+                MODS
+              </div>
+
+              <div class="discover-tab">
+                RESOURCE PACKS
+              </div>
+
+              <div class="discover-tab">
+                SHADERS
+              </div>
+
+              <div class="discover-tab">
+                DATAPACKS
+              </div>
+
+            </div>
+
+
+            <div class="discover-search"></div>
+
+
+            <div class="project-row">
+
+              <div class="project-icon">
+                S
+              </div>
+
+
+              <div class="project-body">
+
+                <strong>
+                  Sodium
+                </strong>
+
+                <small>
+                  Performance • Fabric
+                </small>
+
+                <p>
+                  Modern rendering optimization
+                  built for smooth Minecraft performance.
+                </p>
+
+              </div>
+
+
+              <button class="install-button">
+                INSTALL
+              </button>
+
+            </div>
+
+
+            <div class="project-row">
+
+              <div class="project-icon">
+                I
+              </div>
+
+
+              <div class="project-body">
+
+                <strong>
+                  Iris Shaders
+                </strong>
+
+                <small>
+                  Shaders • Fabric
+                </small>
+
+                <p>
+                  Shader compatibility with a modern,
+                  performance-focused rendering stack.
+                </p>
+
+              </div>
+
+
+              <button class="install-button">
+                INSTALL
+              </button>
+
+            </div>
+
+
+            <div class="project-row">
+
+              <div class="project-icon">
+                L
+              </div>
+
+
+              <div class="project-body">
+
+                <strong>
+                  Lithium
+                </strong>
+
+                <small>
+                  Performance • Fabric
+                </small>
+
+                <p>
+                  Game logic optimization designed
+                  to improve tick performance.
+                </p>
+
+              </div>
+
+
+              <button class="install-button">
+                INSTALL
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <aside class="filters">
+
+            <strong>
+              FILTERS
+            </strong>
+
+
+            <div class="filter-block">
+
+              <span>
+                GAME VERSION
+              </span>
+
+              <div class="filter-option">
+                1.21.x
+              </div>
+
+              <div class="filter-option">
+                1.20.x
+              </div>
+
+              <div class="filter-option">
+                1.8.9
+              </div>
+
+            </div>
+
+
+            <div class="filter-block">
+
+              <span>
+                MOD LOADER
+              </span>
+
+              <div class="filter-option">
+                Fabric
+              </div>
+
+              <div class="filter-option">
+                Forge
+              </div>
+
+              <div class="filter-option">
+                NeoForge
+              </div>
+
+            </div>
+
+
+            <div class="filter-block">
+
+              <span>
+                SORT
+              </span>
+
+              <div class="filter-option">
+                Downloads
+              </div>
+
+              <div class="filter-option">
+                Updated
+              </div>
+
+            </div>
+
+          </aside>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         STUDIO
+         ===================================================== -->
+
+    <section
+      class="section"
+      id="studio"
+    >
+
+      <div class="page">
+
+        <header class="section-header center reveal">
+
+          <span class="eyebrow">
+            PERFECT STUDIO
+          </span>
+
+          <h2>
+            Don't just download.
+            <br>
+            Create.
+          </h2>
+
+          <p>
+            Perfect Client is more than a launcher.
+            Create skins, texture packs, HUD layouts
+            and launcher themes without leaving the app.
+          </p>
+
+        </header>
+
+
+        <div class="studio-grid">
+
+          <article class="studio-card reveal">
+
+            <div class="studio-preview">
+              <i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i>
+            </div>
+
+            <div class="studio-icon">
+              ◈
+            </div>
+
+            <h3>
+              Skin Studio
+            </h3>
+
+            <p>
+              Create, edit, preview and organize
+              Minecraft skins with a dedicated
+              2D and 3D workspace.
+            </p>
+
+          </article>
+
+
+          <article class="studio-card reveal">
+
+            <div class="studio-preview">
+              <i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i>
+            </div>
+
+            <div class="studio-icon">
+              ▦
+            </div>
+
+            <h3>
+              Texture Studio
+            </h3>
+
+            <p>
+              Browse Minecraft textures,
+              edit pixels and build your own
+              resource pack from inside the client.
+            </p>
+
+          </article>
+
+
+          <article class="studio-card reveal">
+
+            <div class="studio-icon">
+              +
+            </div>
+
+            <h3>
+              HUD Studio
+            </h3>
+
+            <p>
+              Drag FPS, coordinates, keystrokes,
+              armor and other widgets directly
+              onto your own HUD layout.
+            </p>
+
+          </article>
+
+
+          <article class="studio-card reveal">
+
+            <div class="studio-icon">
+              ✦
+            </div>
+
+            <h3>
+              Theme Studio
+            </h3>
+
+            <p>
+              Change colors, surfaces, radius,
+              blur and animation style to make
+              Perfect Client truly yours.
+            </p>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LOCAL FIRST
+         ===================================================== -->
+
+    <section class="section">
+
+      <div class="page">
+
+        <div class="local-card reveal">
+
+          <span class="eyebrow">
+            LOCAL FIRST
+          </span>
+
+          <h2>
+            Your client.
+            <br>
+            Your computer.
+          </h2>
+
+          <p>
+            Perfect Client is designed so its core
+            functionality does not depend on a paid
+            Perfect Client server.
+            Your profiles and creator projects stay local.
+          </p>
+
+
+          <div class="local-points">
+
+            <div class="local-point">
+              No subscription required
+            </div>
+
+            <div class="local-point">
+              Profiles stored locally
+            </div>
+
+            <div class="local-point">
+              Optional online services
+            </div>
+
+            <div class="local-point">
+              Offline-friendly design
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DOWNLOAD
+         ===================================================== -->
+
+    <section
+      class="download-section"
+      id="download"
+    >
+
+      <div class="page">
+
+        <div class="download-box reveal">
+
+          <img
+            class="download-logo"
+            src="logo.png"
+            alt="Perfect Client"
+          >
+
+
+          <span class="eyebrow">
+            PERFECT CLIENT
+          </span>
+
+
+          <h2>
+            Ready to play?
+          </h2>
+
+
+          <p>
+            Download Perfect Client for Windows.
+            Java and Bedrock profiles.
+            Discover content.
+            Create your own.
+          </p>
+
+
+          <button
+            class="button-primary"
+            id="downloadButton"
+            type="button"
+          >
+            Download for Windows
+          </button>
+
+
+          <div class="download-meta">
+            Windows 10 / 11 • Free • Installer coming with the first release
+          </div>
+
+
+          <div
+            class="not-ready"
+            id="notReady"
+          >
+            Perfect Client ist noch nicht veröffentlicht.
+            Sobald dein erster GitHub Release da ist,
+            verlinken wir diesen Button direkt mit dem Installer.
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+
+  <footer>
+
+    <div class="page footer-inner">
+
+      <div class="footer-brand">
+
+        <img
+          src="logo.png"
+          alt=""
+        >
+
+        Perfect Client
+
+      </div>
+
+
+      <div class="footer-copy">
+        Not affiliated with Mojang Studios or Microsoft.
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script>
+    const navbar =
+      document.getElementById("navbar");
+
+    const downloadButton =
+      document.getElementById("downloadButton");
+
+    const notReady =
+      document.getElementById("notReady");
+
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        navbar.classList.toggle(
+          "scrolled",
+          window.scrollY > 20
+        );
+      }
+    );
+
+
+    downloadButton.addEventListener(
+      "click",
+      () => {
+        /*
+         * Sobald dein Installer auf GitHub Releases liegt,
+         * ändern wir diesen Button auf den echten Download.
+         */
+
+        notReady.classList.add(
+          "show"
+        );
+      }
+    );
+
+
+    const observer =
+      new IntersectionObserver(
+        (entries) => {
+          entries.forEach(
+            (entry) => {
+              if (
+                entry.isIntersecting
+              ) {
+                entry.target.classList.add(
+                  "visible"
+                );
+
+                observer.unobserve(
+                  entry.target
+                );
+              }
+            }
+          );
+        },
+        {
+          threshold: 0.12
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        ".reveal"
+      )
+      .forEach(
+        (element) => {
+          observer.observe(
+            element
+          );
+        }
+      );
+  </script>
+
+</body>
+</html>
