@@ -33,3 +33,11 @@ The button becomes active automatically.
 - Framework preset: None
 - Build command: empty
 - Build output directory: `.`
+
+
+## Browser tab icon
+The browser favicon now uses the real Perfect Client logo:
+
+`/assets/perfect-client-icon-v7.png?v=7`
+
+The version query is intentional to avoid an old favicon being stuck in Chrome/Edge cache.
