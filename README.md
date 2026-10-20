@@ -53,3 +53,8 @@ Until `releaseUrl` exists, the page honestly says that the Windows build is in d
 - Discover preview: public Modrinth API
 
 The public website does not collect Microsoft/Minecraft credentials.
+
+
+## Included custom skin assets
+This version includes your uploaded launcher skin and uses it across the site.
+Only the Studio demo still shows Steve as the editing example.

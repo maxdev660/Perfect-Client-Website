@@ -90,36 +90,38 @@
           </div>
         </div>
 
+        
         <div class="hero-art reveal" id="heroArt">
           <div class="hero-orbit orbit-one" aria-hidden="true"></div>
           <div class="hero-orbit orbit-two" aria-hidden="true"></div>
 
           <img
-            class="hero-steve pixel-render parallax"
+            class="hero-custom hero-main parallax pixel-render"
             data-depth="1.00"
-            src="https://mc-heads.net/body/MHF_Steve/600/right"
-            alt="Minecraft Steve"
+            src="./assets/skin-body-front.png"
+            alt="Perfect Client signature skin"
           >
           <img
-            class="hero-alex pixel-render parallax"
-            data-depth=".45"
-            src="https://mc-heads.net/body/MHF_Alex/460/left"
-            alt="Minecraft Alex"
+            class="hero-custom hero-ghost parallax pixel-render"
+            data-depth=".40"
+            src="./assets/skin-body-mirror.png"
+            alt=""
+            aria-hidden="true"
           >
 
           <div class="floating-card card-java parallax" data-depth=".18">
             <span class="dot cyan"></span>
-            <div><strong>Java</strong><small>Fabric · Mods · Shaders</small></div>
+            <div><strong>Perfect Profile</strong><small>1.21.1 · Fabric · 18 Mods</small></div>
           </div>
 
           <div class="floating-card card-bedrock parallax" data-depth=".12">
             <span class="dot purple"></span>
-            <div><strong>Bedrock</strong><small>Add-Ons · Packs · Worlds</small></div>
+            <div><strong>Bedrock Setup</strong><small>World · Add-Ons · Packs</small></div>
           </div>
 
           <div class="floating-card card-profile parallax" data-depth=".20">
-            <span class="diamond">◆</span>
-            <div><strong>Perfect Survival</strong><small>34 mods · ready to play</small></div>
+            <img class="floating-avatar" src="./assets/skin-head.png" alt="">
+            <div><strong>Signature Skin</strong><small>Used across Perfect Client</small></div>
           </div>
 
           <div class="voxel-stack" aria-hidden="true">
@@ -179,12 +181,13 @@
           </div>
         </div>
 
+        
         <div class="profile-visual reveal">
           <div class="profile-backdrop"></div>
-          <img class="profile-steve pixel-render" src="https://mc-heads.net/body/MHF_Steve/520/right" alt="Steve">
+          <img class="profile-skin pixel-render" src="./assets/skin-body-front.png" alt="Perfect Client signature skin">
 
           <article class="profile-card profile-main">
-            <img src="https://mc-heads.net/avatar/MHF_Steve/96" alt="">
+            <img src="./assets/skin-head.png" alt="">
             <div class="profile-text">
               <div class="profile-title-row"><strong>Perfect PvP</strong><span class="tag java">JAVA</span></div>
               <span>1.8.9 · Fabric · 18 mods</span>
@@ -193,10 +196,10 @@
           </article>
 
           <article class="profile-card profile-secondary">
-            <img src="https://mc-heads.net/avatar/MHF_Alex/96" alt="">
+            <img src="./assets/skin-head.png" alt="">
             <div class="profile-text">
-              <div class="profile-title-row"><strong>Bedrock Survival</strong><span class="tag bedrock">BEDROCK</span></div>
-              <span>5 Add-Ons · 2 packs · world linked</span>
+              <div class="profile-title-row"><strong>Signature Skin</strong><span class="tag java">PROFILE</span></div>
+              <span>Linked to your launcher identity</span>
             </div>
           </article>
 
@@ -275,17 +278,25 @@
           </div>
         </div>
 
+        
         <div class="skin-stage reveal">
           <div class="skin-grid-bg"></div>
           <div class="skin-aura cyan-aura"></div>
           <div class="skin-aura purple-aura"></div>
 
-          <img class="skin-steve pixel-render" src="https://mc-heads.net/body/MHF_Steve/560/right" alt="Steve skin">
-          <img class="skin-alex pixel-render" src="https://mc-heads.net/body/MHF_Alex/490/left" alt="Alex skin">
+          <img class="skin-custom pixel-render" src="./assets/skin-body-front.png" alt="Your custom skin">
+          <div class="skin-texture-card">
+            <div class="texture-label">
+              <span>PNG PREVIEW</span>
+              <strong>Imported launcher skin</strong>
+              <small>64×64 classic layout</small>
+            </div>
+            <img class="skin-texture pixel-render" src="./assets/custom-skin.png" alt="Custom skin texture">
+          </div>
 
           <div class="skin-info-card">
             <span>ACTIVE SKIN</span>
-            <strong>Classic Steve</strong>
+            <strong>Launcher Signature Skin</strong>
             <small>Classic · 64×64</small>
           </div>
         </div>
@@ -334,6 +345,7 @@
           </p>
         </div>
 
+        
         <div class="edition-grid">
           <article class="edition-card java-edition reveal">
             <div class="edition-copy">
@@ -344,7 +356,7 @@
                 <span>Fabric</span><span>Forge</span><span>NeoForge</span><span>Mods</span><span>Shaders</span><span>Modpacks</span>
               </div>
             </div>
-            <img class="edition-steve pixel-render" src="https://mc-heads.net/body/MHF_Steve/500/right" alt="Steve for Java">
+            <img class="edition-skin pixel-render" src="./assets/skin-body-front.png" alt="Custom launcher skin for Java">
           </article>
 
           <article class="edition-card bedrock-edition reveal">
@@ -356,7 +368,9 @@
                 <span>Add-Ons</span><span>Behavior Packs</span><span>Resource Packs</span><span>Worlds</span><span>Skins</span><span>Backups</span>
               </div>
             </div>
-            <img class="edition-steve pixel-render" src="https://mc-heads.net/body/MHF_Alex/470/left" alt="Alex for Bedrock">
+            <div class="edition-texture-box">
+              <img class="pixel-render" src="./assets/custom-skin.png" alt="Custom skin texture">
+            </div>
           </article>
         </div>
       </div>
