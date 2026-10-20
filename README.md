@@ -1,19 +1,31 @@
-# Perfect Client Website
+# Perfect Client — Ultra Website
 
-Upload these files to your GitHub repository and connect it to Cloudflare Pages.
+This is a static, GitHub + Cloudflare Pages-ready website.
+
+## Files
+- `index.html`
+- `styles.css`
+- `app.js`
+- `assets/hero-terrain.svg`
+- `assets/brand-fallback.svg`
+- `assets/social-card.svg`
+- `_headers`
+- `wrangler.toml`
+- `404.html`
+- `robots.txt`
 
 ## Add your real logo
-Place your actual logo in the repository root as:
+Put your real Perfect Client logo in the repository root as:
 
 `logo.png`
 
-If it is missing temporarily, the site uses a clean geometric fallback instead of a broken-image icon.
+If it is missing, the site automatically uses `assets/brand-fallback.svg` instead of showing a broken-image icon.
 
-## Configure GitHub / release links
+## Add GitHub / release links
 Open `app.js` and edit:
 
 ```js
-const SITE_CONFIG = {
+const CONFIG = {
   githubUrl: "",
   releaseUrl: ""
 };
@@ -22,13 +34,13 @@ const SITE_CONFIG = {
 Example:
 
 ```js
-const SITE_CONFIG = {
+const CONFIG = {
   githubUrl: "https://github.com/YOURNAME/YOURREPO",
   releaseUrl: "https://github.com/YOURNAME/YOURREPO/releases/latest"
 };
 ```
 
-Until `releaseUrl` is set, the site honestly shows "Windows build in development".
+Until `releaseUrl` exists, the page honestly says that the Windows build is in development.
 
 ## Cloudflare Pages
 - Framework preset: None
@@ -36,4 +48,8 @@ Until `releaseUrl` is set, the site honestly shows "Windows build in development
 - Build output directory: `.`
 - Root directory: `/`
 
-The page uses MCHeads character renders and public Modrinth API data for the Discover preview.
+## External data
+- Minecraft character renders: MCHeads
+- Discover preview: public Modrinth API
+
+The public website does not collect Microsoft/Minecraft credentials.

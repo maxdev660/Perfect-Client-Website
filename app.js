@@ -1,31 +1,34 @@
 
-const SITE_CONFIG = {
+const CONFIG = {
   githubUrl: "",
   releaseUrl: ""
 };
 
 const header = document.getElementById("siteHeader");
 window.addEventListener("scroll", () => {
-  header?.classList.toggle("scrolled", window.scrollY > 14);
+  header?.classList.toggle("scrolled", window.scrollY > 16);
 });
 
-document.querySelectorAll(".brand-logo").forEach((img) => {
-  img.addEventListener("error", () => img.style.display = "none");
+document.querySelectorAll("img[data-fallback]").forEach((img) => {
+  img.addEventListener("error", () => {
+    const fallback = img.dataset.fallback;
+    if (fallback && img.src !== fallback) img.src = fallback;
+  }, { once: true });
 });
 
-if (SITE_CONFIG.githubUrl) {
-  ["githubTop", "githubBottom"].forEach((id) => {
+if (CONFIG.githubUrl) {
+  ["headerGithub", "bottomGithub"].forEach((id) => {
     const link = document.getElementById(id);
     if (link) {
-      link.href = SITE_CONFIG.githubUrl;
+      link.href = CONFIG.githubUrl;
       link.classList.remove("hidden");
     }
   });
 }
 
 const releaseButton = document.getElementById("releaseButton");
-if (SITE_CONFIG.releaseUrl && releaseButton) {
-  releaseButton.href = SITE_CONFIG.releaseUrl;
+if (CONFIG.releaseUrl && releaseButton) {
+  releaseButton.href = CONFIG.releaseUrl;
   releaseButton.textContent = "Download for Windows";
   releaseButton.classList.remove("disabled");
   releaseButton.removeAttribute("aria-disabled");
@@ -38,9 +41,58 @@ const observer = new IntersectionObserver((entries) => {
       observer.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.10 });
 
 document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+/* Smooth pointer glow */
+const mouseGlow = document.getElementById("mouseGlow");
+let mx = innerWidth / 2, my = innerHeight / 2, gx = mx, gy = my;
+
+window.addEventListener("pointermove", (event) => {
+  mx = event.clientX;
+  my = event.clientY;
+});
+
+function animateGlow() {
+  gx += (mx - gx) * 0.08;
+  gy += (my - gy) * 0.08;
+  if (mouseGlow) mouseGlow.style.transform = `translate(${gx - 210}px, ${gy - 210}px)`;
+  requestAnimationFrame(animateGlow);
+}
+requestAnimationFrame(animateGlow);
+
+/* Hero parallax */
+const heroArt = document.getElementById("heroArt");
+const parallaxEls = heroArt ? [...heroArt.querySelectorAll(".parallax")] : [];
+let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+
+if (heroArt && matchMedia("(pointer:fine)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  heroArt.addEventListener("pointermove", (event) => {
+    const rect = heroArt.getBoundingClientRect();
+    targetX = ((event.clientX - rect.left) / rect.width - .5) * 2;
+    targetY = ((event.clientY - rect.top) / rect.height - .5) * 2;
+  });
+  heroArt.addEventListener("pointerleave", () => {
+    targetX = 0;
+    targetY = 0;
+  });
+
+  const tick = () => {
+    currentX += (targetX - currentX) * .08;
+    currentY += (targetY - currentY) * .08;
+    parallaxEls.forEach((el) => {
+      const depth = Number(el.dataset.depth || .1);
+      el.style.translate = `${currentX * depth * 20}px ${currentY * depth * 14}px`;
+    });
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+/* Studio */
+const studioPreview = document.getElementById("studioPreview");
+const studioTabs = [...document.querySelectorAll(".studio-tab")];
 
 const studioData = {
   skin: {
@@ -53,10 +105,11 @@ const studioData = {
           <span class="tool active">✎</span><span class="tool">◇</span><span class="tool">▣</span><span class="tool">↶</span><span class="tool">?</span>
         </div>
         <div class="demo-stage">
-          <img src="https://mc-heads.net/body/MHF_Steve/360/right" alt="Steve preview" class="steve">
+          <img src="https://mc-heads.net/body/MHF_Steve/380/right" alt="Steve preview" class="pixel-render">
         </div>
         <div class="palette">
-          <i style="--c:#51d9ff"></i><i style="--c:#7869ff"></i><i style="--c:#c18e69"></i><i style="--c:#397aca"></i><i style="--c:#26336c"></i><i style="--c:#ffffff"></i>
+          <i style="--c:#54dcff"></i><i style="--c:#7b69ff"></i><i style="--c:#c28e69"></i>
+          <i style="--c:#397aca"></i><i style="--c:#26336c"></i><i style="--c:#ffffff"></i>
         </div>
       </div>`
   },
@@ -99,21 +152,17 @@ const studioData = {
   }
 };
 
-const studioPreview = document.getElementById("studioPreview");
-const studioTabs = [...document.querySelectorAll(".studio-tab")];
-
 function renderStudio(key) {
-  const data = studioData[key];
-  if (!studioPreview || !data) return;
+  const item = studioData[key];
+  if (!studioPreview || !item) return;
   studioPreview.innerHTML = `
     <div class="studio-panel-copy">
-      <span>${data.label}</span>
-      <h3>${data.title}</h3>
-      <p>${data.description}</p>
+      <span>${item.label}</span>
+      <h3>${item.title}</h3>
+      <p>${item.description}</p>
       <div class="help-chip"><b>?</b>Need help? Every real Studio tool will explain itself.</div>
     </div>
-    ${data.demo}
-  `;
+    ${item.demo}`;
 }
 renderStudio("skin");
 
@@ -125,51 +174,81 @@ studioTabs.forEach((tab) => {
   });
 });
 
-const grid = document.getElementById("projectGrid");
-const slugs = ["sodium", "iris", "lithium", "fabric-api"];
+/* Modrinth discover */
+const projectGrid = document.getElementById("projectGrid");
+const discoverForm = document.getElementById("discoverForm");
+const discoverInput = document.getElementById("discoverInput");
+const discoverLabel = document.getElementById("discoverLabel");
+const discoverTabs = [...document.querySelectorAll(".discover-tab")];
 
-function escapeHtml(v="") {
-  return String(v).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+let activeType = "mod";
+let activeQuery = "";
+
+const defaults = {
+  mod: "performance",
+  modpack: "adventure",
+  resourcepack: "vanilla",
+  shader: "shader"
+};
+
+function esc(value = "") {
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
-function compact(v) {
-  return new Intl.NumberFormat("en",{notation:"compact",maximumFractionDigits:1}).format(Number(v)||0);
+function compact(value) {
+  return new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 1 }).format(Number(value) || 0);
 }
 
-async function getProject(slug) {
-  const facets = encodeURIComponent(JSON.stringify([["project_type:mod"]]));
-  const r = await fetch(`https://api.modrinth.com/v2/search?query=${encodeURIComponent(slug)}&limit=8&facets=${facets}`);
-  if (!r.ok) throw new Error("Modrinth request failed");
-  const data = await r.json();
-  return data.hits.find((x) => x.slug === slug) || data.hits[0] || null;
+function setSkeletons() {
+  if (!projectGrid) return;
+  projectGrid.innerHTML = '<article class="project-card skeleton"></article>'.repeat(4);
 }
 
-function card(p) {
-  const title = escapeHtml(p.title || "Minecraft project");
-  const icon = p.icon_url
-    ? `<img src="${escapeHtml(p.icon_url)}" alt="" loading="lazy">`
-    : `<div class="project-fallback">${escapeHtml(title[0] || "?")}</div>`;
-  const tags = Array.isArray(p.categories) ? p.categories.slice(0,3) : [];
+function projectUrl(project) {
+  const type = project.project_type === "resourcepack" ? "resourcepack" : project.project_type;
+  return `https://modrinth.com/${type}/${project.slug}`;
+}
+
+function card(project) {
+  const title = esc(project.title || "Minecraft project");
+  const icon = project.icon_url
+    ? `<img src="${esc(project.icon_url)}" alt="" loading="lazy">`
+    : `<div class="project-fallback">${esc(title.slice(0,1))}</div>`;
+  const tags = Array.isArray(project.categories) ? project.categories.slice(0,3) : [];
+
   return `
     <article class="project-card">
       <div class="project-image">${icon}</div>
       <div class="project-body">
-        <strong>${title}</strong>
-        <div class="project-meta">${compact(p.downloads)} downloads · Modrinth</div>
-        <p class="project-desc">${escapeHtml(p.description || "Minecraft content from Modrinth.")}</p>
-        <div class="project-tags">${tags.map((t) => `<span>${escapeHtml(t)}</span>`).join("")}</div>
+        <div class="project-title-row"><strong>${title}</strong></div>
+        <div class="project-meta">${compact(project.downloads)} downloads · Modrinth</div>
+        <p class="project-desc">${esc(project.description || "Minecraft content from Modrinth.")}</p>
+        <div class="project-tags">${tags.map((tag) => `<span>${esc(tag)}</span>`).join("")}</div>
+        <a class="project-link" href="${projectUrl(project)}" target="_blank" rel="noreferrer">View on Modrinth →</a>
       </div>
     </article>`;
 }
 
-(async () => {
-  if (!grid) return;
+async function searchProjects(type, query) {
+  setSkeletons();
+  if (discoverLabel) discoverLabel.textContent = query ? `Search: ${query}` : `Featured ${type}s`;
+
+  const facets = encodeURIComponent(JSON.stringify([[`project_type:${type}`]]));
+  const url = `https://api.modrinth.com/v2/search?query=${encodeURIComponent(query || defaults[type] || "")}&limit=4&index=downloads&facets=${facets}`;
+
   try {
-    const projects = (await Promise.all(slugs.map(getProject))).filter(Boolean);
-    if (!projects.length) throw new Error("No projects");
-    grid.innerHTML = projects.map(card).join("");
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Modrinth request failed");
+    const data = await response.json();
+    if (!data.hits?.length) throw new Error("No results");
+    projectGrid.innerHTML = data.hits.map(card).join("");
   } catch {
-    grid.innerHTML = `
+    projectGrid.innerHTML = `
       <article class="project-card">
         <div class="project-image"><div class="project-fallback">!</div></div>
         <div class="project-body">
@@ -179,4 +258,23 @@ function card(p) {
         </div>
       </article>`;
   }
-})();
+}
+
+discoverTabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    discoverTabs.forEach((x) => x.classList.remove("active"));
+    tab.classList.add("active");
+    activeType = tab.dataset.type;
+    activeQuery = "";
+    if (discoverInput) discoverInput.value = "";
+    searchProjects(activeType, "");
+  });
+});
+
+discoverForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  activeQuery = discoverInput?.value.trim() || "";
+  searchProjects(activeType, activeQuery);
+});
+
+searchProjects("mod", "");

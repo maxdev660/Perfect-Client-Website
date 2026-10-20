@@ -2,31 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#07090f">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#05070c">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Perfect Client — Java and Bedrock profiles, content discovery, skins and creator tools in one modern Minecraft launcher.">
+  <meta name="description" content="Perfect Client — Java and Bedrock profiles, real content discovery, skins and creator tools in one modern Minecraft launcher.">
   <meta property="og:title" content="Perfect Client — Your Minecraft. One place.">
-  <meta property="og:description" content="Play. Organize. Discover. Create.">
+  <meta property="og:description" content="Profiles. Discover. Skins. Studio. Java + Bedrock.">
   <meta property="og:type" content="website">
-  <link rel="icon" href="./logo.png">
+  <meta property="og:image" content="./assets/social-card.svg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="./assets/brand-fallback.svg">
+  <link rel="preconnect" href="https://mc-heads.net">
+  <link rel="preconnect" href="https://cdn.modrinth.com">
   <link rel="stylesheet" href="./styles.css">
   <script defer src="./app.js"></script>
+
   <title>Perfect Client — Your Minecraft. One place.</title>
 </head>
 <body>
-  <div class="noise"></div>
-  <div class="ambient ambient-one"></div>
-  <div class="ambient ambient-two"></div>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="mouse-glow" id="mouseGlow" aria-hidden="true"></div>
 
   <header class="site-header" id="siteHeader">
     <div class="shell header-inner">
       <a class="brand" href="#top" aria-label="Perfect Client home">
         <span class="brand-mark">
-          <span class="brand-shape"></span>
-          <img class="brand-logo" src="./logo.png" alt="">
+          <img src="./logo.png" data-fallback="./assets/brand-fallback.svg" alt="">
         </span>
-        <span class="brand-text"><strong>PERFECT</strong><span>CLIENT</span></span>
+        <span class="brand-wordmark">
+          <strong>PERFECT</strong><span>CLIENT</span>
+        </span>
       </a>
 
       <nav class="nav-links" aria-label="Main navigation">
@@ -37,8 +43,8 @@
         <a href="#editions">Java + Bedrock</a>
       </nav>
 
-      <div class="nav-actions">
-        <a class="github-link hidden" id="githubTop" target="_blank" rel="noreferrer">GitHub</a>
+      <div class="header-actions">
+        <a id="headerGithub" class="header-link hidden" target="_blank" rel="noreferrer">GitHub</a>
         <a class="nav-cta" href="#download">Download</a>
       </div>
     </div>
@@ -46,155 +52,242 @@
 
   <main id="top">
     <section class="hero">
-      <div class="shell hero-grid">
+      <div class="hero-background" aria-hidden="true"></div>
+      <div class="hero-light hero-light-one" aria-hidden="true"></div>
+      <div class="hero-light hero-light-two" aria-hidden="true"></div>
+
+      <div class="shell hero-layout">
         <div class="hero-copy reveal">
-          <div class="status-pill"><span></span>Windows build in development</div>
+          <div class="status-pill">
+            <span class="status-dot"></span>
+            WINDOWS BUILD IN DEVELOPMENT
+          </div>
+
           <p class="eyebrow">PERFECT CLIENT</p>
-          <h1>Your Minecraft.<span>One place.</span></h1>
+
+          <h1>
+            Your Minecraft.
+            <span>One place.</span>
+          </h1>
+
           <p class="hero-lead">
             Java and Bedrock. Profiles, content, skins and creator tools —
             without rebuilding your setup every time you want to play something different.
           </p>
+
           <div class="hero-actions">
-            <a class="button primary" href="#profiles">Explore Perfect Client <span>→</span></a>
+            <a class="button primary" href="#profiles">
+              Explore Perfect Client
+              <span aria-hidden="true">→</span>
+            </a>
             <a class="button secondary" href="#download">Windows build</a>
           </div>
-          <div class="hero-meta">
-            <span>Free core launcher</span><span>Local-first</span><span>Java + Bedrock</span>
+
+          <div class="trust-row">
+            <span>Free core launcher</span>
+            <span>Local-first</span>
+            <span>Java + Bedrock</span>
           </div>
         </div>
 
-        <div class="hero-visual reveal">
-          <div class="hero-grid-floor"></div>
-          <div class="hero-glow"></div>
+        <div class="hero-art reveal" id="heroArt">
+          <div class="hero-orbit orbit-one" aria-hidden="true"></div>
+          <div class="hero-orbit orbit-two" aria-hidden="true"></div>
 
-          <div class="hero-chip chip-java"><i></i>Java profile</div>
-          <div class="hero-chip chip-bedrock"><i></i>Bedrock profile</div>
-          <div class="hero-chip chip-studio"><b>✦</b>Perfect Studio</div>
+          <img
+            class="hero-steve pixel-render parallax"
+            data-depth="1.00"
+            src="https://mc-heads.net/body/MHF_Steve/600/right"
+            alt="Minecraft Steve"
+          >
+          <img
+            class="hero-alex pixel-render parallax"
+            data-depth=".45"
+            src="https://mc-heads.net/body/MHF_Alex/460/left"
+            alt="Minecraft Alex"
+          >
 
-          <img class="steve hero-steve" src="https://mc-heads.net/body/MHF_Steve/520/right" alt="Minecraft Steve">
-          <img class="steve hero-alex" src="https://mc-heads.net/body/MHF_Alex/420/left" alt="Minecraft Alex">
+          <div class="floating-card card-java parallax" data-depth=".18">
+            <span class="dot cyan"></span>
+            <div><strong>Java</strong><small>Fabric · Mods · Shaders</small></div>
+          </div>
 
-          <div class="hero-profile">
-            <span>ACTIVE PROFILE</span>
-            <strong>Perfect Survival</strong>
-            <small>Java · Fabric · 34 mods</small>
+          <div class="floating-card card-bedrock parallax" data-depth=".12">
+            <span class="dot purple"></span>
+            <div><strong>Bedrock</strong><small>Add-Ons · Packs · Worlds</small></div>
+          </div>
+
+          <div class="floating-card card-profile parallax" data-depth=".20">
+            <span class="diamond">◆</span>
+            <div><strong>Perfect Survival</strong><small>34 mods · ready to play</small></div>
+          </div>
+
+          <div class="voxel-stack" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i>
           </div>
         </div>
       </div>
+
+      <div class="scroll-cue" aria-hidden="true"><span></span></div>
     </section>
 
     <section class="pillars">
-      <div class="shell pillar-grid">
+      <div class="shell pillars-grid">
         <article class="pillar reveal">
-          <span class="pillar-num">01</span>
-          <div><p>PROFILES</p><h2>Every setup stays separate.</h2><span>PvP, survival, modpacks and Bedrock worlds keep their own versions, content and settings.</span></div>
+          <span class="pillar-index">01</span>
+          <div>
+            <p>PROFILES</p>
+            <h2>Every setup stays separate.</h2>
+            <span>PvP, survival, modpacks and Bedrock worlds keep their own versions, content and settings.</span>
+          </div>
         </article>
+
         <article class="pillar reveal">
-          <span class="pillar-num">02</span>
-          <div><p>DISCOVER</p><h2>Find content that actually fits.</h2><span>Browse mods, packs and shaders with your current profile already in mind.</span></div>
+          <span class="pillar-index">02</span>
+          <div>
+            <p>DISCOVER</p>
+            <h2>Find content that actually fits.</h2>
+            <span>Browse real projects while your profile decides what is compatible.</span>
+          </div>
         </article>
+
         <article class="pillar reveal">
-          <span class="pillar-num">03</span>
-          <div><p>STUDIO</p><h2>Don't just install. Create.</h2><span>Build skins, textures, HUD layouts and themes directly inside Perfect Client.</span></div>
+          <span class="pillar-index">03</span>
+          <div>
+            <p>STUDIO</p>
+            <h2>Don't just install. Create.</h2>
+            <span>Perfect Studio turns the launcher into a place to make skins, textures, HUDs and themes.</span>
+          </div>
         </article>
       </div>
     </section>
 
-    <section class="section" id="profiles">
-      <div class="shell two-col">
+    <section class="section profile-section" id="profiles">
+      <div class="shell profile-layout">
         <div class="section-copy reveal">
           <p class="eyebrow">PROFILES</p>
-          <h2>Switch setups without rebuilding Minecraft.</h2>
+          <h2>Your complete Minecraft setup — in one profile.</h2>
           <p>
-            A profile is your complete setup: edition, version, loader, mods, packs,
-            shaders, worlds and settings. Open it, manage it, play it.
+            Version, edition, loader, mods, packs, shaders, worlds and settings.
+            Open a profile, manage it, then play. Nothing gets mixed with another setup.
           </p>
-          <ul class="check-list">
-            <li><span>✓</span> Java and Bedrock profile types</li>
-            <li><span>✓</span> Mods and updates stay inside the profile</li>
-            <li><span>✓</span> Packs, shaders and worlds stay organized</li>
-          </ul>
+
+          <div class="feature-list">
+            <div><span>01</span><strong>Java + Bedrock profile types</strong></div>
+            <div><span>02</span><strong>Mods and updates stay inside the profile</strong></div>
+            <div><span>03</span><strong>Packs, shaders and worlds stay organized</strong></div>
+          </div>
         </div>
 
-        <div class="profile-stage reveal">
-          <div class="stage-grid"></div>
-          <img class="profile-steve steve" src="https://mc-heads.net/body/MHF_Steve/430/right" alt="Steve profile preview">
+        <div class="profile-visual reveal">
+          <div class="profile-backdrop"></div>
+          <img class="profile-steve pixel-render" src="https://mc-heads.net/body/MHF_Steve/520/right" alt="Steve">
 
-          <div class="floating-profile fp-one">
+          <article class="profile-card profile-main">
             <img src="https://mc-heads.net/avatar/MHF_Steve/96" alt="">
-            <div><strong>Perfect PvP</strong><span>1.8.9 · Fabric · 18 Mods</span></div>
-            <b>JAVA</b>
-          </div>
+            <div class="profile-text">
+              <div class="profile-title-row"><strong>Perfect PvP</strong><span class="tag java">JAVA</span></div>
+              <span>1.8.9 · Fabric · 18 mods</span>
+            </div>
+            <span class="play-pill">PLAY</span>
+          </article>
 
-          <div class="floating-profile fp-two">
+          <article class="profile-card profile-secondary">
             <img src="https://mc-heads.net/avatar/MHF_Alex/96" alt="">
-            <div><strong>Bedrock Survival</strong><span>5 Add-Ons · 2 Packs</span></div>
-            <b>BEDROCK</b>
-          </div>
+            <div class="profile-text">
+              <div class="profile-title-row"><strong>Bedrock Survival</strong><span class="tag bedrock">BEDROCK</span></div>
+              <span>5 Add-Ons · 2 packs · world linked</span>
+            </div>
+          </article>
 
-          <div class="update-card">
-            <span>↑</span>
-            <div><strong>3 safe updates</strong><small>Ready for this profile</small></div>
-          </div>
+          <article class="profile-update">
+            <span class="update-icon">↑</span>
+            <div><strong>3 safe updates</strong><small>Matched to this profile</small></div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section discover-wrap" id="discover">
+    <section class="section discover-section" id="discover">
       <div class="shell">
-        <div class="section-heading split">
-          <div class="reveal"><p class="eyebrow">DISCOVER</p><h2>Real content. Real artwork.</h2></div>
-          <p class="reveal">
-            This preview loads public Modrinth project data and artwork.
-            Perfect Client itself will later install compatible content into the profile you choose.
+        <div class="section-heading split reveal">
+          <div>
+            <p class="eyebrow">DISCOVER</p>
+            <h2>Real projects. Real artwork.</h2>
+          </div>
+          <p>
+            The website preview uses public Modrinth project data.
+            Search it for real Minecraft content instead of looking at fake cards.
           </p>
         </div>
 
-        <div class="discover-bar reveal">
-          <div class="discover-tabs">
-            <button class="active" type="button">Mods</button>
-            <button type="button">Modpacks</button>
-            <button type="button">Resource Packs</button>
-            <button type="button">Shaders</button>
+        <div class="discover-console reveal">
+          <div class="discover-topbar">
+            <div class="discover-tabs" role="tablist">
+              <button class="discover-tab active" data-type="mod" type="button">Mods</button>
+              <button class="discover-tab" data-type="modpack" type="button">Modpacks</button>
+              <button class="discover-tab" data-type="resourcepack" type="button">Resource Packs</button>
+              <button class="discover-tab" data-type="shader" type="button">Shaders</button>
+            </div>
+
+            <form class="discover-search" id="discoverForm">
+              <span>⌕</span>
+              <input id="discoverInput" autocomplete="off" placeholder="Search Modrinth..." aria-label="Search Modrinth">
+              <button type="submit">Search</button>
+            </form>
           </div>
-          <div class="profile-context"><span></span>Java examples</div>
+
+          <div class="discover-context">
+            <span class="context-status"><i></i>Live public project data</span>
+            <span id="discoverLabel">Featured mods</span>
+          </div>
+
+          <div class="project-grid" id="projectGrid" aria-live="polite">
+            <article class="project-card skeleton"></article>
+            <article class="project-card skeleton"></article>
+            <article class="project-card skeleton"></article>
+            <article class="project-card skeleton"></article>
+          </div>
         </div>
 
-        <div class="project-grid" id="projectGrid" aria-live="polite">
-          <article class="project-card skeleton"></article>
-          <article class="project-card skeleton"></article>
-          <article class="project-card skeleton"></article>
-          <article class="project-card skeleton"></article>
-        </div>
-
-        <div class="discover-note reveal">
-          <span>Public Modrinth data</span>
-          <span>Website preview only — nothing installs from this page.</span>
+        <div class="discover-foot reveal">
+          <span>Powered by public Modrinth data.</span>
+          <span>This website does not install files.</span>
         </div>
       </div>
     </section>
 
-    <section class="section" id="skins">
+    <section class="section skins-section" id="skins">
       <div class="shell skin-layout">
         <div class="skin-copy reveal">
           <p class="eyebrow">SKINS</p>
           <h2>Your skin should actually look like Minecraft.</h2>
           <p>
-            Import skins, preview them as real Minecraft characters and keep a clean skin library.
-            No generic human placeholders.
+            Import a PNG, preview the real character, keep multiple skins and choose classic or slim.
+            No fake human-shaped placeholder.
           </p>
-          <div class="mini-pills">
-            <span>Import PNG</span><span>3D preview</span><span>Classic + Slim</span>
+
+          <div class="skin-features">
+            <span>Import PNG</span>
+            <span>3D preview</span>
+            <span>Classic + Slim</span>
+            <span>Skin library</span>
           </div>
         </div>
 
         <div class="skin-stage reveal">
-          <div class="skin-glow skin-glow-a"></div>
-          <div class="skin-glow skin-glow-b"></div>
-          <img class="skin-main steve" src="https://mc-heads.net/body/MHF_Steve/500/right" alt="Steve Minecraft skin">
-          <img class="skin-side steve" src="https://mc-heads.net/body/MHF_Alex/450/left" alt="Alex Minecraft skin">
-          <div class="skin-badge"><span>ACTIVE SKIN</span><strong>Classic Steve</strong><small>Classic · 64×64</small></div>
+          <div class="skin-grid-bg"></div>
+          <div class="skin-aura cyan-aura"></div>
+          <div class="skin-aura purple-aura"></div>
+
+          <img class="skin-steve pixel-render" src="https://mc-heads.net/body/MHF_Steve/560/right" alt="Steve skin">
+          <img class="skin-alex pixel-render" src="https://mc-heads.net/body/MHF_Alex/490/left" alt="Alex skin">
+
+          <div class="skin-info-card">
+            <span>ACTIVE SKIN</span>
+            <strong>Classic Steve</strong>
+            <small>Classic · 64×64</small>
+          </div>
         </div>
       </div>
     </section>
@@ -203,81 +296,101 @@
       <div class="shell">
         <div class="section-heading centered reveal">
           <p class="eyebrow">PERFECT STUDIO</p>
-          <h2>The part that makes Perfect Client different.</h2>
-          <p>One workspace for making Minecraft content, with contextual help built into the real launcher.</p>
+          <h2>The feature people remember.</h2>
+          <p>
+            One creator workspace for Minecraft skins, textures, HUD layouts and client themes —
+            with help built into every real tool.
+          </p>
         </div>
 
-        <div class="studio-shell reveal">
-          <div class="studio-nav" role="tablist">
-            <button class="studio-tab active" data-studio="skin" type="button"><span>01</span><div><strong>Skin Studio</strong><small>Paint · Preview · Save</small></div></button>
-            <button class="studio-tab" data-studio="texture" type="button"><span>02</span><div><strong>Texture Studio</strong><small>Pixels · Packs · Export</small></div></button>
-            <button class="studio-tab" data-studio="hud" type="button"><span>03</span><div><strong>HUD Studio</strong><small>Drag · Snap · Presets</small></div></button>
-            <button class="studio-tab" data-studio="theme" type="button"><span>04</span><div><strong>Theme Studio</strong><small>Color · Radius · Motion</small></div></button>
-          </div>
+        <div class="studio-app reveal">
+          <aside class="studio-menu">
+            <button class="studio-tab active" data-studio="skin" type="button">
+              <span>01</span><div><strong>Skin Studio</strong><small>Paint · Preview · Save</small></div>
+            </button>
+            <button class="studio-tab" data-studio="texture" type="button">
+              <span>02</span><div><strong>Texture Studio</strong><small>Pixels · Packs · Export</small></div>
+            </button>
+            <button class="studio-tab" data-studio="hud" type="button">
+              <span>03</span><div><strong>HUD Studio</strong><small>Drag · Snap · Presets</small></div>
+            </button>
+            <button class="studio-tab" data-studio="theme" type="button">
+              <span>04</span><div><strong>Theme Studio</strong><small>Color · Radius · Motion</small></div>
+            </button>
+          </aside>
+
           <div class="studio-preview" id="studioPreview"></div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="editions">
+    <section class="section editions-section" id="editions">
       <div class="shell">
         <div class="section-heading centered reveal">
           <p class="eyebrow">ONE CLIENT · TWO EDITIONS</p>
           <h2>Java stays Java. Bedrock stays Bedrock.</h2>
-          <p>Perfect Client changes with the profile you create instead of pretending both editions use the same content system.</p>
+          <p>
+            Perfect Client changes with the profile you create instead of pretending both editions use the same content system.
+          </p>
         </div>
 
         <div class="edition-grid">
-          <article class="edition-card java reveal">
+          <article class="edition-card java-edition reveal">
             <div class="edition-copy">
-              <span class="edition-tag java-tag">JAVA EDITION</span>
+              <span class="tag java">JAVA EDITION</span>
               <h3>Versions, loaders and mods.</h3>
               <p>Fabric, Forge, NeoForge, modpacks, shaders and datapacks belong here.</p>
-              <div class="edition-pills"><span>Fabric</span><span>Forge</span><span>NeoForge</span><span>Mods</span><span>Shaders</span><span>Modpacks</span></div>
+              <div class="edition-pills">
+                <span>Fabric</span><span>Forge</span><span>NeoForge</span><span>Mods</span><span>Shaders</span><span>Modpacks</span>
+              </div>
             </div>
-            <img class="edition-character steve" src="https://mc-heads.net/body/MHF_Steve/460/right" alt="Steve representing Java Edition">
+            <img class="edition-steve pixel-render" src="https://mc-heads.net/body/MHF_Steve/500/right" alt="Steve for Java">
           </article>
 
-          <article class="edition-card bedrock reveal">
+          <article class="edition-card bedrock-edition reveal">
             <div class="edition-copy">
-              <span class="edition-tag bedrock-tag">BEDROCK EDITION</span>
+              <span class="tag bedrock">BEDROCK EDITION</span>
               <h3>Add-Ons, packs and worlds.</h3>
               <p>Bedrock profiles get the content types that actually belong to Bedrock.</p>
-              <div class="edition-pills"><span>Add-Ons</span><span>Behavior Packs</span><span>Resource Packs</span><span>Worlds</span><span>Skins</span><span>Backups</span></div>
+              <div class="edition-pills">
+                <span>Add-Ons</span><span>Behavior Packs</span><span>Resource Packs</span><span>Worlds</span><span>Skins</span><span>Backups</span>
+              </div>
             </div>
-            <img class="edition-character steve" src="https://mc-heads.net/body/MHF_Alex/430/left" alt="Alex representing Bedrock Edition">
+            <img class="edition-steve pixel-render" src="https://mc-heads.net/body/MHF_Alex/470/left" alt="Alex for Bedrock">
           </article>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="shell local-strip reveal">
-        <div>
+      <div class="shell local-first reveal">
+        <div class="local-copy">
           <p class="eyebrow">LOCAL FIRST</p>
           <h2>Yours, even without a Perfect Client server.</h2>
         </div>
         <div class="local-grid">
-          <div><strong>Local profiles</strong><span>Your setups stay on your PC.</span></div>
-          <div><strong>No subscription required</strong><span>Core launcher features should stay usable without one.</span></div>
-          <div><strong>Optional online features</strong><span>Friends and cloud features can come later without blocking the launcher.</span></div>
+          <article><strong>Local profiles</strong><span>Your setups stay on your PC.</span></article>
+          <article><strong>No subscription required</strong><span>Core launcher features should stay usable without one.</span></article>
+          <article><strong>Optional online features</strong><span>Friends and cloud features can come later without blocking the launcher.</span></article>
         </div>
       </div>
     </section>
 
     <section class="download-section" id="download">
       <div class="shell">
-        <div class="download-panel reveal">
-          <div class="download-brand">
-            <span class="brand-shape"></span>
-            <img class="brand-logo" src="./logo.png" alt="">
+        <div class="download-card reveal">
+          <div class="download-halo"></div>
+          <div class="download-logo">
+            <img src="./logo.png" data-fallback="./assets/brand-fallback.svg" alt="Perfect Client">
           </div>
           <p class="eyebrow">PERFECT CLIENT FOR WINDOWS</p>
           <h2>The first build is on its way.</h2>
-          <p>The website can go live now. The button stays honest until a real Windows release exists.</p>
-          <a class="button primary disabled" id="releaseButton" href="#download" aria-disabled="true">Windows build in development</a>
-          <div class="release-meta"><span>Windows 10 / 11</span><span>Java + Bedrock</span><span>Free core launcher</span></div>
-          <a class="bottom-github hidden" id="githubBottom" target="_blank" rel="noreferrer">Follow development on GitHub →</a>
+          <p>
+            The website can go live now. The download button stays honest until a real Windows release exists.
+          </p>
+          <a id="releaseButton" class="button primary disabled" href="#download" aria-disabled="true">Windows build in development</a>
+          <div class="download-meta"><span>Windows 10 / 11</span><span>Java + Bedrock</span><span>Free core launcher</span></div>
+          <a id="bottomGithub" class="bottom-github hidden" target="_blank" rel="noreferrer">Follow development on GitHub →</a>
         </div>
       </div>
     </section>
@@ -286,9 +399,12 @@
   <footer>
     <div class="shell footer-inner">
       <div class="footer-brand">
-        <span class="brand-mark small"><span class="brand-shape"></span><img class="brand-logo" src="./logo.png" alt=""></span>
+        <span class="brand-mark small">
+          <img src="./logo.png" data-fallback="./assets/brand-fallback.svg" alt="">
+        </span>
         <div><strong>Perfect Client</strong><span>Play. Organize. Discover. Create.</span></div>
       </div>
+
       <div class="footer-meta">
         <span>Not affiliated with Mojang Studios or Microsoft.</span>
         <span>Minecraft character renders provided by MCHeads.</span>
