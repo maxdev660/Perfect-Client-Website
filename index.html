@@ -1,20 +1,29 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#06080d">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Perfect Client — a modern Minecraft launcher concept for profiles, content discovery and creator tools.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+
+  <meta name="description" content="Perfect Client — ein moderner Minecraft Launcher für Java und Bedrock mit Profilen, Discover und Creator-Tools.">
+  <link rel="canonical" href="https://perfect-client-website.pages.dev/">
+
   <meta property="og:title" content="Perfect Client">
-  <meta property="og:description" content="A cleaner way to launch Minecraft.">
-  <meta property="og:image" content="./assets/social-card.svg">
+  <meta property="og:description" content="Ein Launcher. Alles an seinem Platz.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://perfect-client-website.pages.dev/">
+  <meta property="og:image" content="https://perfect-client-website.pages.dev/assets/social-card-v6.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="./assets/brand.svg">
-  <link rel="stylesheet" href="./styles.css">
-  <script defer src="./app.js"></script>
-  <title>Perfect Client — A cleaner way to launch Minecraft.</title>
+
+  <link rel="icon" href="/assets/brand-v6.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" href="/assets/perfect-client-logo-v6.png" as="image">
+  <link rel="stylesheet" href="/styles.css">
+  <script defer src="/app.js"></script>
+
+  <title>Perfect Client — Ein Launcher. Alles an seinem Platz.</title>
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
@@ -23,228 +32,216 @@
 
   <header class="site-header" id="siteHeader">
     <div class="shell header-row">
-      <a class="brand real-brand" href="#top" aria-label="Perfect Client">
-        <img class="brand-logo-real" src="./logo.png" alt="Perfect Client">
+      <a class="brand" href="#top" aria-label="Perfect Client">
+        <img class="header-logo" src="/assets/perfect-client-logo-v6.png" alt="Perfect Client">
       </a>
 
-      <nav class="nav" aria-label="Main navigation">
-        <a href="#profiles" data-i18n="navProfiles">Profiles</a>
+      <nav class="desktop-nav" aria-label="Hauptnavigation">
+        <a href="#profiles" data-i18n="navProfiles">Profile</a>
         <a href="#discover" data-i18n="navDiscover">Discover</a>
         <a href="#studio" data-i18n="navStudio">Studio</a>
         <a href="#editions" data-i18n="navEditions">Java + Bedrock</a>
       </nav>
 
-      <div class="header-tools">
-        <div class="language-switch" role="group" aria-label="Language">
-          <button class="lang-btn" data-lang="de" type="button">DE</button>
-          <button class="lang-btn" data-lang="en" type="button">EN</button>
+      <div class="header-actions">
+        <div class="language-control">
+          <button class="language-button" id="languageButton" type="button" aria-haspopup="menu" aria-expanded="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0c2.1-2.25 3.2-5.25 3.2-9S14.1 5.25 12 3m0 18c-2.1-2.25-3.2-5.25-3.2-9S9.9 5.25 12 3M3.6 9h16.8M3.6 15h16.8"/></svg>
+            <span id="languageLabel">DE</span>
+            <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 9 5 5 5-5"/></svg>
+          </button>
+          <div class="language-menu" id="languageMenu" role="menu">
+            <button type="button" data-lang="de" role="menuitem"><span>Deutsch</span><small>DE</small></button>
+            <button type="button" data-lang="en" role="menuitem"><span>English</span><small>EN</small></button>
+          </div>
         </div>
-        <a class="nav-cta" href="#download" data-i18n="navDownload">Download</a>
+
+        <a class="nav-download" href="#download" data-i18n="navDownload">Download</a>
       </div>
     </div>
   </header>
 
   <main id="top">
     <section class="hero">
-      <div class="shell hero-grid">
+      <div class="hero-grid-lines" aria-hidden="true"></div>
+      <div class="shell hero-layout">
         <div class="hero-copy reveal">
-          <span class="eyebrow" data-i18n="heroEyebrow">PERFECT CLIENT</span>
+          <div class="brand-intro">
+            <span class="brand-line"></span>
+            <span data-i18n="heroBrand">HIER IST PERFECT CLIENT</span>
+          </div>
+
           <h1>
-            <span data-i18n="heroTitleA">Minecraft,</span><br>
-            <span class="gradient-text" data-i18n="heroTitleB">endlich übersichtlich.</span>
+            <span data-i18n="heroTitleA">Ein Launcher.</span>
+            <span class="gradient-text" data-i18n="heroTitleB">Alles an seinem Platz.</span>
           </h1>
 
-          <p class="lead" data-i18n="heroLead">
-            Ein moderner Launcher für Java und Bedrock – mit sauberen Profilen, einfacher Content-Suche,
-            Updates und kreativen Tools an einem Ort.
+          <p class="hero-lead" data-i18n="heroLead">
+            Perfect Client bringt Java und Bedrock, Profile, Mods, Packs, Shader und Creator-Tools
+            in eine Oberfläche, die schnell verständlich bleibt.
           </p>
 
           <div class="hero-actions">
-            <a class="button primary" href="#profiles" data-i18n="heroPrimary">Perfect Client entdecken</a>
-            <a class="button secondary" href="#download" data-i18n="heroSecondary">Windows-Status</a>
+            <a class="button primary" href="#profiles">
+              <span data-i18n="heroPrimary">Perfect Client entdecken</span>
+              <span aria-hidden="true">→</span>
+            </a>
+            <a class="button secondary" href="#download" data-i18n="heroSecondary">Windows-Download</a>
           </div>
 
-          <div class="hero-meta">
-            <span data-i18n="metaLocal">Lokal zuerst</span>
-            <span data-i18n="metaEditions">Java + Bedrock</span>
-            <span data-i18n="metaFree">Core-Funktionen kostenlos</span>
+          <div class="hero-proof">
+            <div><strong>Java + Bedrock</strong><span data-i18n="proofEdition">in einem Launcher</span></div>
+            <div><strong>Discover</strong><span data-i18n="proofDiscover">echte Projekte</span></div>
+            <div><strong>Studio</strong><span data-i18n="proofStudio">direkt integriert</span></div>
           </div>
         </div>
 
-        <div class="hero-visual reveal" id="heroVisual">
-          <div class="hero-aura"></div>
+        <div class="hero-product reveal" id="heroProduct">
+          <div class="product-aura"></div>
 
-          <div class="launcher-shell parallax" data-depth=".16">
-            <div class="launcher-topbar">
-              <div class="dots"><i></i><i></i><i></i></div>
-              <div class="bar-search"></div>
-              <div class="bar-profile"></div>
+          <div class="launcher-window parallax" data-depth=".14">
+            <div class="window-header">
+              <div class="window-logo">
+                <img src="/assets/brand-v6.svg" alt="">
+              </div>
+              <div class="window-search"></div>
+              <div class="window-user"></div>
             </div>
 
-            <div class="launcher-body">
-              <aside class="launcher-nav">
-                <span class="ln active"></span>
-                <span class="ln"></span>
-                <span class="ln"></span>
-                <span class="ln"></span>
-                <span class="ln"></span>
+            <div class="window-body">
+              <aside class="window-sidebar">
+                <span class="side-dot active"></span>
+                <span class="side-dot"></span>
+                <span class="side-dot"></span>
+                <span class="side-dot"></span>
+                <span class="side-dot"></span>
               </aside>
 
-              <div class="launcher-main">
-                <div class="launcher-card hero-card">
-                  <div class="small-line cyan"></div>
-                  <div class="big-line"></div>
-                  <div class="mid-line"></div>
-                  <div class="cta-line"></div>
+              <div class="window-content">
+                <div class="window-hero">
+                  <span class="mock-eyebrow">PERFECT CLIENT</span>
+                  <div class="mock-title"></div>
+                  <div class="mock-copy wide"></div>
+                  <div class="mock-copy short"></div>
+                  <div class="mock-button"></div>
                 </div>
 
-                <div class="launcher-side">
-                  <div class="side-card"></div>
-                  <div class="side-card"></div>
-                  <div class="side-card"></div>
+                <div class="window-feed">
+                  <div class="feed-card"><i></i><span></span><b></b></div>
+                  <div class="feed-card"><i></i><span></span><b></b></div>
+                  <div class="feed-card"><i></i><span></span><b></b></div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="float-card fc-one parallax" data-depth=".28">
-            <span></span>
-            <div>
-              <strong data-i18n="floatProfilesTitle">Profile bleiben getrennt</strong>
-              <small data-i18n="floatProfilesText">Mods, Packs, Welten und Einstellungen bleiben zusammen.</small>
-            </div>
+          <div class="floating-feature ff-one parallax" data-depth=".34">
+            <div class="feature-icon cyan">P</div>
+            <div><strong data-i18n="floatProfileTitle">Perfekte Profile</strong><span data-i18n="floatProfileText">Jedes Setup bleibt sauber getrennt.</span></div>
           </div>
 
-          <div class="float-card fc-two parallax" data-depth=".36">
-            <span></span>
-            <div>
-              <strong data-i18n="floatStudioTitle">Perfect Studio</strong>
-              <small data-i18n="floatStudioText">Skins, Texturen, HUDs und Themes an einem Ort.</small>
-            </div>
+          <div class="floating-feature ff-two parallax" data-depth=".28">
+            <div class="feature-icon purple">✦</div>
+            <div><strong>Perfect Studio</strong><span data-i18n="floatStudioText">Erstellen statt nur installieren.</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="value-strip">
-      <div class="shell value-grid">
-        <article class="value-item reveal">
-          <span>01</span>
-          <strong data-i18n="valueProfilesTitle">Profile</strong>
-          <p data-i18n="valueProfilesText">Jedes Setup behält seine eigene Version, seinen Loader, Content und Einstellungen.</p>
-        </article>
-
-        <article class="value-item reveal">
-          <span>02</span>
-          <strong data-i18n="valueDiscoverTitle">Discover</strong>
-          <p data-i18n="valueDiscoverText">Finde Mods, Modpacks, Resource Packs und Shader ohne unnötiges Durcheinander.</p>
-        </article>
-
-        <article class="value-item reveal">
-          <span>03</span>
-          <strong data-i18n="valueStudioTitle">Studio</strong>
-          <p data-i18n="valueStudioText">Nicht nur installieren: Skins, Texturen, HUDs und Themes direkt selbst gestalten.</p>
-        </article>
+    <section class="brand-statement">
+      <div class="shell statement-grid">
+        <div class="statement-mark reveal">
+          <img src="/assets/perfect-client-logo-v6.png" alt="Perfect Client">
+        </div>
+        <div class="statement-copy reveal">
+          <span class="eyebrow" data-i18n="statementEyebrow">DAS IST PERFECT CLIENT</span>
+          <h2 data-i18n="statementTitle">Minecraft starten sollte nicht kompliziert sein.</h2>
+          <p data-i18n="statementLead">
+            Profile verwalten, Content finden, Updates prüfen und eigene Designs erstellen:
+            Perfect Client bündelt die wichtigsten Aufgaben, ohne dass die Oberfläche überladen wirkt.
+          </p>
+        </div>
       </div>
     </section>
 
     <section class="section" id="profiles">
-      <div class="shell two-col">
-        <div class="copy reveal">
+      <div class="shell section-grid">
+        <div class="section-copy reveal">
           <span class="eyebrow" data-i18n="profilesEyebrow">PROFILE</span>
-          <h2 data-i18n="profilesTitle">Alles, was zusammengehört, bleibt zusammen.</h2>
+          <h2 data-i18n="profilesTitle">Ein Profil ist dein komplettes Setup.</h2>
           <p data-i18n="profilesLead">
-            PvP, Survival, Modpacks und Bedrock-Welten sollen sich nicht gegenseitig stören.
-            Deshalb bekommt jedes Profil seine eigene Umgebung – sauber getrennt und sofort spielbereit.
+            Edition, Version, Loader, Mods, Packs, Shader und Welten bleiben dort, wo sie hingehören.
+            Wechsel zwischen PvP, Survival oder Modpacks, ohne dein Minecraft jedes Mal neu aufzubauen.
           </p>
 
           <div class="feature-list">
-            <div><span>01</span><b data-i18n="profilesFeature1">Spielen, verwalten und aktualisieren, ohne andere Setups anzufassen</b></div>
-            <div><span>02</span><b data-i18n="profilesFeature2">Java-Profile kennen Mods, Shader, Loader und Packs</b></div>
-            <div><span>03</span><b data-i18n="profilesFeature3">Bedrock-Profile konzentrieren sich auf Add-Ons, Welten und Resource Packs</b></div>
+            <div><span>01</span><strong data-i18n="profileFeature1">Java- und Bedrock-Profile mit passenden Funktionen</strong></div>
+            <div><span>02</span><strong data-i18n="profileFeature2">Updates direkt dem richtigen Profil zuordnen</strong></div>
+            <div><span>03</span><strong data-i18n="profileFeature3">Mods, Packs, Shader und Welten übersichtlich verwalten</strong></div>
           </div>
         </div>
 
-        <div class="profiles-panel reveal">
-          <div class="profiles-head">
-            <div class="profile-pill active" data-i18n="profileAll">ALLE</div>
-            <div class="profile-pill">JAVA</div>
-            <div class="profile-pill">BEDROCK</div>
-            <div class="profile-search"></div>
+        <div class="profile-ui reveal">
+          <div class="profile-ui-top">
+            <div class="profile-filters">
+              <button class="active" type="button" data-i18n="profileAll">ALLE</button>
+              <button type="button">JAVA</button>
+              <button type="button">BEDROCK</button>
+            </div>
+            <div class="fake-search"></div>
           </div>
 
-          <div class="profile-row">
-            <div class="profile-icon gradient-one"></div>
-            <div class="profile-info">
-              <strong>Perfect PvP</strong>
-              <small>Java · Fabric · 18 Mods</small>
-            </div>
-            <div class="profile-actions">
-              <button data-i18n="profilePlay">Spielen</button>
-              <button>Mods</button>
-              <button data-i18n="profileSettings">Einstellungen</button>
-            </div>
-          </div>
+          <article class="profile-row">
+            <div class="profile-art art-a"></div>
+            <div class="profile-info"><strong>Perfect PvP</strong><span>1.8.9 · Fabric · 18 Mods</span></div>
+            <div class="profile-actions"><button data-i18n="play">Spielen</button><button>Mods</button><button data-i18n="settings">Einstellungen</button></div>
+          </article>
 
-          <div class="profile-row">
-            <div class="profile-icon gradient-two"></div>
-            <div class="profile-info">
-              <strong>Perfect Survival</strong>
-              <small data-i18n="profileSurvivalMeta">Java · Fabric · 34 Mods · Shader aktiv</small>
-            </div>
-            <div class="profile-actions">
-              <button data-i18n="profilePlay">Spielen</button>
-              <button>Content</button>
-              <button data-i18n="profileSettings">Einstellungen</button>
-            </div>
-          </div>
+          <article class="profile-row">
+            <div class="profile-art art-b"></div>
+            <div class="profile-info"><strong>Perfect Survival</strong><span>1.21.x · Fabric · 34 Mods</span></div>
+            <div class="profile-actions"><button data-i18n="play">Spielen</button><button>Content</button><button data-i18n="settings">Einstellungen</button></div>
+          </article>
 
-          <div class="profile-row">
-            <div class="profile-icon gradient-three"></div>
-            <div class="profile-info">
-              <strong>Bedrock World</strong>
-              <small data-i18n="profileBedrockMeta">Bedrock · 5 Add-Ons · 2 Packs</small>
-            </div>
-            <div class="profile-actions">
-              <button data-i18n="profilePlay">Spielen</button>
-              <button>Content</button>
-              <button data-i18n="profileSettings">Einstellungen</button>
-            </div>
-          </div>
+          <article class="profile-row">
+            <div class="profile-art art-c"></div>
+            <div class="profile-info"><strong>Bedrock World</strong><span data-i18n="bedrockProfileMeta">Bedrock · 5 Add-Ons · 2 Packs</span></div>
+            <div class="profile-actions"><button data-i18n="play">Spielen</button><button>Content</button><button data-i18n="settings">Einstellungen</button></div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section alt" id="discover">
+    <section class="section section-alt" id="discover">
       <div class="shell">
-        <div class="section-head reveal centered">
-          <span class="eyebrow" data-i18n="discoverEyebrow">DISCOVER</span>
-          <h2 data-i18n="discoverTitle">Guter Content sollte leicht zu finden sein.</h2>
+        <div class="section-heading centered reveal">
+          <span class="eyebrow">DISCOVER</span>
+          <h2 data-i18n="discoverTitle">Content finden, der zu deinem Profil passt.</h2>
           <p data-i18n="discoverLead">
-            Durchsuche öffentliche Modrinth-Projekte direkt auf der Seite.
-            Klar, schnell und ohne Fake-Inhalte.
+            Durchsuche öffentliche Modrinth-Projekte direkt auf der Website.
+            Mods, Modpacks, Resource Packs und Shader – mit echten Projektdaten statt Demo-Inhalten.
           </p>
         </div>
 
         <div class="discover-panel reveal">
-          <div class="discover-top">
-            <div class="tabs">
-              <button class="tab active" data-type="mod" type="button" data-i18n="tabMods">Mods</button>
-              <button class="tab" data-type="modpack" type="button" data-i18n="tabModpacks">Modpacks</button>
-              <button class="tab" data-type="resourcepack" type="button" data-i18n="tabResourcePacks">Resource Packs</button>
-              <button class="tab" data-type="shader" type="button" data-i18n="tabShaders">Shader</button>
+          <div class="discover-toolbar">
+            <div class="discover-tabs">
+              <button class="discover-tab active" data-type="mod" type="button" data-i18n="tabMods">Mods</button>
+              <button class="discover-tab" data-type="modpack" type="button">Modpacks</button>
+              <button class="discover-tab" data-type="resourcepack" type="button">Resource Packs</button>
+              <button class="discover-tab" data-type="shader" type="button" data-i18n="tabShaders">Shader</button>
             </div>
 
-            <form id="discoverForm" class="discover-search">
-              <span>⌕</span>
-              <input id="discoverInput" type="text" data-i18n-placeholder="discoverSearch" placeholder="Modrinth durchsuchen...">
-              <button type="submit" data-i18n="discoverSearchButton">Suchen</button>
+            <form class="discover-search" id="discoverForm">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.3-4.3m2.3-5.2a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"/></svg>
+              <input id="discoverInput" autocomplete="off" data-i18n-placeholder="searchPlaceholder" placeholder="Modrinth durchsuchen...">
+              <button type="submit" data-i18n="search">Suchen</button>
             </form>
           </div>
 
-          <div class="discover-status">
-            <span><i></i><span data-i18n="discoverLive">ÖFFENTLICHE LIVE-DATEN</span></span>
-            <small id="discoverLabel">Empfohlene Mods</small>
+          <div class="discover-meta">
+            <span class="live-state"><i></i><span data-i18n="liveData">ÖFFENTLICHE LIVE-DATEN</span></span>
+            <span id="discoverLabel">Empfohlene Mods</span>
           </div>
 
           <div class="project-grid" id="projectGrid" aria-live="polite">
@@ -259,94 +256,88 @@
 
     <section class="section" id="studio">
       <div class="shell">
-        <div class="section-head reveal centered">
-          <span class="eyebrow" data-i18n="studioEyebrow">PERFECT STUDIO</span>
-          <h2 data-i18n="studioTitle">Deine Ideen. Direkt im Client.</h2>
+        <div class="section-heading centered reveal">
+          <span class="eyebrow">PERFECT STUDIO</span>
+          <h2 data-i18n="studioTitle">Nicht nur installieren. Selbst gestalten.</h2>
           <p data-i18n="studioLead">
-            Ein eigener Bereich für Skins, Texturen, HUDs und Themes.
-            Dein Skin wird auf dieser Website genau einmal gezeigt – hier in der Skin-Studio-Vorschau.
+            Perfect Studio gibt dir Werkzeuge für Skins, Texturen, HUD-Layouts und Themes.
+            Dein Skin erscheint auf dieser Website genau einmal – in der Skin-Studio-Vorschau.
           </p>
         </div>
 
         <div class="studio-shell reveal">
-          <aside class="studio-list">
+          <aside class="studio-tabs">
             <button class="studio-tab active" data-studio="skin" type="button">
-              <span>01</span>
-              <div><strong data-i18n="skinStudio">Skin Studio</strong><small data-i18n="skinStudioSmall">Malen · Vorschau · Speichern</small></div>
+              <span>01</span><div><strong>Skin Studio</strong><small data-i18n="skinSmall">Malen · Vorschau · Speichern</small></div>
             </button>
             <button class="studio-tab" data-studio="texture" type="button">
-              <span>02</span>
-              <div><strong data-i18n="textureStudio">Texture Studio</strong><small data-i18n="textureStudioSmall">Pixel · Packs · Export</small></div>
+              <span>02</span><div><strong>Texture Studio</strong><small data-i18n="textureSmall">Pixel · Packs · Export</small></div>
             </button>
             <button class="studio-tab" data-studio="hud" type="button">
-              <span>03</span>
-              <div><strong>HUD Studio</strong><small data-i18n="hudStudioSmall">Ziehen · Einrasten · Presets</small></div>
+              <span>03</span><div><strong>HUD Studio</strong><small data-i18n="hudSmall">Ziehen · Einrasten · Presets</small></div>
             </button>
             <button class="studio-tab" data-studio="theme" type="button">
-              <span>04</span>
-              <div><strong>Theme Studio</strong><small data-i18n="themeStudioSmall">Akzent · Radius · Bewegung</small></div>
+              <span>04</span><div><strong>Theme Studio</strong><small data-i18n="themeSmall">Akzent · Radius · Bewegung</small></div>
             </button>
           </aside>
 
-          <div class="studio-stage" id="studioStage"></div>
+          <div class="studio-content" id="studioContent"></div>
         </div>
       </div>
     </section>
 
-    <section class="section alt" id="editions">
+    <section class="section section-alt" id="editions">
       <div class="shell">
-        <div class="section-head reveal centered">
+        <div class="section-heading centered reveal">
           <span class="eyebrow">JAVA + BEDROCK</span>
-          <h2 data-i18n="editionsTitle">Ein Launcher. Zwei Editionen. Klare Regeln.</h2>
+          <h2 data-i18n="editionsTitle">Ein Launcher. Zwei Editionen. Keine Verwechslung.</h2>
           <p data-i18n="editionsLead">
-            Java und Bedrock gehören in einen Launcher – aber nicht in dieselbe Schublade.
-            Jedes Profil zeigt nur die Funktionen und Inhalte, die zur jeweiligen Edition passen.
+            Java und Bedrock leben im selben Perfect Client, bekommen aber jeweils die Werkzeuge,
+            Inhalte und Einstellungen, die wirklich zu ihrer Edition passen.
           </p>
         </div>
 
         <div class="edition-grid">
           <article class="edition-card reveal">
-            <div class="edition-badge java">JAVA</div>
-            <h3 data-i18n="javaTitle">Versionen, Loader und Mods.</h3>
-            <p data-i18n="javaLead">Fabric, Forge, NeoForge, Datapacks, Shader und Modpacks – alles an der richtigen Stelle.</p>
-            <div class="pill-row">
-              <span>Fabric</span><span>Forge</span><span>NeoForge</span><span>Mods</span><span>Shader</span><span>Modpacks</span>
-            </div>
+            <div class="edition-icon java-icon"><span></span><span></span><span></span></div>
+            <div class="edition-badge java">JAVA EDITION</div>
+            <h3 data-i18n="javaTitle">Versionen, Loader, Mods und Shader.</h3>
+            <p data-i18n="javaLead">Fabric, Forge, NeoForge, Modpacks, Datapacks und Shader – klar dem Java-Profil zugeordnet.</p>
+            <div class="pill-row"><span>Fabric</span><span>Forge</span><span>NeoForge</span><span>Mods</span><span>Shader</span><span>Modpacks</span></div>
           </article>
 
           <article class="edition-card reveal">
-            <div class="edition-badge bedrock">BEDROCK</div>
-            <h3 data-i18n="bedrockTitle">Add-Ons, Packs und Welten.</h3>
-            <p data-i18n="bedrockLead">Behavior Packs, Resource Packs, Welten und Backups – ohne Java-Funktionen dazwischen.</p>
-            <div class="pill-row">
-              <span>Add-Ons</span><span data-i18n="pillWorlds">Welten</span><span>Resource Packs</span><span>Backups</span><span>Skins</span><span>Content</span>
-            </div>
+            <div class="edition-icon bedrock-icon"><span></span><span></span><span></span><span></span></div>
+            <div class="edition-badge bedrock">BEDROCK EDITION</div>
+            <h3 data-i18n="bedrockTitle">Add-Ons, Packs, Welten und Backups.</h3>
+            <p data-i18n="bedrockLead">Bedrock zeigt dir nur die Inhalte, die dort wirklich funktionieren – ohne Java-Menüs dazwischen.</p>
+            <div class="pill-row"><span>Add-Ons</span><span data-i18n="worlds">Welten</span><span>Resource Packs</span><span>Behavior Packs</span><span>Backups</span><span>Content</span></div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="download">
+    <section class="download-section" id="download">
       <div class="shell">
         <div class="download-card reveal">
-          <div class="download-orb"></div>
-          <img class="download-real-logo" src="./logo.png" alt="Perfect Client">
+          <div class="download-aura" aria-hidden="true"></div>
+          <img class="download-logo" src="/assets/perfect-client-logo-v6.png" alt="Perfect Client">
 
           <span class="eyebrow" data-i18n="downloadEyebrow">PERFECT CLIENT FÜR WINDOWS</span>
-          <h2 data-i18n="downloadTitle">Der erste Windows-Build kommt.</h2>
+          <h2 data-i18n="downloadTitle">Hier beginnt Perfect Client.</h2>
           <p data-i18n="downloadLead">
-            Die Website kann bereits veröffentlicht werden. Sobald der echte Installer bereit ist,
-            führt dieser Button direkt zum neuesten Release.
+            Die Website ist bereit für den Release. Sobald der erste echte Windows-Installer veröffentlicht ist,
+            führt dieser Button direkt zum neuesten Perfect-Client-Release.
           </p>
 
-          <a id="releaseButton" class="button primary disabled" href="#download" aria-disabled="true" data-i18n="downloadButton">
-            Windows-Build in Entwicklung
+          <a class="button primary disabled" id="releaseButton" href="#download" aria-disabled="true" data-i18n="downloadButton">
+            Windows-Installer folgt
           </a>
 
-          <div class="download-meta">
+          <div class="download-notes">
             <span>Windows 10 / 11</span>
             <span>Java + Bedrock</span>
-            <span data-i18n="downloadFree">Core-Funktionen kostenlos</span>
+            <span data-i18n="releaseSite">Release-Website online</span>
           </div>
         </div>
       </div>
@@ -355,11 +346,16 @@
 
   <footer>
     <div class="shell footer-row">
-      <div class="footer-brand footer-real-brand">
-        <img class="footer-logo-real" src="./logo.png" alt="Perfect Client">
+      <a href="#top" class="footer-brand" aria-label="Perfect Client">
+        <img src="/assets/perfect-client-logo-v6.png" alt="Perfect Client">
+      </a>
+      <div class="footer-links">
+        <a href="#profiles" data-i18n="navProfiles">Profile</a>
+        <a href="#discover">Discover</a>
+        <a href="#studio">Studio</a>
+        <a href="#download">Download</a>
       </div>
-
-      <div class="footer-note" data-i18n="footerDisclaimer">Nicht mit Mojang Studios oder Microsoft verbunden.</div>
+      <p data-i18n="disclaimer">Nicht mit Mojang Studios oder Microsoft verbunden.</p>
     </div>
   </footer>
 </body>

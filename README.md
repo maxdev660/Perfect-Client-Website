@@ -1,30 +1,35 @@
-# Perfect Client Website — DE / EN
+# Perfect Client — Release Website v6
 
-This package is ready for GitHub + Cloudflare Pages.
+This build is designed for the live Cloudflare Pages site:
+https://perfect-client-website.pages.dev/
 
-## What changed
-- Real `logo.png` is included in the package.
-- Logo is used in the header, download area and footer.
-- German / English switch in the header.
-- Language choice is saved with `localStorage`.
-- German is selected automatically when the browser language starts with `de`; otherwise English.
-- Copy was rewritten to sound more natural and product-focused.
-- The uploaded skin is still used exactly once, only in Skin Studio.
+## What makes this release-ready
+- Real Perfect Client logo included as a versioned asset
+- Strong Perfect Client branding in header, hero, brand statement, download area and footer
+- German / English language menu in the top-right
+- Language uses `?lang=de` or `?lang=en` instead of localStorage
+- No visible "local-first" marketing copy
+- Exactly one Minecraft skin reference, only inside Skin Studio
+- Real public Modrinth Discover data
+- Responsive desktop/mobile design
+- SEO metadata, canonical URL, sitemap, robots.txt and social card
+- Cloudflare security headers
+- HTML/CSS/JS are explicitly no-cache so desktop users do not stay stuck on an old deploy
+- Versioned static images can be cached safely for one year
 
-## Release link
-Edit at the top of `app.js`:
+## Windows release button
+At the top of `app.js`:
 
 ```js
 const CONFIG = {
-  githubUrl: "",
   releaseUrl: ""
 };
 ```
 
-When `releaseUrl` is filled in, the Windows button automatically becomes active.
+When the installer exists, set `releaseUrl` to the real release URL.
+The button becomes active automatically.
 
 ## Cloudflare Pages
 - Framework preset: None
-- Build command: leave empty
+- Build command: empty
 - Build output directory: `.`
-- Root directory: `/`
