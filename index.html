@@ -1,48 +1,61 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-
+  <meta charset="UTF-8" />
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
-  >
-
+  />
   <meta
     name="theme-color"
-    content="#07090f"
-  >
-
+    content="#06080d"
+  />
   <meta
     name="description"
-    content="Perfect Client — Java und Bedrock. Profile, Mods, Skins, Discover und Perfect Studio in einem Minecraft Client."
-  >
+    content="Perfect Client — the modern Minecraft launcher for Java and Bedrock. Profiles, Discover, Skins and Studio in one client."
+  />
+
+  <meta property="og:title" content="Perfect Client — Minecraft. Perfected." />
+  <meta
+    property="og:description"
+    content="Java and Bedrock. Profiles, Discover, Skins and Studio in one client."
+  />
+  <meta property="og:type" content="website" />
 
   <title>Perfect Client — Minecraft. Perfected.</title>
 
   <style>
     :root {
-      --bg: #07090f;
-      --bg-2: #090c13;
-      --surface: rgba(255, 255, 255, 0.035);
-      --surface-2: rgba(255, 255, 255, 0.055);
+      --bg: #06080d;
+      --bg-2: #0a0d14;
+      --bg-3: #0f1420;
+      --surface: rgba(255, 255, 255, 0.03);
+      --surface-2: rgba(255, 255, 255, 0.05);
+      --surface-3: rgba(255, 255, 255, 0.07);
 
-      --border: rgba(255, 255, 255, 0.08);
-      --border-strong: rgba(255, 255, 255, 0.14);
+      --border: rgba(255, 255, 255, 0.075);
+      --border-strong: rgba(255, 255, 255, 0.13);
 
-      --text: #f7f9fc;
-      --soft: #a2a9b7;
-      --muted: #626c7b;
+      --text: #f8fbff;
+      --soft: #a3adbd;
+      --muted: #6c7587;
 
-      --cyan: #49d4ff;
-      --blue: #5f8dff;
-      --purple: #7568ff;
-      --green: #4ce0a0;
+      --cyan: #47d4ff;
+      --blue: #6591ff;
+      --purple: #7a69ff;
+      --green: #4ee29b;
+      --gold: #f6c36c;
+      --red: #ff7688;
 
-      --radius: 22px;
-      --small-radius: 13px;
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
 
       --page: 1280px;
+
+      --shadow-soft: 0 30px 100px rgba(0, 0, 0, 0.34);
+      --shadow-glow: 0 0 0 1px rgba(255,255,255,.03), 0 25px 90px rgba(78, 98, 255, 0.12);
     }
 
     * {
@@ -55,41 +68,20 @@
 
     body {
       margin: 0;
-
       color: var(--text);
-
-      font-family:
-        Inter,
-        "Segoe UI Variable",
-        "Segoe UI",
-        Arial,
-        sans-serif;
-
+      font-family: Inter, "Segoe UI Variable", "Segoe UI", Arial, sans-serif;
       background:
-        radial-gradient(
-          circle at 50% -5%,
-          rgba(94, 108, 255, 0.16),
-          transparent 32%
-        ),
-        radial-gradient(
-          circle at 15% 25%,
-          rgba(73, 212, 255, 0.06),
-          transparent 24%
-        ),
-        var(--bg);
-
+        radial-gradient(circle at 50% -10%, rgba(101,145,255,.18), transparent 28%),
+        radial-gradient(circle at 10% 25%, rgba(71,212,255,.06), transparent 20%),
+        radial-gradient(circle at 85% 35%, rgba(122,105,255,.05), transparent 24%),
+        linear-gradient(180deg, #070910 0%, #06080d 100%);
       overflow-x: hidden;
-
       -webkit-font-smoothing: antialiased;
     }
 
-    button,
-    a {
-      font: inherit;
-    }
-
-    button {
-      color: inherit;
+    img {
+      display: block;
+      max-width: 100%;
     }
 
     a {
@@ -97,163 +89,148 @@
       text-decoration: none;
     }
 
-    img {
-      display: block;
+    button {
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
     }
 
     ::selection {
+      background: rgba(122,105,255,.45);
       color: white;
-      background: rgba(117, 104, 255, 0.55);
     }
 
     .page {
-      width: min(
-        calc(100% - 40px),
-        var(--page)
-      );
-
+      width: min(calc(100% - 34px), var(--page));
       margin-inline: auto;
     }
-
-    /* ======================================================
-       BACKGROUND
-       ====================================================== */
 
     .noise {
       position: fixed;
       inset: 0;
-
-      z-index: 100;
-
       pointer-events: none;
-
-      opacity: 0.025;
-
+      opacity: .025;
+      z-index: 100;
       background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.7'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .07;
+      background:
+        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+      background-size: 90px 90px;
+      mask-image: radial-gradient(circle at 50% 15%, black, transparent 78%);
+      z-index: -1;
     }
 
     .orb {
       position: absolute;
-
-      width: 700px;
-      height: 700px;
-
       border-radius: 999px;
-
       filter: blur(140px);
-
+      opacity: .09;
       pointer-events: none;
-
-      opacity: 0.08;
     }
 
     .orb.one {
-      top: 900px;
-      left: -450px;
-
+      width: 560px;
+      height: 560px;
       background: var(--cyan);
+      left: -260px;
+      top: 900px;
     }
 
     .orb.two {
-      top: 2050px;
-      right: -480px;
-
+      width: 620px;
+      height: 620px;
       background: var(--purple);
+      right: -320px;
+      top: 1800px;
     }
 
-    /* ======================================================
-       NAVIGATION
-       ====================================================== */
+    .orb.three {
+      width: 520px;
+      height: 520px;
+      background: #4f75ff;
+      left: 50%;
+      top: 2750px;
+      transform: translateX(-50%);
+      opacity: .06;
+    }
+
+    /* NAV */
 
     nav {
-      height: 74px;
-
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-
+      height: 76px;
       z-index: 50;
-
-      transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        backdrop-filter 0.2s ease;
-
       border-bottom: 1px solid transparent;
+      transition: background .18s ease, border-color .18s ease, backdrop-filter .18s ease;
     }
 
     nav.scrolled {
-      background: rgba(7, 9, 15, 0.78);
-
+      background: rgba(6,8,13,.78);
       border-color: var(--border);
-
-      backdrop-filter: blur(22px);
+      backdrop-filter: blur(18px);
     }
 
     .nav-inner {
       height: 100%;
-
       display: flex;
       align-items: center;
-
-      gap: 34px;
+      gap: 28px;
     }
 
     .brand {
-      margin-right: auto;
-
       display: flex;
       align-items: center;
-
-      gap: 11px;
+      gap: 12px;
+      margin-right: auto;
     }
 
     .brand img {
       width: 38px;
       height: 38px;
-
       object-fit: contain;
+      border-radius: 10px;
     }
 
-    .brand-text {
+    .brand-wordmark {
       display: flex;
       align-items: baseline;
-
       gap: 6px;
-    }
-
-    .brand-text strong {
-      font-size: 16px;
       font-weight: 900;
-
-      letter-spacing: -0.5px;
+      letter-spacing: -.4px;
     }
 
-    .brand-text span {
-      color: var(--cyan);
+    .brand-wordmark strong {
+      font-size: 17px;
+    }
 
+    .brand-wordmark span {
       font-size: 10px;
-      font-weight: 900;
-
-      letter-spacing: 1.4px;
+      color: var(--cyan);
+      letter-spacing: 1.3px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-
-      gap: 27px;
+      gap: 26px;
     }
 
     .nav-links a {
       color: var(--soft);
-
       font-size: 13px;
-      font-weight: 600;
-
-      transition: color 0.15s ease;
+      font-weight: 650;
+      transition: color .15s ease;
     }
 
     .nav-links a:hover {
@@ -261,210 +238,113 @@
     }
 
     .nav-download {
-      height: 41px;
-
-      padding: 0 17px;
-
+      height: 42px;
+      padding: 0 18px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-
-      border: 1px solid rgba(117, 104, 255, 0.5);
-
-      border-radius: 11px;
-
-      color: white;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(73, 212, 255, 0.12),
-          rgba(117, 104, 255, 0.19)
-        );
-
+      border: 1px solid rgba(122,105,255,.48);
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(71,212,255,.1), rgba(122,105,255,.18));
       font-size: 12px;
-      font-weight: 800;
-
-      transition:
-        transform 0.15s ease,
-        border-color 0.15s ease;
+      font-weight: 850;
+      transition: transform .15s ease, border-color .15s ease;
     }
 
     .nav-download:hover {
       transform: translateY(-1px);
-
-      border-color:
-        rgba(130, 120, 255, 0.85);
+      border-color: rgba(122,105,255,.8);
     }
 
-    /* ======================================================
-       HERO
-       ====================================================== */
+    /* HERO */
 
     .hero {
-      min-height: 930px;
-
       position: relative;
-
-      padding-top: 168px;
-
-      text-align: center;
-
+      min-height: 1000px;
+      padding-top: 150px;
       overflow: hidden;
     }
 
-    .hero::before {
-      content: "";
-
-      width: 900px;
-      height: 900px;
-
-      position: absolute;
-
-      top: -620px;
-      left: 50%;
-
-      transform: translateX(-50%);
-
-      border-radius: 999px;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(73, 212, 255, 0.25),
-          rgba(117, 104, 255, 0.1) 38%,
-          transparent 70%
-        );
-
-      pointer-events: none;
+    .hero-copy {
+      text-align: center;
+      max-width: 980px;
+      margin: 0 auto;
     }
 
     .hero-badge {
       width: fit-content;
-
-      margin: 0 auto 27px;
-
-      padding: 8px 12px;
-
+      margin: 0 auto 28px;
+      padding: 8px 13px;
       display: flex;
       align-items: center;
-
       gap: 8px;
-
       border: 1px solid var(--border);
-
       border-radius: 999px;
-
-      color: #bdc4d0;
-
-      background: rgba(255, 255, 255, 0.025);
-
+      color: #c3cad5;
+      background: rgba(255,255,255,.025);
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 750;
+      letter-spacing: .2px;
     }
 
     .hero-badge i {
-      width: 7px;
-      height: 7px;
-
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-
       background: var(--green);
-
-      box-shadow:
-        0 0 13px rgba(76, 224, 160, 0.6);
+      box-shadow: 0 0 14px rgba(78,226,155,.6);
     }
 
     .hero h1 {
-      max-width: 1000px;
-
-      margin: 0 auto 25px;
-
-      font-size:
-        clamp(58px, 8.5vw, 110px);
-
-      line-height: 0.9;
-
-      font-weight: 900;
-
-      letter-spacing: -6px;
+      margin: 0 0 24px;
+      font-size: clamp(58px, 8.6vw, 114px);
+      line-height: .9;
+      letter-spacing: -5px;
+      font-weight: 950;
     }
 
-    .hero h1 span {
+    .hero h1 .grad {
       color: transparent;
-
-      background:
-        linear-gradient(
-          90deg,
-          #5cddff,
-          #6d9cff 42%,
-          #8b73ff
-        );
-
+      background: linear-gradient(90deg, #66deff, #7c96ff 44%, #9772ff);
       background-clip: text;
       -webkit-background-clip: text;
     }
 
-    .hero-subtitle {
-      max-width: 660px;
-
+    .hero p {
+      max-width: 700px;
       margin: 0 auto;
-
       color: var(--soft);
-
-      font-size: 17px;
+      font-size: 18px;
       line-height: 1.75;
     }
 
     .hero-actions {
-      margin-top: 35px;
-
+      margin-top: 34px;
       display: flex;
-      align-items: center;
       justify-content: center;
-
-      gap: 11px;
-
+      gap: 12px;
       flex-wrap: wrap;
     }
 
     .button-primary,
     .button-secondary {
-      height: 52px;
-
-      padding: 0 22px;
-
-      border-radius: 13px;
-
+      height: 54px;
+      padding: 0 23px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-
       gap: 9px;
-
+      border-radius: 14px;
       font-size: 13px;
-      font-weight: 800;
-
-      transition:
-        transform 0.17s ease,
-        border-color 0.17s ease,
-        background 0.17s ease;
+      font-weight: 850;
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
     }
 
     .button-primary {
       border: 0;
-
       color: white;
-
-      background:
-        linear-gradient(
-          120deg,
-          #49cfff,
-          #7165ff
-        );
-
-      box-shadow:
-        0 18px 55px rgba(100, 97, 255, 0.26);
+      background: linear-gradient(120deg, var(--cyan), var(--purple));
+      box-shadow: 0 18px 55px rgba(88,104,255,.24);
     }
 
     .button-primary:hover {
@@ -473,684 +353,458 @@
 
     .button-secondary {
       border: 1px solid var(--border);
-
-      color: #d7dbe3;
-
-      background: rgba(255, 255, 255, 0.025);
+      background: rgba(255,255,255,.026);
+      color: #d7dce4;
     }
 
     .button-secondary:hover {
       transform: translateY(-2px);
-
       border-color: var(--border-strong);
     }
 
     .hero-note {
       margin-top: 15px;
-
       color: var(--muted);
-
       font-size: 11px;
+      letter-spacing: .2px;
     }
 
-    /* ======================================================
-       LAUNCHER PREVIEW
-       ====================================================== */
-
-    .launcher-wrap {
-      width: min(
-        1120px,
-        calc(100% - 30px)
-      );
-
-      margin:
-        85px auto 0;
-
+    .hero-preview {
+      width: min(1180px, calc(100% - 18px));
+      margin: 72px auto 0;
       position: relative;
-
-      perspective: 1600px;
     }
 
-    .launcher-glow {
+    .hero-glow {
       position: absolute;
-
-      inset:
-        20% 15% -8% 15%;
-
-      z-index: -1;
-
+      inset: 14% 14% -10% 14%;
       filter: blur(70px);
+      opacity: .24;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      z-index: -1;
+    }
 
-      opacity: 0.28;
-
-      background:
-        linear-gradient(
-          90deg,
-          var(--cyan),
-          var(--purple)
-        );
+    .window {
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 30px;
+      background: linear-gradient(145deg, #0b1018, #080b11);
+      box-shadow: var(--shadow-soft);
     }
 
     .launcher-window {
-      height: 590px;
-
-      position: relative;
-
-      overflow: hidden;
-
-      display: flex;
-
-      border: 1px solid rgba(255, 255, 255, 0.11);
-
-      border-radius: 24px;
-
-      background: #090c12;
-
-      box-shadow: var(--shadow);
-
-      transform:
-        rotateX(3deg)
-        rotateY(-1deg);
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr);
+      min-height: 640px;
     }
 
-    .fake-sidebar {
-      width: 82px;
-
-      padding: 18px 10px;
-
-      flex-shrink: 0;
-
+    .side-rail {
+      border-right: 1px solid var(--border);
+      background: linear-gradient(180deg, #0e131c, #090c12);
+      padding: 18px 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
-
       gap: 13px;
-
-      border-right: 1px solid var(--border);
-
-      background:
-        linear-gradient(
-          180deg,
-          #0e1219,
-          #090c12
-        );
     }
 
-    .fake-sidebar-logo {
-      width: 45px;
-      height: 45px;
-
-      padding: 6px;
-
-      margin-bottom: 12px;
-
-      border-radius: 13px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #45d0ff,
-          #7165ff
-        );
+    .side-rail .rail-logo {
+      width: 46px;
+      height: 46px;
+      padding: 7px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #4dcfff, #7867ff);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+      margin-bottom: 10px;
     }
 
-    .fake-sidebar-logo img {
+    .side-rail .rail-logo img {
       width: 100%;
       height: 100%;
-
       object-fit: contain;
     }
 
-    .fake-nav {
-      width: 50px;
-      height: 48px;
-
-      border-radius: 12px;
-
-      background:
-        rgba(255, 255, 255, 0.035);
+    .rail-item {
+      width: 52px;
+      height: 50px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
     }
 
-    .fake-nav.active {
-      border: 1px solid rgba(117, 104, 255, 0.3);
-
-      background:
-        rgba(117, 104, 255, 0.12);
+    .rail-item.active {
+      border: 1px solid rgba(122,105,255,.35);
+      background: rgba(122,105,255,.16);
     }
 
-    .fake-window-main {
-      min-width: 0;
-
-      flex: 1;
-
+    .window-main {
       display: flex;
       flex-direction: column;
+      min-width: 0;
     }
 
-    .fake-topbar {
-      height: 66px;
-
+    .window-topbar {
+      min-height: 70px;
       padding: 0 22px;
-
-      flex-shrink: 0;
-
       display: flex;
       align-items: center;
-
-      gap: 12px;
-
+      gap: 14px;
       border-bottom: 1px solid var(--border);
     }
 
-    .fake-top-brand {
-      width: 125px;
+    .word-bar {
+      width: 158px;
       height: 12px;
-
-      border-radius: 20px;
-
-      background:
-        linear-gradient(
-          90deg,
-          white 0 55%,
-          var(--cyan) 55%
-        );
-
-      opacity: 0.75;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255,255,255,.95) 0 72%, var(--cyan) 72%);
+      opacity: .9;
     }
 
-    .fake-search {
-      width: 250px;
-      height: 34px;
-
-      margin-left: auto;
-
-      border: 1px solid var(--border);
-
-      border-radius: 9px;
-
-      background: rgba(255, 255, 255, 0.025);
-    }
-
-    .fake-user {
-      width: 34px;
-      height: 34px;
-
-      border-radius: 10px;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--cyan),
-          var(--purple)
-        );
-    }
-
-    .fake-content {
-      min-height: 0;
-
-      flex: 1;
-
-      padding: 20px;
-
-      display: grid;
-
-      grid-template-columns:
-        minmax(0, 1fr)
-        300px;
-
-      gap: 15px;
-    }
-
-    .fake-hero {
-      position: relative;
-
+    .top-progress {
+      width: 122px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
       overflow: hidden;
+    }
 
-      padding: 30px;
+    .top-progress > i {
+      display: block;
+      width: 72%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,.85), var(--cyan));
+    }
 
+    .top-search {
+      margin-left: auto;
+      width: 280px;
+      height: 40px;
       border: 1px solid var(--border);
-
-      border-radius: 18px;
-
-      background:
-        radial-gradient(
-          circle at 82% 40%,
-          rgba(117, 104, 255, 0.2),
-          transparent 32%
-        ),
-        linear-gradient(
-          140deg,
-          #111722,
-          #0c1018
-        );
+      border-radius: 11px;
+      background: rgba(255,255,255,.02);
     }
 
-    .fake-small {
-      width: 90px;
-      height: 8px;
-
-      border-radius: 50px;
-
-      background: var(--cyan);
-
-      opacity: 0.65;
-    }
-
-    .fake-title {
-      width: 62%;
-      height: 52px;
-
-      margin-top: 25px;
-
-      border-radius: 10px;
-
-      background:
-        linear-gradient(
-          90deg,
-          white,
-          #728fff
-        );
-
-      opacity: 0.87;
-    }
-
-    .fake-copy {
-      width: 48%;
-      height: 8px;
-
-      margin-top: 15px;
-
-      border-radius: 30px;
-
-      background: rgba(255, 255, 255, 0.14);
-    }
-
-    .fake-copy.short {
-      width: 37%;
-    }
-
-    .fake-play {
-      width: 170px;
-      height: 48px;
-
-      margin-top: 32px;
-
+    .top-avatar {
+      width: 40px;
+      height: 40px;
       border-radius: 12px;
-
-      background:
-        linear-gradient(
-          120deg,
-          var(--cyan),
-          var(--purple)
-        );
-
-      box-shadow:
-        0 15px 35px rgba(112, 101, 255, 0.2);
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
     }
 
-    .fake-character {
-      width: 120px;
-      height: 270px;
+    .window-body {
+      flex: 1;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 16px;
+    }
 
+    .hero-panel {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 76% 50%, rgba(122,105,255,.16), transparent 30%),
+        radial-gradient(circle at 22% 74%, rgba(71,212,255,.12), transparent 20%),
+        linear-gradient(145deg, #111721, #0b1017);
+      min-height: 450px;
+      padding: 34px;
+    }
+
+    .tiny-line {
+      width: 98px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--cyan);
+      opacity: .85;
+    }
+
+    .panel-title {
+      width: 58%;
+      height: 60px;
+      border-radius: 14px;
+      margin-top: 28px;
+      background: linear-gradient(90deg, rgba(255,255,255,.95), #9ab0ff);
+    }
+
+    .panel-copy {
+      width: 52%;
+      height: 9px;
+      border-radius: 999px;
+      margin-top: 16px;
+      background: rgba(255,255,255,.12);
+    }
+
+    .panel-copy.short {
+      width: 39%;
+      margin-top: 10px;
+    }
+
+    .panel-btn {
+      width: 170px;
+      height: 50px;
+      border-radius: 14px;
+      margin-top: 38px;
+      background: linear-gradient(120deg, var(--cyan), var(--purple));
+      box-shadow: 0 16px 38px rgba(101,100,255,.25);
+    }
+
+    .steve-wrap {
       position: absolute;
-
-      right: 48px;
-      top: 65px;
-
-      filter:
-        drop-shadow(
-          0 30px 25px rgba(0, 0, 0, 0.55)
-        );
+      right: 56px;
+      top: 52px;
+      width: 190px;
+      height: 340px;
+      filter: drop-shadow(0 26px 30px rgba(0,0,0,.45));
+      animation: floaty 4s ease-in-out infinite;
     }
 
-    .fake-head {
-      width: 74px;
-      height: 74px;
-
-      margin: 0 auto;
-
-      border-radius: 5px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #775b44,
-          #4c382e
-        );
+    @keyframes floaty {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
 
-    .fake-body {
-      width: 90px;
-      height: 104px;
-
-      margin: 0 auto;
-
-      background:
-        linear-gradient(
-          135deg,
-          #4d72b5,
-          #304b80
-        );
-    }
-
-    .fake-legs {
-      width: 70px;
-      height: 92px;
-
-      margin: 0 auto;
-
-      background:
-        linear-gradient(
-          90deg,
-          #333b56 0 48%,
-          transparent 48% 52%,
-          #333b56 52%
-        );
-    }
-
-    .fake-right {
+    .side-stack {
       display: flex;
       flex-direction: column;
-
-      gap: 11px;
+      gap: 12px;
     }
 
-    .fake-card {
-      min-height: 115px;
-
-      padding: 16px;
-
+    .mini-card {
       border: 1px solid var(--border);
-
-      border-radius: 16px;
-
-      background: rgba(255, 255, 255, 0.025);
+      border-radius: 18px;
+      background: rgba(255,255,255,.024);
+      min-height: 128px;
+      padding: 16px;
     }
 
-    .fake-card-icon {
-      width: 37px;
-      height: 37px;
-
-      margin-bottom: 14px;
-
-      border-radius: 10px;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(73, 212, 255, 0.3),
-          rgba(117, 104, 255, 0.4)
-        );
+    .mini-card-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(71,212,255,.24), rgba(122,105,255,.38));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+      margin-bottom: 16px;
     }
 
-    .fake-card-title {
-      width: 65%;
+    .mini-card-line {
+      width: 68%;
       height: 8px;
-
-      border-radius: 20px;
-
-      background: rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
+      background: rgba(255,255,255,.34);
     }
 
-    .fake-card-copy {
-      width: 83%;
+    .mini-card-line.two {
+      margin-top: 10px;
+      width: 86%;
       height: 6px;
-
-      margin-top: 9px;
-
-      border-radius: 20px;
-
-      background: rgba(255, 255, 255, 0.09);
+      background: rgba(255,255,255,.1);
     }
 
-    /* ======================================================
-       GLOBAL SECTIONS
-       ====================================================== */
+    /* sections */
 
     .section {
       position: relative;
-
-      padding:
-        130px 0;
+      padding: 125px 0;
     }
 
     .section-header {
       max-width: 760px;
-
-      margin-bottom: 55px;
+      margin-bottom: 56px;
     }
 
     .section-header.center {
       margin-inline: auto;
-
       text-align: center;
     }
 
     .eyebrow {
       color: var(--cyan);
-
       font-size: 11px;
       font-weight: 850;
-
       letter-spacing: 1.7px;
     }
 
     .section-header h2 {
-      margin:
-        12px 0 17px;
-
-      font-size:
-        clamp(42px, 5vw, 70px);
-
-      line-height: 0.98;
-
-      letter-spacing: -3.5px;
+      margin: 12px 0 16px;
+      font-size: clamp(42px, 5vw, 72px);
+      line-height: .98;
+      letter-spacing: -3.4px;
     }
 
     .section-header p {
       margin: 0;
-
       color: var(--soft);
-
       font-size: 16px;
-      line-height: 1.7;
+      line-height: 1.72;
     }
 
-    /* ======================================================
-       JAVA BEDROCK
-       ====================================================== */
+    /* quick feature strip */
+
+    .feature-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .feature-chip {
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255,255,255,.025);
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .feature-chip-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(71,212,255,.18), rgba(122,105,255,.25));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.07);
+      font-weight: 900;
+      color: white;
+    }
+
+    .feature-chip-text strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .feature-chip-text span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    /* java + bedrock */
 
     .edition-grid {
       display: grid;
-
-      grid-template-columns:
-        1fr 1fr;
-
+      grid-template-columns: 1fr 1fr;
       gap: 16px;
     }
 
     .edition-card {
-      min-height: 420px;
-
       position: relative;
-
       overflow: hidden;
-
-      padding: 34px;
-
       border: 1px solid var(--border);
-
-      border-radius: var(--radius);
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.045),
-          rgba(255, 255, 255, 0.018)
-        );
+      border-radius: 24px;
+      min-height: 420px;
+      background: linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.018));
+      padding: 34px;
+      box-shadow: var(--shadow-glow);
     }
 
     .edition-card::after {
       content: "";
-
-      width: 300px;
-      height: 300px;
-
       position: absolute;
-
-      right: -100px;
-      top: -100px;
-
+      width: 280px;
+      height: 280px;
       border-radius: 50%;
-
+      top: -90px;
+      right: -100px;
+      opacity: .14;
       filter: blur(20px);
-
-      opacity: 0.15;
     }
 
-    .edition-card.java::after {
-      background: var(--cyan);
-    }
-
-    .edition-card.bedrock::after {
-      background: var(--purple);
-    }
+    .edition-card.java::after { background: var(--cyan); }
+    .edition-card.bedrock::after { background: var(--purple); }
 
     .edition-badge {
       width: fit-content;
-
       padding: 7px 10px;
-
       border: 1px solid var(--border);
-
       border-radius: 999px;
-
+      background: rgba(255,255,255,.02);
       color: var(--soft);
-
-      background: rgba(255, 255, 255, 0.025);
-
       font-size: 10px;
       font-weight: 800;
     }
 
     .edition-card h3 {
-      margin:
-        26px 0 10px;
-
+      margin: 24px 0 12px;
       font-size: 34px;
-
       letter-spacing: -1.5px;
     }
 
     .edition-card > p {
-      max-width: 470px;
-
-      margin:
-        0 0 26px;
-
+      margin: 0 0 24px;
       color: var(--soft);
-
-      line-height: 1.65;
+      max-width: 500px;
+      line-height: 1.7;
     }
 
     .edition-list {
       display: grid;
-
-      grid-template-columns:
-        1fr 1fr;
-
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
     }
 
     .edition-list div {
       min-height: 48px;
-
-      padding: 0 13px;
-
+      padding: 0 14px;
       display: flex;
       align-items: center;
-
       border: 1px solid var(--border);
-
-      border-radius: 11px;
-
-      color: #c8cdd6;
-
-      background: rgba(255, 255, 255, 0.02);
-
+      border-radius: 12px;
+      background: rgba(255,255,255,.02);
+      color: #ccd2dc;
       font-size: 12px;
       font-weight: 650;
     }
 
-    /* ======================================================
-       PROFILE SECTION
-       ====================================================== */
+    /* profiles */
 
     .profile-showcase {
       overflow: hidden;
-
       border: 1px solid var(--border);
-
-      border-radius: 24px;
-
-      background:
-        linear-gradient(
-          145deg,
-          #0e121a,
-          #090c12
-        );
-
-      box-shadow: var(--shadow);
+      border-radius: 28px;
+      background: linear-gradient(145deg, #0d121a, #090c12);
+      box-shadow: var(--shadow-soft);
     }
 
     .showcase-topbar {
-      min-height: 72px;
-
-      padding: 0 22px;
-
+      min-height: 74px;
+      padding: 0 18px;
       display: flex;
       align-items: center;
-
       gap: 8px;
-
       border-bottom: 1px solid var(--border);
     }
 
     .showcase-tab {
-      height: 34px;
-
+      height: 36px;
       padding: 0 14px;
-
-      display: flex;
+      display: inline-flex;
       align-items: center;
-
-      border-radius: 8px;
-
+      border-radius: 10px;
       color: var(--muted);
-
-      background: transparent;
-
+      background: rgba(255,255,255,.02);
       font-size: 11px;
-      font-weight: 750;
+      font-weight: 800;
     }
 
     .showcase-tab.active {
       color: white;
-
-      background: rgba(117, 104, 255, 0.12);
+      background: rgba(122,105,255,.15);
     }
 
     .showcase-search {
-      width: 230px;
-      height: 35px;
-
+      width: 250px;
+      height: 38px;
       margin-left: auto;
-
       border: 1px solid var(--border);
-
-      border-radius: 9px;
-
-      background: rgba(255, 255, 255, 0.02);
+      border-radius: 11px;
+      background: rgba(255,255,255,.02);
     }
 
     .profile-list {
@@ -1158,49 +812,44 @@
     }
 
     .profile-row {
-      min-height: 91px;
-
-      padding:
-        12px 13px;
-
+      min-height: 95px;
+      padding: 14px;
       display: flex;
       align-items: center;
-
       gap: 14px;
+      border-bottom: 1px solid rgba(255,255,255,.045);
+    }
 
-      border-bottom: 1px solid
-        rgba(255, 255, 255, 0.045);
+    .profile-row:last-child {
+      border-bottom: 0;
     }
 
     .profile-icon {
-      width: 54px;
-      height: 54px;
-
+      width: 56px;
+      height: 56px;
       flex-shrink: 0;
+      border-radius: 15px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+    }
 
-      border-radius: 13px;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--cyan),
-          var(--purple)
-        );
-
-      box-shadow:
-        inset 0 0 0 1px
-        rgba(255, 255, 255, 0.09);
+    .profile-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .profile-info {
       flex: 1;
+      min-width: 0;
     }
 
     .profile-name {
       display: flex;
       align-items: center;
-
       gap: 9px;
+      flex-wrap: wrap;
     }
 
     .profile-name strong {
@@ -1210,704 +859,589 @@
     .badge-java,
     .badge-bedrock {
       padding: 4px 7px;
-
-      border-radius: 6px;
-
+      border-radius: 7px;
       font-size: 8px;
-      font-weight: 850;
+      font-weight: 900;
+      letter-spacing: .5px;
     }
 
     .badge-java {
-      color: #64dbff;
-
-      background: rgba(73, 212, 255, 0.08);
+      background: rgba(71,212,255,.1);
+      color: #67dfff;
     }
 
     .badge-bedrock {
-      color: #9b8cff;
-
-      background: rgba(117, 104, 255, 0.1);
+      background: rgba(122,105,255,.12);
+      color: #a79aff;
     }
 
     .profile-info span {
       display: block;
-
-      margin-top: 5px;
-
       color: var(--muted);
-
       font-size: 11px;
+      margin-top: 5px;
     }
 
     .profile-actions {
       display: flex;
-
-      gap: 7px;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
     .profile-button {
-      height: 36px;
-
+      height: 38px;
       padding: 0 13px;
-
       border: 1px solid var(--border);
-
-      border-radius: 9px;
-
-      color: #c8ced8;
-
-      background: rgba(255, 255, 255, 0.025);
-
+      border-radius: 10px;
+      background: rgba(255,255,255,.024);
+      color: #d0d5de;
       font-size: 10px;
-      font-weight: 750;
+      font-weight: 800;
     }
 
     .profile-button.play {
       border: 0;
-
       color: white;
-
-      background:
-        linear-gradient(
-          115deg,
-          #49ceff,
-          #7165ff
-        );
+      background: linear-gradient(120deg, var(--cyan), var(--purple));
     }
 
-    /* ======================================================
-       DISCOVER
-       ====================================================== */
+    /* discover */
 
     .discover-window {
-      display: grid;
-
-      grid-template-columns:
-        minmax(0, 1fr)
-        235px;
-
       overflow: hidden;
-
+      display: grid;
+      grid-template-columns: minmax(0,1fr) 255px;
       border: 1px solid var(--border);
-
-      border-radius: 24px;
-
+      border-radius: 28px;
       background: #0a0d13;
-
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-soft);
     }
 
     .discover-main {
-      min-width: 0;
-
       padding: 20px;
+      min-width: 0;
     }
 
     .discover-tabs {
       display: flex;
-
-      gap: 6px;
-
+      gap: 7px;
       margin-bottom: 16px;
-
       overflow-x: auto;
     }
 
     .discover-tab {
-      height: 34px;
-
-      padding: 0 13px;
-
-      display: flex;
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 10px;
+      display: inline-flex;
       align-items: center;
-
-      border-radius: 8px;
-
+      background: rgba(255,255,255,.025);
       color: var(--muted);
-
-      background: rgba(255, 255, 255, 0.025);
-
-      font-size: 9px;
-      font-weight: 800;
+      font-size: 10px;
+      font-weight: 850;
+      white-space: nowrap;
     }
 
     .discover-tab.active {
       color: white;
-
-      background: rgba(117, 104, 255, 0.13);
+      background: rgba(122,105,255,.15);
     }
 
     .discover-search {
-      height: 43px;
-
-      margin-bottom: 12px;
-
+      height: 44px;
       border: 1px solid var(--border);
-
-      border-radius: 11px;
-
-      background:
-        rgba(255, 255, 255, 0.025);
+      border-radius: 12px;
+      background: rgba(255,255,255,.02);
+      margin-bottom: 12px;
     }
 
     .project-row {
-      min-height: 112px;
-
-      padding: 13px 0;
-
+      min-height: 115px;
+      padding: 14px 0;
       display: flex;
       align-items: center;
-
       gap: 14px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
 
-      border-bottom: 1px solid var(--border);
+    .project-row:last-child {
+      border-bottom: 0;
     }
 
     .project-icon {
       width: 74px;
       height: 74px;
-
       flex-shrink: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 16px;
-
-      color: white;
-
-      font-size: 25px;
-      font-weight: 900;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(73, 212, 255, 0.28),
-          rgba(117, 104, 255, 0.38)
-        );
-
-      box-shadow:
-        inset 0 0 0 1px
-        rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(71,212,255,.26), rgba(122,105,255,.36));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
     }
 
     .project-body {
-      min-width: 0;
-
       flex: 1;
+      min-width: 0;
     }
 
     .project-body strong {
       display: block;
-
-      font-size: 14px;
+      font-size: 15px;
     }
 
     .project-body small {
       display: block;
-
       margin-top: 4px;
-
       color: var(--muted);
-
       font-size: 10px;
     }
 
     .project-body p {
-      max-width: 600px;
-
-      margin:
-        7px 0 0;
-
+      margin: 8px 0 0;
+      max-width: 620px;
       color: var(--soft);
-
-      font-size: 11px;
-      line-height: 1.5;
+      font-size: 12px;
+      line-height: 1.55;
     }
 
     .install-button {
-      height: 37px;
-
-      padding: 0 14px;
-
-      flex-shrink: 0;
-
+      height: 40px;
+      padding: 0 16px;
       border: 0;
-
-      border-radius: 9px;
-
+      border-radius: 10px;
+      background: linear-gradient(120deg, #7a6bff, #6d58ff);
       color: white;
-
-      background: var(--purple);
-
       font-size: 10px;
-      font-weight: 800;
+      font-weight: 850;
+      flex-shrink: 0;
     }
 
     .filters {
       padding: 20px;
-
       border-left: 1px solid var(--border);
-
-      background:
-        rgba(255, 255, 255, 0.012);
+      background: rgba(255,255,255,.012);
     }
 
     .filters > strong {
       display: block;
-
       margin-bottom: 20px;
-
       font-size: 12px;
+      letter-spacing: .2px;
     }
 
     .filter-block {
-      margin-bottom: 22px;
+      margin-bottom: 24px;
     }
 
     .filter-block span {
       display: block;
-
-      margin-bottom: 8px;
-
+      margin-bottom: 10px;
       color: var(--muted);
-
-      font-size: 9px;
-      font-weight: 800;
+      font-size: 10px;
+      font-weight: 850;
     }
 
     .filter-option {
-      height: 32px;
-
-      margin-bottom: 5px;
-
-      padding: 0 9px;
-
+      height: 34px;
+      padding: 0 10px;
       display: flex;
       align-items: center;
-
-      border-radius: 8px;
-
-      color: #9fa7b4;
-
-      background: rgba(255, 255, 255, 0.025);
-
+      border-radius: 10px;
+      background: rgba(255,255,255,.025);
+      color: #aeb6c3;
       font-size: 10px;
+      margin-bottom: 6px;
     }
 
-    /* ======================================================
-       STUDIO
-       ====================================================== */
+    /* Studio cards */
 
     .studio-grid {
       display: grid;
-
-      grid-template-columns:
-        repeat(2, 1fr);
-
-      gap: 15px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
     }
 
     .studio-card {
-      min-height: 330px;
-
       position: relative;
-
       overflow: hidden;
-
-      padding: 29px;
-
+      min-height: 360px;
+      padding: 28px;
       border: 1px solid var(--border);
-
-      border-radius: 22px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.045),
-          rgba(255, 255, 255, 0.018)
-        );
-
-      transition:
-        transform 0.18s ease,
-        border-color 0.18s ease;
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(255,255,255,.042), rgba(255,255,255,.018));
+      transition: transform .18s ease, border-color .18s ease;
+      box-shadow: var(--shadow-glow);
     }
 
     .studio-card:hover {
       transform: translateY(-4px);
-
       border-color: var(--border-strong);
     }
 
     .studio-icon {
       width: 48px;
       height: 48px;
-
-      margin-bottom: 45px;
-
+      margin-bottom: 20px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(71,212,255,.18), rgba(122,105,255,.28));
       display: flex;
       align-items: center;
       justify-content: center;
-
-      border-radius: 14px;
-
-      font-size: 21px;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(73, 212, 255, 0.14),
-          rgba(117, 104, 255, 0.18)
-        );
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+      font-size: 20px;
+      font-weight: 900;
     }
 
     .studio-card h3 {
-      margin:
-        0 0 9px;
-
-      font-size: 27px;
-
+      margin: 0 0 9px;
+      font-size: 28px;
       letter-spacing: -1.2px;
     }
 
     .studio-card p {
       max-width: 430px;
-
       margin: 0;
-
       color: var(--soft);
-
-      line-height: 1.65;
+      line-height: 1.68;
+      font-size: 14px;
     }
 
-    .studio-preview {
-      width: 200px;
-      height: 120px;
-
-      position: absolute;
-
-      right: 20px;
-      top: 25px;
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(8, 1fr);
-
-      overflow: hidden;
-
+    .studio-card .help-pill {
+      margin-top: 18px;
+      width: fit-content;
+      padding: 8px 11px;
       border: 1px solid var(--border);
-
-      border-radius: 14px;
-
-      transform:
-        rotate(3deg);
-
-      opacity: 0.65;
+      border-radius: 999px;
+      background: rgba(255,255,255,.025);
+      color: #cad1db;
+      font-size: 11px;
+      font-weight: 700;
     }
 
-    .studio-preview i:nth-child(3n) {
-      background: rgba(73, 212, 255, 0.25);
+    .studio-visual {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      width: 205px;
+      height: 130px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: linear-gradient(145deg, #0f141d, #0b1017);
+      transform: rotate(3deg);
+      opacity: .92;
     }
 
-    .studio-preview i:nth-child(5n) {
-      background: rgba(117, 104, 255, 0.35);
+    .studio-visual.texture {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(5, 1fr);
     }
 
-    .studio-preview i {
-      background: rgba(255, 255, 255, 0.035);
+    .studio-visual.texture i:nth-child(3n) { background: rgba(71,212,255,.23); }
+    .studio-visual.texture i:nth-child(5n) { background: rgba(122,105,255,.28); }
+    .studio-visual.texture i:nth-child(7n) { background: rgba(255,255,255,.08); }
+    .studio-visual.texture i { border: 1px solid rgba(255,255,255,.02); }
 
-      border:
-        1px solid rgba(255, 255, 255, 0.025);
+    .studio-visual.hud {
+      padding: 16px;
     }
 
-    /* ======================================================
-       LOCAL FIRST
-       ====================================================== */
+    .hud-line {
+      height: 16px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.08);
+      margin-bottom: 11px;
+    }
+
+    .hud-box {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .hud-box i {
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(71,212,255,.18), rgba(122,105,255,.3));
+    }
+
+    .studio-visual.theme {
+      padding: 16px;
+    }
+
+    .theme-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .theme-row i {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+    }
+
+    .theme-row i:nth-child(1) { background: #101826; }
+    .theme-row i:nth-child(2) { background: #47d4ff; }
+    .theme-row i:nth-child(3) { background: #6794ff; }
+    .theme-row i:nth-child(4) { background: #7a69ff; }
+
+    /* gallery */
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    .gallery-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 260px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.018));
+      box-shadow: var(--shadow-glow);
+    }
+
+    .gallery-card .label {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      z-index: 2;
+      padding: 7px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(0,0,0,.22);
+      font-size: 10px;
+      font-weight: 800;
+      color: #dde2ea;
+      backdrop-filter: blur(12px);
+    }
+
+    .gallery-copy {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      z-index: 2;
+    }
+
+    .gallery-copy h4 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      letter-spacing: -1px;
+    }
+
+    .gallery-copy p {
+      margin: 0;
+      color: var(--soft);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    /* Local-first */
 
     .local-card {
-      min-height: 420px;
-
-      padding: 60px;
-
       position: relative;
-
       overflow: hidden;
-
       border: 1px solid var(--border);
-
-      border-radius: 28px;
-
+      border-radius: 30px;
       background:
-        radial-gradient(
-          circle at 80% 50%,
-          rgba(73, 212, 255, 0.12),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 90% 35%,
-          rgba(117, 104, 255, 0.13),
-          transparent 25%
-        ),
-        linear-gradient(
-          140deg,
-          #10151e,
-          #090c12
-        );
+        radial-gradient(circle at 78% 50%, rgba(71,212,255,.12), transparent 30%),
+        radial-gradient(circle at 85% 35%, rgba(122,105,255,.14), transparent 22%),
+        linear-gradient(145deg, #10151e, #0a0d13);
+      padding: 60px;
+      min-height: 420px;
+      box-shadow: var(--shadow-soft);
     }
 
     .local-card h2 {
-      max-width: 650px;
-
-      margin:
-        12px 0 18px;
-
-      font-size:
-        clamp(42px, 5vw, 68px);
-
-      line-height: 0.98;
-
+      margin: 12px 0 18px;
+      max-width: 660px;
+      font-size: clamp(42px, 5vw, 72px);
+      line-height: .98;
       letter-spacing: -3px;
     }
 
     .local-card > p {
-      max-width: 580px;
-
+      max-width: 600px;
       margin: 0;
-
       color: var(--soft);
-
       font-size: 15px;
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
     .local-points {
       margin-top: 30px;
-
       display: flex;
-
+      gap: 10px;
       flex-wrap: wrap;
-
-      gap: 9px;
     }
 
     .local-point {
-      padding:
-        9px 12px;
-
+      padding: 10px 13px;
       border: 1px solid var(--border);
-
-      border-radius: 9px;
-
-      color: #c3cad4;
-
-      background: rgba(255, 255, 255, 0.025);
-
+      border-radius: 11px;
+      background: rgba(255,255,255,.024);
+      color: #c8d0da;
       font-size: 11px;
-      font-weight: 650;
+      font-weight: 700;
     }
 
-    /* ======================================================
-       DOWNLOAD
-       ====================================================== */
+    /* download */
 
     .download-section {
-      padding:
-        120px 0 150px;
-
+      padding: 120px 0 150px;
       text-align: center;
     }
 
     .download-box {
-      padding:
-        85px 30px;
-
       position: relative;
-
       overflow: hidden;
-
+      padding: 84px 30px;
       border: 1px solid var(--border);
-
-      border-radius: 30px;
-
+      border-radius: 32px;
       background:
-        radial-gradient(
-          circle at 50% -15%,
-          rgba(73, 212, 255, 0.19),
-          transparent 40%
-        ),
-        radial-gradient(
-          circle at 50% 110%,
-          rgba(117, 104, 255, 0.16),
-          transparent 42%
-        ),
-        linear-gradient(
-          145deg,
-          #10151e,
-          #090c12
-        );
+        radial-gradient(circle at 50% -5%, rgba(71,212,255,.18), transparent 30%),
+        radial-gradient(circle at 50% 108%, rgba(122,105,255,.18), transparent 40%),
+        linear-gradient(145deg, #10151e, #090c12);
+      box-shadow: var(--shadow-soft);
     }
 
     .download-logo {
-      width: 72px;
-      height: 72px;
-
-      margin:
-        0 auto 25px;
-
+      width: 76px;
+      height: 76px;
+      margin: 0 auto 24px;
       object-fit: contain;
-
-      filter:
-        drop-shadow(
-          0 18px 35px rgba(94, 105, 255, 0.28)
-        );
+      filter: drop-shadow(0 18px 35px rgba(98,112,255,.3));
     }
 
     .download-box h2 {
-      margin:
-        0 0 15px;
-
-      font-size:
-        clamp(46px, 6vw, 78px);
-
+      margin: 0 0 15px;
+      font-size: clamp(46px, 6vw, 82px);
       letter-spacing: -4px;
     }
 
     .download-box p {
-      max-width: 570px;
-
-      margin:
-        0 auto 28px;
-
+      max-width: 600px;
+      margin: 0 auto 28px;
       color: var(--soft);
-
       font-size: 15px;
-      line-height: 1.7;
+      line-height: 1.72;
     }
 
     .download-meta {
       margin-top: 14px;
-
       color: var(--muted);
-
       font-size: 10px;
     }
 
-    .not-ready {
-      max-width: 580px;
-
-      margin:
-        16px auto 0;
-
-      padding:
-        10px 12px;
-
-      display: none;
-
-      border: 1px solid
-        rgba(255, 197, 85, 0.18);
-
-      border-radius: 10px;
-
-      color: #e7bf75;
-
-      background:
-        rgba(255, 183, 55, 0.04);
-
+    .notice {
+      max-width: 620px;
+      margin: 16px auto 0;
+      padding: 11px 14px;
+      border: 1px solid rgba(246,195,108,.18);
+      border-radius: 11px;
+      background: rgba(246,195,108,.05);
+      color: #ecc37d;
       font-size: 11px;
+      line-height: 1.5;
+      display: none;
     }
 
-    .not-ready.show {
+    .notice.show {
       display: block;
     }
 
-    /* ======================================================
-       FOOTER
-       ====================================================== */
+    /* footer */
 
     footer {
       border-top: 1px solid var(--border);
     }
 
     .footer-inner {
-      min-height: 125px;
-
+      min-height: 126px;
       display: flex;
       align-items: center;
-
-      gap: 20px;
+      gap: 16px;
     }
 
     .footer-brand {
       display: flex;
       align-items: center;
-
       gap: 10px;
-
       font-size: 12px;
-      font-weight: 800;
+      font-weight: 850;
     }
 
     .footer-brand img {
-      width: 30px;
-      height: 30px;
-
+      width: 31px;
+      height: 31px;
       object-fit: contain;
     }
 
-    .footer-copy {
+    .footer-links {
+      display: flex;
+      gap: 18px;
       margin-left: auto;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
 
+    .footer-links a,
+    .footer-copy {
       color: var(--muted);
-
       font-size: 10px;
     }
 
-    /* ======================================================
-       REVEAL
-       ====================================================== */
+    .footer-links a:hover {
+      color: white;
+    }
+
+    /* reveal */
 
     .reveal {
       opacity: 0;
-
       transform: translateY(24px);
-
-      transition:
-        opacity 0.7s ease,
-        transform 0.7s ease;
+      transition: opacity .72s ease, transform .72s ease;
     }
 
     .reveal.visible {
       opacity: 1;
-
       transform: translateY(0);
     }
 
-    /* ======================================================
-       RESPONSIVE
-       ====================================================== */
+    /* helper */
 
-    @media (
-      max-width: 1000px
-    ) {
-      .nav-links {
-        display: none;
+    .pixel-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* responsive */
+
+    @media (max-width: 1120px) {
+      .feature-strip {
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .launcher-window {
-        height: 530px;
-      }
-
-      .fake-content {
+      .window-body {
         grid-template-columns: 1fr;
       }
 
-      .fake-right {
+      .side-stack {
         display: none;
       }
 
-      .edition-grid {
+      .edition-grid,
+      .studio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
         grid-template-columns: 1fr;
       }
 
@@ -1918,91 +1452,138 @@
       .filters {
         display: none;
       }
+    }
 
-      .studio-grid {
-        grid-template-columns: 1fr;
+    @media (max-width: 860px) {
+      .nav-links {
+        display: none;
+      }
+
+      .launcher-window {
+        grid-template-columns: 68px 1fr;
+        min-height: 520px;
+      }
+
+      .top-search {
+        width: 140px;
+      }
+
+      .steve-wrap {
+        right: 20px;
+        top: 68px;
+        transform: scale(.82);
+        transform-origin: top right;
+      }
+
+      .local-card {
+        padding: 38px 24px;
       }
     }
 
-    @media (
-      max-width: 720px
-    ) {
+    @media (max-width: 720px) {
       .page {
-        width:
-          min(
-            calc(100% - 26px),
-            var(--page)
-          );
+        width: min(calc(100% - 24px), var(--page));
       }
 
-      .brand-text {
+      .brand-wordmark {
         display: none;
       }
 
       .hero {
-        min-height: 800px;
-
-        padding-top: 140px;
+        min-height: 860px;
+        padding-top: 135px;
       }
 
       .hero h1 {
         letter-spacing: -3px;
       }
 
-      .hero-subtitle {
-        font-size: 14px;
+      .hero p {
+        font-size: 15px;
       }
 
-      .nav-download {
-        padding: 0 12px;
-      }
-
-      .launcher-wrap {
-        margin-top: 65px;
+      .hero-preview {
+        margin-top: 52px;
       }
 
       .launcher-window {
-        height: 390px;
+        min-height: 430px;
       }
 
-      .fake-sidebar {
-        width: 60px;
+      .side-rail {
+        gap: 10px;
       }
 
-      .fake-topbar {
-        height: 52px;
+      .side-rail .rail-logo {
+        width: 42px;
+        height: 42px;
       }
 
-      .fake-search {
-        width: 120px;
+      .rail-item {
+        width: 44px;
+        height: 44px;
       }
 
-      .fake-content {
+      .window-topbar {
+        min-height: 54px;
+      }
+
+      .word-bar {
+        width: 88px;
+        height: 10px;
+      }
+
+      .top-progress {
+        display: none;
+      }
+
+      .window-body {
         padding: 12px;
       }
 
-      .fake-hero {
+      .hero-panel {
+        min-height: 300px;
         padding: 20px;
       }
 
-      .fake-character {
-        right: 15px;
+      .panel-title {
+        width: 66%;
+        height: 40px;
+      }
 
-        transform: scale(0.72);
+      .panel-copy {
+        width: 70%;
+      }
 
-        transform-origin: top right;
+      .panel-copy.short {
+        width: 55%;
+      }
+
+      .panel-btn {
+        width: 128px;
+        height: 42px;
+        margin-top: 24px;
+      }
+
+      .steve-wrap {
+        width: 120px;
+        height: 220px;
+        right: 8px;
+        top: 48px;
       }
 
       .section {
-        padding: 85px 0;
+        padding: 84px 0;
       }
 
-      .section-header h2 {
+      .section-header h2,
+      .local-card h2,
+      .download-box h2 {
         letter-spacing: -2px;
       }
 
-      .edition-card {
-        padding: 25px;
+      .feature-strip {
+        grid-template-columns: 1fr;
       }
 
       .edition-list {
@@ -2019,27 +1600,16 @@
 
       .profile-row {
         align-items: flex-start;
-
         flex-wrap: wrap;
-      }
-
-      .profile-info {
-        min-width: 190px;
       }
 
       .profile-actions {
         width: 100%;
-
-        padding-left: 68px;
-      }
-
-      .discover-main {
-        padding: 13px;
+        padding-left: 70px;
       }
 
       .project-row {
         align-items: flex-start;
-
         flex-wrap: wrap;
       }
 
@@ -2048,53 +1618,42 @@
       }
 
       .studio-card {
-        min-height: 300px;
+        min-height: 320px;
       }
 
-      .studio-preview {
-        opacity: 0.3;
-      }
-
-      .local-card {
-        padding: 35px 24px;
+      .studio-visual {
+        opacity: .38;
       }
 
       .download-box {
-        padding:
-          60px 20px;
+        padding: 60px 20px;
       }
 
       .footer-inner {
-        padding:
-          30px 0;
-
-        flex-direction: column;
-
+        min-height: unset;
+        padding: 26px 0;
         align-items: flex-start;
+        flex-direction: column;
       }
 
-      .footer-copy {
+      .footer-links {
         margin-left: 0;
+        justify-content: flex-start;
       }
     }
 
-    @media (
-      prefers-reduced-motion: reduce
-    ) {
+    @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
       *::after {
-        scroll-behavior: auto !important;
-
-        animation-duration: 0.01ms !important;
+        animation-duration: .01ms !important;
         animation-iteration-count: 1 !important;
-
-        transition-duration: 0.01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
       }
 
       .reveal {
         opacity: 1;
-
         transform: none;
       }
     }
@@ -2102,1062 +1661,750 @@
 </head>
 
 <body>
-
   <div class="noise"></div>
-
+  <div class="grid-bg"></div>
   <div class="orb one"></div>
   <div class="orb two"></div>
-
-
-  <!-- =====================================================
-       NAVIGATION
-       ===================================================== -->
+  <div class="orb three"></div>
 
   <nav id="navbar">
-
     <div class="page nav-inner">
-
-      <a
-        class="brand"
-        href="#top"
-      >
-
-        <img
-          src="logo.png"
-          alt="Perfect Client Logo"
-        >
-
-        <div class="brand-text">
-
-          <strong>
-            PERFECT
-          </strong>
-
-          <span>
-            CLIENT
-          </span>
-
+      <a class="brand" href="#top">
+        <img src="logo.png" alt="Perfect Client logo" />
+        <div class="brand-wordmark">
+          <strong>PERFECT</strong>
+          <span>CLIENT</span>
         </div>
-
       </a>
-
 
       <div class="nav-links">
-
-        <a href="#profiles">
-          Profiles
-        </a>
-
-        <a href="#discover">
-          Discover
-        </a>
-
-        <a href="#studio">
-          Studio
-        </a>
-
-        <a href="#editions">
-          Java + Bedrock
-        </a>
-
+        <a href="#profiles">Profiles</a>
+        <a href="#discover">Discover</a>
+        <a href="#studio">Studio</a>
+        <a href="#gallery">Preview</a>
+        <a href="#editions">Java + Bedrock</a>
       </div>
 
-
-      <a
-        class="nav-download"
-        href="#download"
-      >
-        Download
-      </a>
-
+      <a class="nav-download" href="#download">Download</a>
     </div>
-
   </nav>
 
-
-  <!-- =====================================================
-       HERO
-       ===================================================== -->
-
   <main id="top">
-
     <section class="hero">
-
       <div class="page">
+        <div class="hero-copy">
+          <div class="hero-badge">
+            <i></i>
+            BUILT FOR MINECRAFT PLAYERS
+          </div>
 
-        <div class="hero-badge">
+          <h1>
+            MINECRAFT.
+            <br />
+            <span class="grad">PERFECTED.</span>
+          </h1>
 
-          <i></i>
+          <p>
+            One client for Java and Bedrock.
+            Build profiles, install content, manage your skins
+            and create your own Minecraft experience.
+          </p>
 
-          BUILT FOR MINECRAFT PLAYERS
+          <div class="hero-actions">
+            <a class="button-primary" href="#download">Download for Windows</a>
+            <a class="button-secondary" href="#profiles">Explore Perfect Client</a>
+          </div>
 
+          <div class="hero-note">
+            Windows 10 / 11 • Local First • No subscription required
+          </div>
+
+          <div class="feature-strip reveal">
+            <div class="feature-chip">
+              <div class="feature-chip-icon">P</div>
+              <div class="feature-chip-text">
+                <strong>Profiles</strong>
+                <span>Version, mods, worlds and settings together</span>
+              </div>
+            </div>
+            <div class="feature-chip">
+              <div class="feature-chip-icon">D</div>
+              <div class="feature-chip-text">
+                <strong>Discover</strong>
+                <span>Mods, packs and shaders in one place</span>
+              </div>
+            </div>
+            <div class="feature-chip">
+              <div class="feature-chip-icon">S</div>
+              <div class="feature-chip-text">
+                <strong>Skins</strong>
+                <span>Import, preview and organize your skins</span>
+              </div>
+            </div>
+            <div class="feature-chip">
+              <div class="feature-chip-icon">+</div>
+              <div class="feature-chip-text">
+                <strong>Studio</strong>
+                <span>Create skins, themes and texture packs</span>
+              </div>
+            </div>
+          </div>
         </div>
-
-
-        <h1>
-          MINECRAFT.
-          <br>
-
-          <span>
-            PERFECTED.
-          </span>
-        </h1>
-
-
-        <p class="hero-subtitle">
-          One client for Java and Bedrock.
-          Build profiles, install content,
-          manage your skins and create your own
-          Minecraft experience.
-        </p>
-
-
-        <div class="hero-actions">
-
-          <a
-            class="button-primary"
-            href="#download"
-          >
-            Download for Windows
-          </a>
-
-
-          <a
-            class="button-secondary"
-            href="#profiles"
-          >
-            Explore Perfect Client
-          </a>
-
-        </div>
-
-
-        <div class="hero-note">
-          Windows 10 / 11 • Local First • No subscription required
-        </div>
-
       </div>
 
+      <div class="hero-preview reveal">
+        <div class="hero-glow"></div>
 
-      <!-- LAUNCHER MOCKUP -->
-
-      <div class="launcher-wrap reveal">
-
-        <div class="launcher-glow"></div>
-
-
-        <div class="launcher-window">
-
-          <aside class="fake-sidebar">
-
-            <div class="fake-sidebar-logo">
-
-              <img
-                src="logo.png"
-                alt=""
-              >
-
+        <div class="window launcher-window">
+          <aside class="side-rail">
+            <div class="rail-logo">
+              <img src="logo.png" alt="" />
             </div>
-
-            <div class="fake-nav active"></div>
-            <div class="fake-nav"></div>
-            <div class="fake-nav"></div>
-            <div class="fake-nav"></div>
-            <div class="fake-nav"></div>
-
+            <div class="rail-item active"></div>
+            <div class="rail-item"></div>
+            <div class="rail-item"></div>
+            <div class="rail-item"></div>
+            <div class="rail-item"></div>
           </aside>
 
-
-          <section class="fake-window-main">
-
-            <header class="fake-topbar">
-
-              <div class="fake-top-brand"></div>
-
-              <div class="fake-search"></div>
-
-              <div class="fake-user"></div>
-
-            </header>
-
-
-            <div class="fake-content">
-
-              <div class="fake-hero">
-
-                <div class="fake-small"></div>
-
-                <div class="fake-title"></div>
-
-                <div class="fake-copy"></div>
-
-                <div class="fake-copy short"></div>
-
-                <div class="fake-play"></div>
-
-
-                <div class="fake-character">
-
-                  <div class="fake-head"></div>
-
-                  <div class="fake-body"></div>
-
-                  <div class="fake-legs"></div>
-
-                </div>
-
-              </div>
-
-
-              <aside class="fake-right">
-
-                <div class="fake-card">
-
-                  <div class="fake-card-icon"></div>
-
-                  <div class="fake-card-title"></div>
-
-                  <div class="fake-card-copy"></div>
-
-                </div>
-
-
-                <div class="fake-card">
-
-                  <div class="fake-card-icon"></div>
-
-                  <div class="fake-card-title"></div>
-
-                  <div class="fake-card-copy"></div>
-
-                </div>
-
-
-                <div class="fake-card">
-
-                  <div class="fake-card-icon"></div>
-
-                  <div class="fake-card-title"></div>
-
-                  <div class="fake-card-copy"></div>
-
-                </div>
-
-              </aside>
-
+          <section class="window-main">
+            <div class="window-topbar">
+              <div class="word-bar"></div>
+              <div class="top-progress"><i></i></div>
+              <div class="top-search"></div>
+              <div class="top-avatar"></div>
             </div>
 
+            <div class="window-body">
+              <div class="hero-panel">
+                <div class="tiny-line"></div>
+                <div class="panel-title"></div>
+                <div class="panel-copy"></div>
+                <div class="panel-copy short"></div>
+                <div class="panel-btn"></div>
+
+                <div class="steve-wrap">
+                  <svg class="pixel-svg" viewBox="0 0 160 300" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="48" y="0" width="64" height="64" fill="#8d5a3b"/>
+                    <rect x="56" y="12" width="48" height="18" fill="#6e472f"/>
+                    <rect x="56" y="26" width="48" height="30" fill="#c08d67"/>
+                    <rect x="62" y="32" width="10" height="10" fill="#30476c"/>
+                    <rect x="88" y="32" width="10" height="10" fill="#30476c"/>
+                    <rect x="64" y="34" width="6" height="6" fill="#a7c9ff"/>
+                    <rect x="90" y="34" width="6" height="6" fill="#a7c9ff"/>
+                    <rect x="70" y="46" width="20" height="6" fill="#6a4330"/>
+                    <rect x="42" y="64" width="76" height="88" fill="#3f7fd0"/>
+                    <rect x="10" y="68" width="32" height="82" fill="#d1a07a"/>
+                    <rect x="118" y="68" width="32" height="82" fill="#d1a07a"/>
+                    <rect x="14" y="68" width="28" height="28" fill="#2a8fd2"/>
+                    <rect x="118" y="68" width="28" height="28" fill="#2a8fd2"/>
+                    <rect x="50" y="152" width="28" height="104" fill="#384b9a"/>
+                    <rect x="82" y="152" width="28" height="104" fill="#30458e"/>
+                    <rect x="50" y="256" width="28" height="20" fill="#5a6dc6"/>
+                    <rect x="82" y="256" width="28" height="20" fill="#5266bc"/>
+                    <rect x="44" y="144" width="72" height="10" fill="#306dba"/>
+                  </svg>
+                </div>
+              </div>
+
+              <aside class="side-stack">
+                <div class="mini-card">
+                  <div class="mini-card-icon"></div>
+                  <div class="mini-card-line"></div>
+                  <div class="mini-card-line two"></div>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-card-icon"></div>
+                  <div class="mini-card-line"></div>
+                  <div class="mini-card-line two"></div>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-card-icon"></div>
+                  <div class="mini-card-line"></div>
+                  <div class="mini-card-line two"></div>
+                </div>
+              </aside>
+            </div>
           </section>
-
         </div>
-
       </div>
-
     </section>
 
-
-    <!-- =====================================================
-         JAVA + BEDROCK
-         ===================================================== -->
-
-    <section
-      class="section"
-      id="editions"
-    >
-
+    <section class="section" id="editions">
       <div class="page">
-
         <header class="section-header center reveal">
-
-          <span class="eyebrow">
-            ONE CLIENT. TWO EDITIONS.
-          </span>
-
+          <span class="eyebrow">ONE CLIENT. TWO EDITIONS.</span>
           <h2>
             Java and Bedrock.
-            <br>
+            <br />
             Finally together.
           </h2>
-
           <p>
             Perfect Client understands the difference.
             Java profiles get Java content.
             Bedrock profiles get Bedrock content.
             No messy mixing.
           </p>
-
         </header>
-
 
         <div class="edition-grid">
-
           <article class="edition-card java reveal">
-
-            <div class="edition-badge">
-              JAVA EDITION
-            </div>
-
-            <h3>
-              Built for modded Minecraft.
-            </h3>
-
+            <div class="edition-badge">JAVA EDITION</div>
+            <h3>Built for modded Minecraft.</h3>
             <p>
-              Create separate Java profiles with
-              their own versions, loaders, mods,
-              packs, shaders and settings.
+              Create separate Java profiles with their own versions, loaders,
+              mods, packs, shaders and settings.
             </p>
-
-
             <div class="edition-list">
-
-              <div>
-                Fabric
-              </div>
-
-              <div>
-                Forge
-              </div>
-
-              <div>
-                NeoForge
-              </div>
-
-              <div>
-                Mods
-              </div>
-
-              <div>
-                Modpacks
-              </div>
-
-              <div>
-                Shaders
-              </div>
-
+              <div>Fabric</div>
+              <div>Forge</div>
+              <div>NeoForge</div>
+              <div>Mods</div>
+              <div>Shaders</div>
+              <div>Modpacks</div>
             </div>
-
           </article>
-
 
           <article class="edition-card bedrock reveal">
-
-            <div class="edition-badge">
-              BEDROCK EDITION
-            </div>
-
-            <h3>
-              Bedrock without the chaos.
-            </h3>
-
+            <div class="edition-badge">BEDROCK EDITION</div>
+            <h3>Bedrock without the chaos.</h3>
             <p>
-              Manage Bedrock profiles separately
-              with their own Add-Ons, packs,
-              worlds and supported Bedrock content.
+              Manage Bedrock profiles separately with their own Add-Ons,
+              packs, worlds and supported Bedrock content.
             </p>
-
-
             <div class="edition-list">
-
-              <div>
-                Add-Ons
-              </div>
-
-              <div>
-                Behavior Packs
-              </div>
-
-              <div>
-                Resource Packs
-              </div>
-
-              <div>
-                Worlds
-              </div>
-
-              <div>
-                Skins
-              </div>
-
-              <div>
-                Backups
-              </div>
-
+              <div>Add-Ons</div>
+              <div>Behavior Packs</div>
+              <div>Resource Packs</div>
+              <div>Worlds</div>
+              <div>Skins</div>
+              <div>Backups</div>
             </div>
-
           </article>
-
         </div>
-
       </div>
-
     </section>
 
-
-    <!-- =====================================================
-         PROFILES
-         ===================================================== -->
-
-    <section
-      class="section"
-      id="profiles"
-    >
-
+    <section class="section" id="profiles">
       <div class="page">
-
         <header class="section-header reveal">
-
-          <span class="eyebrow">
-            PROFILES
-          </span>
-
+          <span class="eyebrow">PROFILES</span>
           <h2>
             Everything stays
+            <br />
             where it belongs.
           </h2>
-
           <p>
-            Every profile owns its version,
-            loader, mods, packs, shaders,
-            worlds and settings.
-            Switch your setup without rebuilding everything.
+            Every profile owns its version, loader, mods, packs, shaders,
+            worlds and settings. Switch your setup without rebuilding everything.
           </p>
-
         </header>
-
 
         <div class="profile-showcase reveal">
-
           <div class="showcase-topbar">
-
-            <div class="showcase-tab active">
-              ALL
-            </div>
-
-            <div class="showcase-tab">
-              JAVA
-            </div>
-
-            <div class="showcase-tab">
-              BEDROCK
-            </div>
-
-            <div class="showcase-tab">
-              PVP
-            </div>
-
-            <div class="showcase-tab">
-              MODPACKS
-            </div>
-
+            <div class="showcase-tab active">ALL</div>
+            <div class="showcase-tab">JAVA</div>
+            <div class="showcase-tab">BEDROCK</div>
+            <div class="showcase-tab">PVP</div>
+            <div class="showcase-tab">MODPACKS</div>
             <div class="showcase-search"></div>
-
           </div>
-
 
           <div class="profile-list">
-
             <div class="profile-row">
-
-              <div class="profile-icon"></div>
-
+              <div class="profile-icon">
+                <svg class="pixel-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="64" height="64" fill="#131924"/>
+                  <rect x="20" y="6" width="24" height="24" fill="#8d5a3b"/>
+                  <rect x="24" y="12" width="16" height="6" fill="#6e472f"/>
+                  <rect x="24" y="18" width="16" height="10" fill="#c08d67"/>
+                  <rect x="26" y="20" width="4" height="4" fill="#a7c9ff"/>
+                  <rect x="34" y="20" width="4" height="4" fill="#a7c9ff"/>
+                  <rect x="21" y="31" width="22" height="18" fill="#3f7fd0"/>
+                  <rect x="14" y="32" width="7" height="16" fill="#d1a07a"/>
+                  <rect x="43" y="32" width="7" height="16" fill="#d1a07a"/>
+                  <rect x="24" y="49" width="8" height="13" fill="#3b4ca3"/>
+                  <rect x="32" y="49" width="8" height="13" fill="#314596"/>
+                </svg>
+              </div>
 
               <div class="profile-info">
-
                 <div class="profile-name">
-
-                  <strong>
-                    Perfect PvP
-                  </strong>
-
-                  <div class="badge-java">
-                    JAVA
-                  </div>
-
+                  <strong>Perfect PvP</strong>
+                  <div class="badge-java">JAVA</div>
                 </div>
-
-                <span>
-                  1.8.9 • Fabric • 18 Mods • played 49m ago
-                </span>
-
+                <span>1.8.9 • Fabric • 18 Mods • played 49m ago</span>
               </div>
-
 
               <div class="profile-actions">
-
-                <button class="profile-button play">
-                  PLAY
-                </button>
-
-                <button class="profile-button">
-                  MODS
-                </button>
-
-                <button class="profile-button">
-                  SETTINGS
-                </button>
-
+                <button class="profile-button play">PLAY</button>
+                <button class="profile-button">MODS</button>
+                <button class="profile-button">SETTINGS</button>
               </div>
-
             </div>
-
 
             <div class="profile-row">
-
-              <div class="profile-icon"></div>
-
+              <div class="profile-icon">
+                <svg class="pixel-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                      <stop stop-color="#5dd7ff"/>
+                      <stop offset="1" stop-color="#7a69ff"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="64" height="64" fill="#121925"/>
+                  <rect x="8" y="8" width="48" height="48" rx="10" fill="url(#g1)" opacity=".3"/>
+                  <rect x="14" y="18" width="36" height="28" rx="8" fill="url(#g1)"/>
+                  <rect x="20" y="24" width="24" height="4" rx="2" fill="white" opacity=".8"/>
+                  <rect x="20" y="32" width="18" height="4" rx="2" fill="white" opacity=".5"/>
+                </svg>
+              </div>
 
               <div class="profile-info">
-
                 <div class="profile-name">
-
-                  <strong>
-                    Perfect Survival
-                  </strong>
-
-                  <div class="badge-java">
-                    JAVA
-                  </div>
-
+                  <strong>Perfect Survival</strong>
+                  <div class="badge-java">JAVA</div>
                 </div>
-
-                <span>
-                  1.21.x • Fabric • 34 Mods • Complementary Shader
-                </span>
-
+                <span>1.21.x • Fabric • 34 Mods • Complementary Shader</span>
               </div>
-
 
               <div class="profile-actions">
-
-                <button class="profile-button play">
-                  PLAY
-                </button>
-
-                <button class="profile-button">
-                  MODS
-                </button>
-
-                <button class="profile-button">
-                  SETTINGS
-                </button>
-
+                <button class="profile-button play">PLAY</button>
+                <button class="profile-button">MODS</button>
+                <button class="profile-button">SETTINGS</button>
               </div>
-
             </div>
-
 
             <div class="profile-row">
-
-              <div class="profile-icon"></div>
-
+              <div class="profile-icon">
+                <svg class="pixel-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="64" height="64" fill="#131a27"/>
+                  <rect x="10" y="39" width="44" height="12" fill="#5ab05a"/>
+                  <rect x="10" y="29" width="44" height="10" fill="#8b5b39"/>
+                  <rect x="26" y="16" width="12" height="13" fill="#87cbff"/>
+                  <rect x="22" y="12" width="20" height="4" fill="#5eb6ff"/>
+                  <rect x="16" y="20" width="4" height="4" fill="#87cbff"/>
+                  <rect x="44" y="20" width="4" height="4" fill="#87cbff"/>
+                </svg>
+              </div>
 
               <div class="profile-info">
-
                 <div class="profile-name">
-
-                  <strong>
-                    Bedrock Survival
-                  </strong>
-
-                  <div class="badge-bedrock">
-                    BEDROCK
-                  </div>
-
+                  <strong>Bedrock Survival</strong>
+                  <div class="badge-bedrock">BEDROCK</div>
                 </div>
-
-                <span>
-                  Latest • 5 Add-Ons • 2 Packs • Survival World
-                </span>
-
+                <span>Latest • 5 Add-Ons • 2 Packs • Survival World</span>
               </div>
-
 
               <div class="profile-actions">
-
-                <button class="profile-button play">
-                  PLAY
-                </button>
-
-                <button class="profile-button">
-                  CONTENT
-                </button>
-
-                <button class="profile-button">
-                  SETTINGS
-                </button>
-
+                <button class="profile-button play">PLAY</button>
+                <button class="profile-button">CONTENT</button>
+                <button class="profile-button">SETTINGS</button>
               </div>
-
             </div>
-
           </div>
-
         </div>
-
       </div>
-
     </section>
 
-
-    <!-- =====================================================
-         DISCOVER
-         ===================================================== -->
-
-    <section
-      class="section"
-      id="discover"
-    >
-
+    <section class="section" id="discover">
       <div class="page">
-
         <header class="section-header reveal">
-
-          <span class="eyebrow">
-            DISCOVER
-          </span>
-
+          <span class="eyebrow">DISCOVER</span>
           <h2>
             Find it.
-            <br>
+            <br />
             Install it.
           </h2>
-
           <p>
-            Mods, modpacks, resource packs and shaders
-            in one content browser.
+            Mods, modpacks, resource packs and shaders in one content browser.
             Perfect Client already knows your active profile.
           </p>
-
         </header>
 
-
         <div class="discover-window reveal">
-
           <div class="discover-main">
-
             <div class="discover-tabs">
-
-              <div class="discover-tab">
-                MODPACKS
-              </div>
-
-              <div class="discover-tab active">
-                MODS
-              </div>
-
-              <div class="discover-tab">
-                RESOURCE PACKS
-              </div>
-
-              <div class="discover-tab">
-                SHADERS
-              </div>
-
-              <div class="discover-tab">
-                DATAPACKS
-              </div>
-
+              <div class="discover-tab">MODPACKS</div>
+              <div class="discover-tab active">MODS</div>
+              <div class="discover-tab">RESOURCE PACKS</div>
+              <div class="discover-tab">SHADERS</div>
+              <div class="discover-tab">DATAPACKS</div>
             </div>
-
 
             <div class="discover-search"></div>
 
-
             <div class="project-row">
-
               <div class="project-icon">
-                S
+                <svg class="pixel-svg" viewBox="0 0 74 74" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="74" height="74" fill="url(#bgSodium)"/>
+                  <defs>
+                    <linearGradient id="bgSodium" x1="0" y1="0" x2="1" y2="1">
+                      <stop stop-color="#4fbfff"/>
+                      <stop offset="1" stop-color="#705fff"/>
+                    </linearGradient>
+                  </defs>
+                  <text x="37" y="48" text-anchor="middle" font-size="32" font-family="Arial" font-weight="700" fill="white">S</text>
+                </svg>
               </div>
-
 
               <div class="project-body">
-
-                <strong>
-                  Sodium
-                </strong>
-
-                <small>
-                  Performance • Fabric
-                </small>
-
+                <strong>Sodium</strong>
+                <small>Performance • Fabric</small>
                 <p>
-                  Modern rendering optimization
-                  built for smooth Minecraft performance.
+                  Modern rendering optimization built for smooth Minecraft performance.
                 </p>
-
               </div>
 
-
-              <button class="install-button">
-                INSTALL
-              </button>
-
+              <button class="install-button">INSTALL</button>
             </div>
-
 
             <div class="project-row">
-
               <div class="project-icon">
-                I
+                <svg class="pixel-svg" viewBox="0 0 74 74" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="bgIris" x1="0" y1="0" x2="1" y2="1">
+                      <stop stop-color="#5dcaff"/>
+                      <stop offset="1" stop-color="#6a57ff"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="74" height="74" fill="url(#bgIris)"/>
+                  <text x="37" y="48" text-anchor="middle" font-size="31" font-family="Arial" font-weight="700" fill="white">I</text>
+                </svg>
               </div>
-
 
               <div class="project-body">
-
-                <strong>
-                  Iris Shaders
-                </strong>
-
-                <small>
-                  Shaders • Fabric
-                </small>
-
+                <strong>Iris Shaders</strong>
+                <small>Shaders • Fabric</small>
                 <p>
-                  Shader compatibility with a modern,
-                  performance-focused rendering stack.
+                  Shader compatibility with a modern, performance-focused rendering stack.
                 </p>
-
               </div>
 
-
-              <button class="install-button">
-                INSTALL
-              </button>
-
+              <button class="install-button">INSTALL</button>
             </div>
-
 
             <div class="project-row">
-
               <div class="project-icon">
-                L
+                <svg class="pixel-svg" viewBox="0 0 74 74" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="bgLithium" x1="0" y1="0" x2="1" y2="1">
+                      <stop stop-color="#50d4ff"/>
+                      <stop offset="1" stop-color="#7057ff"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="74" height="74" fill="url(#bgLithium)"/>
+                  <text x="37" y="48" text-anchor="middle" font-size="31" font-family="Arial" font-weight="700" fill="white">L</text>
+                </svg>
               </div>
-
 
               <div class="project-body">
-
-                <strong>
-                  Lithium
-                </strong>
-
-                <small>
-                  Performance • Fabric
-                </small>
-
+                <strong>Lithium</strong>
+                <small>Performance • Fabric</small>
                 <p>
-                  Game logic optimization designed
-                  to improve tick performance.
+                  Game logic optimization designed to improve tick performance.
                 </p>
-
               </div>
 
-
-              <button class="install-button">
-                INSTALL
-              </button>
-
+              <button class="install-button">INSTALL</button>
             </div>
-
           </div>
-
 
           <aside class="filters">
-
-            <strong>
-              FILTERS
-            </strong>
-
+            <strong>FILTERS</strong>
 
             <div class="filter-block">
-
-              <span>
-                GAME VERSION
-              </span>
-
-              <div class="filter-option">
-                1.21.x
-              </div>
-
-              <div class="filter-option">
-                1.20.x
-              </div>
-
-              <div class="filter-option">
-                1.8.9
-              </div>
-
+              <span>GAME VERSION</span>
+              <div class="filter-option">1.21.x</div>
+              <div class="filter-option">1.20.x</div>
+              <div class="filter-option">1.8.9</div>
             </div>
-
 
             <div class="filter-block">
-
-              <span>
-                MOD LOADER
-              </span>
-
-              <div class="filter-option">
-                Fabric
-              </div>
-
-              <div class="filter-option">
-                Forge
-              </div>
-
-              <div class="filter-option">
-                NeoForge
-              </div>
-
+              <span>MOD LOADER</span>
+              <div class="filter-option">Fabric</div>
+              <div class="filter-option">Forge</div>
+              <div class="filter-option">NeoForge</div>
             </div>
-
 
             <div class="filter-block">
-
-              <span>
-                SORT
-              </span>
-
-              <div class="filter-option">
-                Downloads
-              </div>
-
-              <div class="filter-option">
-                Updated
-              </div>
-
+              <span>SORT</span>
+              <div class="filter-option">Downloads</div>
+              <div class="filter-option">Updated</div>
             </div>
-
           </aside>
-
         </div>
-
       </div>
-
     </section>
 
-
-    <!-- =====================================================
-         STUDIO
-         ===================================================== -->
-
-    <section
-      class="section"
-      id="studio"
-    >
-
+    <section class="section" id="studio">
       <div class="page">
-
         <header class="section-header center reveal">
-
-          <span class="eyebrow">
-            PERFECT STUDIO
-          </span>
-
+          <span class="eyebrow">PERFECT STUDIO</span>
           <h2>
-            Don't just download.
-            <br>
+            Don’t just download.
+            <br />
             Create.
           </h2>
-
           <p>
             Perfect Client is more than a launcher.
-            Create skins, texture packs, HUD layouts
-            and launcher themes without leaving the app.
+            Create skins, texture packs, HUD layouts and launcher themes
+            without leaving the app.
           </p>
-
         </header>
 
-
         <div class="studio-grid">
-
           <article class="studio-card reveal">
-
-            <div class="studio-preview">
-              <i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i>
+            <div class="studio-visual">
+              <svg class="pixel-svg" viewBox="0 0 205 130" xmlns="http://www.w3.org/2000/svg">
+                <rect width="205" height="130" fill="#0f141d"/>
+                <rect x="20" y="15" width="55" height="95" fill="#111a27"/>
+                <rect x="95" y="12" width="84" height="106" rx="10" fill="#0c121b" stroke="rgba(255,255,255,.08)"/>
+                <rect x="32" y="24" width="30" height="30" fill="#8d5a3b"/>
+                <rect x="32" y="54" width="30" height="40" fill="#3f7fd0"/>
+                <rect x="104" y="25" width="18" height="18" fill="#47d4ff"/>
+                <rect x="122" y="25" width="18" height="18" fill="#7a69ff"/>
+                <rect x="140" y="25" width="18" height="18" fill="#ffffff" opacity=".8"/>
+                <rect x="104" y="43" width="18" height="18" fill="#c08d67"/>
+                <rect x="122" y="43" width="18" height="18" fill="#314596"/>
+                <rect x="140" y="43" width="18" height="18" fill="#2a8fd2"/>
+              </svg>
             </div>
 
-            <div class="studio-icon">
-              ◈
-            </div>
-
-            <h3>
-              Skin Studio
-            </h3>
-
+            <div class="studio-icon">◈</div>
+            <h3>Skin Studio</h3>
             <p>
-              Create, edit, preview and organize
-              Minecraft skins with a dedicated
+              Create, edit, preview and organize Minecraft skins with a dedicated
               2D and 3D workspace.
             </p>
-
+            <div class="help-pill">Need help? Built-in tool guides included.</div>
           </article>
 
-
           <article class="studio-card reveal">
-
-            <div class="studio-preview">
-              <i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i>
+            <div class="studio-visual texture">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
             </div>
 
-            <div class="studio-icon">
-              ▦
-            </div>
-
-            <h3>
-              Texture Studio
-            </h3>
-
+            <div class="studio-icon">▦</div>
+            <h3>Texture Studio</h3>
             <p>
-              Browse Minecraft textures,
-              edit pixels and build your own
+              Browse Minecraft textures, edit pixels and build your own
               resource pack from inside the client.
             </p>
-
+            <div class="help-pill">Tooltips and step-by-step help built in.</div>
           </article>
-
 
           <article class="studio-card reveal">
-
-            <div class="studio-icon">
-              +
+            <div class="studio-visual hud">
+              <div class="hud-line" style="width:70%;"></div>
+              <div class="hud-line" style="width:52%;"></div>
+              <div class="hud-box">
+                <i></i><i></i><i></i><i></i>
+              </div>
             </div>
 
-            <h3>
-              HUD Studio
-            </h3>
-
+            <div class="studio-icon">+</div>
+            <h3>HUD Studio</h3>
             <p>
-              Drag FPS, coordinates, keystrokes,
-              armor and other widgets directly
-              onto your own HUD layout.
+              Drag FPS, coordinates, keystrokes, armor and other widgets
+              directly onto your own HUD layout.
             </p>
-
+            <div class="help-pill">Every tool can explain itself.</div>
           </article>
-
 
           <article class="studio-card reveal">
-
-            <div class="studio-icon">
-              ✦
+            <div class="studio-visual theme">
+              <div class="hud-line" style="width:68%;"></div>
+              <div class="theme-row">
+                <i></i><i></i><i></i><i></i>
+              </div>
+              <div class="hud-line" style="width:84%; margin-top:16px;"></div>
+              <div class="hud-line" style="width:58%;"></div>
             </div>
 
-            <h3>
-              Theme Studio
-            </h3>
-
+            <div class="studio-icon">✦</div>
+            <h3>Theme Studio</h3>
             <p>
-              Change colors, surfaces, radius,
-              blur and animation style to make
-              Perfect Client truly yours.
+              Change colors, surfaces, radius, blur and animation style
+              to make Perfect Client truly yours.
             </p>
-
+            <div class="help-pill">Beginner friendly. Powerful when needed.</div>
           </article>
-
         </div>
-
       </div>
-
     </section>
 
+    <section class="section" id="gallery">
+      <div class="page">
+        <header class="section-header reveal">
+          <span class="eyebrow">VISUAL PREVIEW</span>
+          <h2>
+            A client that already
+            <br />
+            feels like a product.
+          </h2>
+          <p>
+            Clean, modern and distinctly Minecraft-focused —
+            with visuals that feel more premium than a basic launcher website.
+          </p>
+        </header>
 
-    <!-- =====================================================
-         LOCAL FIRST
-         ===================================================== -->
+        <div class="gallery-grid">
+          <article class="gallery-card reveal">
+            <div class="label">SKINS</div>
+            <svg class="pixel-svg" viewBox="0 0 620 300" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="gc1" x1="0" y1="0" x2="1" y2="1">
+                  <stop stop-color="#101722"/>
+                  <stop offset="1" stop-color="#0b0f16"/>
+                </linearGradient>
+              </defs>
+              <rect width="620" height="300" fill="url(#gc1)"/>
+              <circle cx="200" cy="150" r="110" fill="#47d4ff" opacity=".06"/>
+              <circle cx="200" cy="150" r="75" fill="#7a69ff" opacity=".06"/>
+              <rect x="142" y="58" width="40" height="40" fill="#8d5a3b"/>
+              <rect x="148" y="66" width="28" height="10" fill="#6e472f"/>
+              <rect x="148" y="76" width="28" height="16" fill="#c08d67"/>
+              <rect x="154" y="81" width="5" height="5" fill="#a7c9ff"/>
+              <rect x="165" y="81" width="5" height="5" fill="#a7c9ff"/>
+              <rect x="138" y="98" width="48" height="56" fill="#3f7fd0"/>
+              <rect x="118" y="100" width="20" height="52" fill="#d1a07a"/>
+              <rect x="186" y="100" width="20" height="52" fill="#d1a07a"/>
+              <rect x="120" y="100" width="18" height="18" fill="#2a8fd2"/>
+              <rect x="186" y="100" width="18" height="18" fill="#2a8fd2"/>
+              <rect x="142" y="154" width="18" height="70" fill="#384b9a"/>
+              <rect x="164" y="154" width="18" height="70" fill="#30458e"/>
+              <rect x="350" y="56" width="180" height="52" rx="16" fill="url(#ctaGrad)"/>
+              <defs>
+                <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop stop-color="#ffffff"/>
+                  <stop offset="1" stop-color="#9faeff"/>
+                </linearGradient>
+              </defs>
+              <rect x="350" y="126" width="122" height="10" rx="5" fill="white" opacity=".18"/>
+              <rect x="350" y="144" width="94" height="10" rx="5" fill="white" opacity=".12"/>
+              <rect x="350" y="196" width="104" height="38" rx="12" fill="url(#btnGrad)"/>
+              <defs>
+                <linearGradient id="btnGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop stop-color="#47d4ff"/>
+                  <stop offset="1" stop-color="#7a69ff"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="gallery-copy">
+              <h4>Skins that feel alive.</h4>
+              <p>Preview Minecraft skins in a clean, premium interface that still feels true to the game.</p>
+            </div>
+          </article>
+
+          <article class="gallery-card reveal">
+            <div class="label">MODS</div>
+            <svg class="pixel-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="300" fill="#0f141d"/>
+              <rect x="30" y="36" width="70" height="70" rx="18" fill="url(#m1)"/>
+              <defs>
+                <linearGradient id="m1" x1="0" y1="0" x2="1" y2="1">
+                  <stop stop-color="#50d5ff"/>
+                  <stop offset="1" stop-color="#6e5bff"/>
+                </linearGradient>
+              </defs>
+              <text x="65" y="80" text-anchor="middle" font-size="34" font-family="Arial" font-weight="700" fill="white">S</text>
+              <rect x="118" y="44" width="120" height="10" rx="5" fill="white" opacity=".72"/>
+              <rect x="118" y="66" width="92" height="8" rx="4" fill="white" opacity=".2"/>
+              <rect x="118" y="92" width="74" height="28" rx="10" fill="#705eff"/>
+
+              <rect x="30" y="146" width="70" height="70" rx="18" fill="url(#m2)"/>
+              <defs>
+                <linearGradient id="m2" x1="0" y1="0" x2="1" y2="1">
+                  <stop stop-color="#52d7ff"/>
+                  <stop offset="1" stop-color="#7d69ff"/>
+                </linearGradient>
+              </defs>
+              <text x="65" y="191" text-anchor="middle" font-size="34" font-family="Arial" font-weight="700" fill="white">I</text>
+              <rect x="118" y="154" width="120" height="10" rx="5" fill="white" opacity=".72"/>
+              <rect x="118" y="176" width="98" height="8" rx="4" fill="white" opacity=".2"/>
+              <rect x="118" y="202" width="74" height="28" rx="10" fill="#705eff"/>
+            </svg>
+            <div class="gallery-copy">
+              <h4>Discover fast.</h4>
+              <p>Browse Minecraft content without digging through messy launcher menus.</p>
+            </div>
+          </article>
+
+          <article class="gallery-card reveal">
+            <div class="label">STUDIO</div>
+            <svg class="pixel-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="300" fill="#0f141d"/>
+              <rect x="26" y="26" width="248" height="248" rx="18" fill="#0b1017" stroke="rgba(255,255,255,.08)"/>
+              <g transform="translate(42 42)">
+                <rect width="28" height="28" fill="#47d4ff" opacity=".65"/>
+                <rect x="28" width="28" height="28" fill="#7a69ff" opacity=".55"/>
+                <rect x="56" width="28" height="28" fill="#ffffff" opacity=".22"/>
+                <rect x="84" width="28" height="28" fill="#8d5a3b"/>
+                <rect x="112" width="28" height="28" fill="#c08d67"/>
+                <rect x="140" width="28" height="28" fill="#30458e"/>
+                <rect y="28" width="28" height="28" fill="#2a8fd2"/>
+                <rect x="28" y="28" width="28" height="28" fill="#314596"/>
+                <rect x="56" y="28" width="28" height="28" fill="#d1a07a"/>
+                <rect x="84" y="28" width="28" height="28" fill="#111923"/>
+                <rect x="112" y="28" width="28" height="28" fill="#47d4ff" opacity=".5"/>
+                <rect x="140" y="28" width="28" height="28" fill="#7a69ff" opacity=".45"/>
+              </g>
+              <rect x="42" y="140" width="180" height="14" rx="7" fill="white" opacity=".16"/>
+              <rect x="42" y="166" width="146" height="14" rx="7" fill="white" opacity=".11"/>
+              <rect x="42" y="210" width="92" height="34" rx="12" fill="url(#studioBtn)"/>
+              <defs>
+                <linearGradient id="studioBtn" x1="0" y1="0" x2="1" y2="1">
+                  <stop stop-color="#47d4ff"/>
+                  <stop offset="1" stop-color="#7a69ff"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="gallery-copy">
+              <h4>Create inside the client.</h4>
+              <p>Skins, textures, HUD layouts and themes — not just downloads.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
     <section class="section">
-
       <div class="page">
-
         <div class="local-card reveal">
-
-          <span class="eyebrow">
-            LOCAL FIRST
-          </span>
-
+          <span class="eyebrow">LOCAL FIRST</span>
           <h2>
             Your client.
-            <br>
+            <br />
             Your computer.
           </h2>
-
           <p>
-            Perfect Client is designed so its core
-            functionality does not depend on a paid
-            Perfect Client server.
-            Your profiles and creator projects stay local.
+            Perfect Client is designed so its core functionality does not depend
+            on a paid Perfect Client server.
+            Your profiles, skins and creator projects stay local.
           </p>
 
-
           <div class="local-points">
-
-            <div class="local-point">
-              No subscription required
-            </div>
-
-            <div class="local-point">
-              Profiles stored locally
-            </div>
-
-            <div class="local-point">
-              Optional online services
-            </div>
-
-            <div class="local-point">
-              Offline-friendly design
-            </div>
-
+            <div class="local-point">No subscription required</div>
+            <div class="local-point">Profiles stored locally</div>
+            <div class="local-point">Optional online services later</div>
+            <div class="local-point">Offline-friendly design</div>
           </div>
-
         </div>
-
       </div>
-
     </section>
 
-
-    <!-- =====================================================
-         DOWNLOAD
-         ===================================================== -->
-
-    <section
-      class="download-section"
-      id="download"
-    >
-
+    <section class="download-section" id="download">
       <div class="page">
-
         <div class="download-box reveal">
+          <img class="download-logo" src="logo.png" alt="Perfect Client" />
 
-          <img
-            class="download-logo"
-            src="logo.png"
-            alt="Perfect Client"
-          >
-
-
-          <span class="eyebrow">
-            PERFECT CLIENT
-          </span>
-
-
-          <h2>
-            Ready to play?
-          </h2>
-
-
+          <span class="eyebrow">PERFECT CLIENT</span>
+          <h2>Ready to play?</h2>
           <p>
             Download Perfect Client for Windows.
             Java and Bedrock profiles.
@@ -3165,142 +2412,88 @@
             Create your own.
           </p>
 
-
-          <button
-            class="button-primary"
-            id="downloadButton"
-            type="button"
-          >
+          <button class="button-primary" id="downloadButton" type="button">
             Download for Windows
           </button>
 
-
           <div class="download-meta">
-            Windows 10 / 11 • Free • Installer coming with the first release
+            Windows 10 / 11 • Free • Website is live now — desktop release comes next
           </div>
 
-
-          <div
-            class="not-ready"
-            id="notReady"
-          >
-            Perfect Client ist noch nicht veröffentlicht.
-            Sobald dein erster GitHub Release da ist,
-            verlinken wir diesen Button direkt mit dem Installer.
+          <div class="notice" id="downloadNotice">
+            No Windows release is linked yet.
+            Once your GitHub Release exists, just paste its URL into the small
+            config at the bottom of this file and this button will go directly to your installer.
           </div>
-
         </div>
-
       </div>
-
     </section>
-
   </main>
 
-
-  <!-- =====================================================
-       FOOTER
-       ===================================================== -->
-
   <footer>
-
     <div class="page footer-inner">
-
       <div class="footer-brand">
-
-        <img
-          src="logo.png"
-          alt=""
-        >
-
+        <img src="logo.png" alt="" />
         Perfect Client
-
       </div>
 
-
-      <div class="footer-copy">
-        Not affiliated with Mojang Studios or Microsoft.
+      <div class="footer-links">
+        <a href="#profiles">Profiles</a>
+        <a href="#discover">Discover</a>
+        <a href="#studio">Studio</a>
+        <a href="#download">Download</a>
+        <span class="footer-copy">Not affiliated with Mojang Studios or Microsoft.</span>
       </div>
-
     </div>
-
   </footer>
 
-
   <script>
-    const navbar =
-      document.getElementById("navbar");
+    const navbar = document.getElementById("navbar");
+    const downloadButton = document.getElementById("downloadButton");
+    const downloadNotice = document.getElementById("downloadNotice");
 
-    const downloadButton =
-      document.getElementById("downloadButton");
+    /*
+      IMPORTANT:
+      As soon as you have a real GitHub Release, replace the empty string below.
+      Example:
+      const DOWNLOAD_URL = "https://github.com/DEINNAME/DEINREPO/releases/latest";
+    */
+    const DOWNLOAD_URL = "";
 
-    const notReady =
-      document.getElementById("notReady");
+    window.addEventListener("scroll", () => {
+      navbar.classList.toggle("scrolled", window.scrollY > 18);
+    });
 
+    downloadButton.addEventListener("click", () => {
+      if (DOWNLOAD_URL && DOWNLOAD_URL.trim() !== "") {
+        window.open(DOWNLOAD_URL, "_blank", "noopener,noreferrer");
+        return;
+      }
 
-    window.addEventListener(
-      "scroll",
-      () => {
-        navbar.classList.toggle(
-          "scrolled",
-          window.scrollY > 20
-        );
+      downloadNotice.classList.add("show");
+      downloadNotice.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12
       }
     );
 
-
-    downloadButton.addEventListener(
-      "click",
-      () => {
-        /*
-         * Sobald dein Installer auf GitHub Releases liegt,
-         * ändern wir diesen Button auf den echten Download.
-         */
-
-        notReady.classList.add(
-          "show"
-        );
-      }
-    );
-
-
-    const observer =
-      new IntersectionObserver(
-        (entries) => {
-          entries.forEach(
-            (entry) => {
-              if (
-                entry.isIntersecting
-              ) {
-                entry.target.classList.add(
-                  "visible"
-                );
-
-                observer.unobserve(
-                  entry.target
-                );
-              }
-            }
-          );
-        },
-        {
-          threshold: 0.12
-        }
-      );
-
-
-    document
-      .querySelectorAll(
-        ".reveal"
-      )
-      .forEach(
-        (element) => {
-          observer.observe(
-            element
-          );
-        }
-      );
+    document.querySelectorAll(".reveal").forEach((element) => {
+      observer.observe(element);
+    });
   </script>
-
 </body>
 </html>
