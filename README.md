@@ -1,32 +1,18 @@
-# Perfect Client — One Skin Website
+# Perfect Client Website — DE / EN
 
-A completely new static website concept for GitHub + Cloudflare Pages.
+This package is ready for GitHub + Cloudflare Pages.
 
-## Main rule implemented
-The website uses **one skin only once**.
+## What changed
+- Real `logo.png` is included in the package.
+- Logo is used in the header, download area and footer.
+- German / English switch in the header.
+- Language choice is saved with `localStorage`.
+- German is selected automatically when the browser language starts with `de`; otherwise English.
+- Copy was rewritten to sound more natural and product-focused.
+- The uploaded skin is still used exactly once, only in Skin Studio.
 
-- File: `assets/vexo-skin.png`
-- Usage: shown only in the **Skin Studio** preview
-- Nowhere else on the site are skins/characters rendered
-
-## Files
-- `index.html`
-- `styles.css`
-- `app.js`
-- `404.html`
-- `_headers`
-- `robots.txt`
-- `wrangler.toml`
-- `assets/brand.svg`
-- `assets/social-card.svg`
-- `assets/vexo-skin.png`
-
-## Optional logo
-If you want your real logo, place `logo.png` in the site root.
-If it does not exist, the site automatically falls back to `assets/brand.svg`.
-
-## GitHub / Release links
-At the top of `app.js`:
+## Release link
+Edit at the top of `app.js`:
 
 ```js
 const CONFIG = {
@@ -35,9 +21,10 @@ const CONFIG = {
 };
 ```
 
-When `releaseUrl` is filled in, the download button becomes active automatically.
+When `releaseUrl` is filled in, the Windows button automatically becomes active.
 
 ## Cloudflare Pages
 - Framework preset: None
 - Build command: leave empty
 - Build output directory: `.`
+- Root directory: `/`
