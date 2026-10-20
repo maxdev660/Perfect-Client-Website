@@ -1,61 +1,83 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+    content="width=device-width, initial-scale=1"
+  >
+
   <meta
     name="theme-color"
-    content="#06080d"
-  />
+    content="#07090f"
+  >
+
+  <meta
+    name="color-scheme"
+    content="dark"
+  >
+
   <meta
     name="description"
-    content="Perfect Client — the modern Minecraft launcher for Java and Bedrock. Profiles, Discover, Skins and Studio in one client."
-  />
+    content="Perfect Client — a modern Minecraft launcher for Java and Bedrock. Profiles, mods, skins, discovery and creator tools in one client."
+  >
 
-  <meta property="og:title" content="Perfect Client — Minecraft. Perfected." />
+  <meta
+    property="og:title"
+    content="Perfect Client — Minecraft. Perfected."
+  >
+
   <meta
     property="og:description"
-    content="Java and Bedrock. Profiles, Discover, Skins and Studio in one client."
-  />
-  <meta property="og:type" content="website" />
+    content="Play. Customize. Discover. Create."
+  >
+
+  <meta
+    property="og:type"
+    content="website"
+  >
+
+  <meta
+    property="og:image"
+    content="./logo.png"
+  >
+
+  <link
+    rel="icon"
+    href="./logo.png"
+  >
 
   <title>Perfect Client — Minecraft. Perfected.</title>
 
   <style>
     :root {
       --bg: #06080d;
-      --bg-2: #0a0d14;
-      --bg-3: #0f1420;
-      --surface: rgba(255, 255, 255, 0.03);
-      --surface-2: rgba(255, 255, 255, 0.05);
-      --surface-3: rgba(255, 255, 255, 0.07);
+      --bg2: #090c13;
 
-      --border: rgba(255, 255, 255, 0.075);
-      --border-strong: rgba(255, 255, 255, 0.13);
+      --surface: #0c1018;
+      --surface2: #101620;
+      --surface3: #131a26;
 
-      --text: #f8fbff;
-      --soft: #a3adbd;
-      --muted: #6c7587;
+      --border: rgba(255,255,255,.075);
+      --border2: rgba(255,255,255,.13);
 
-      --cyan: #47d4ff;
-      --blue: #6591ff;
-      --purple: #7a69ff;
-      --green: #4ee29b;
-      --gold: #f6c36c;
-      --red: #ff7688;
+      --text: #f7f9fd;
+      --soft: #a7b0bf;
+      --muted: #697486;
 
-      --radius-xl: 30px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
-      --radius-sm: 12px;
+      --cyan: #52d7ff;
+      --blue: #668dff;
+      --purple: #7969ff;
+      --green: #51dfa2;
 
       --page: 1280px;
 
-      --shadow-soft: 0 30px 100px rgba(0, 0, 0, 0.34);
-      --shadow-glow: 0 0 0 1px rgba(255,255,255,.03), 0 25px 90px rgba(78, 98, 255, 0.12);
+      --radius: 22px;
+      --radius-lg: 30px;
+
+      --shadow:
+        0 28px 100px rgba(0,0,0,.35);
     }
 
     * {
@@ -68,15 +90,37 @@
 
     body {
       margin: 0;
-      color: var(--text);
-      font-family: Inter, "Segoe UI Variable", "Segoe UI", Arial, sans-serif;
+
       background:
-        radial-gradient(circle at 50% -10%, rgba(101,145,255,.18), transparent 28%),
-        radial-gradient(circle at 10% 25%, rgba(71,212,255,.06), transparent 20%),
-        radial-gradient(circle at 85% 35%, rgba(122,105,255,.05), transparent 24%),
-        linear-gradient(180deg, #070910 0%, #06080d 100%);
-      overflow-x: hidden;
+        radial-gradient(
+          circle at 50% -12%,
+          rgba(91,112,255,.16),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 5% 28%,
+          rgba(82,215,255,.06),
+          transparent 22%
+        ),
+        radial-gradient(
+          circle at 95% 48%,
+          rgba(121,105,255,.06),
+          transparent 24%
+        ),
+        #06080d;
+
+      color: var(--text);
+
+      font-family:
+        Inter,
+        "Segoe UI Variable",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
       -webkit-font-smoothing: antialiased;
+
+      overflow-x: hidden;
     }
 
     img {
@@ -92,1307 +136,2655 @@
     button {
       font: inherit;
       color: inherit;
-      cursor: pointer;
     }
 
     ::selection {
-      background: rgba(122,105,255,.45);
       color: white;
+      background: rgba(121,105,255,.5);
     }
 
     .page {
-      width: min(calc(100% - 34px), var(--page));
+      width: min(
+        calc(100% - 34px),
+        var(--page)
+      );
+
       margin-inline: auto;
     }
 
     .noise {
       position: fixed;
       inset: 0;
+
+      z-index: 1000;
+
       pointer-events: none;
-      opacity: .025;
-      z-index: 100;
+
+      opacity: .022;
+
       background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
     }
 
-    .grid-bg {
+    .grid {
       position: fixed;
       inset: 0;
-      pointer-events: none;
-      opacity: .07;
-      background:
-        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
-      background-size: 90px 90px;
-      mask-image: radial-gradient(circle at 50% 15%, black, transparent 78%);
+
       z-index: -1;
-    }
 
-    .orb {
-      position: absolute;
-      border-radius: 999px;
-      filter: blur(140px);
-      opacity: .09;
       pointer-events: none;
+
+      opacity: .08;
+
+      background:
+        linear-gradient(
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        );
+
+      background-size: 96px 96px;
+
+      mask-image:
+        radial-gradient(
+          circle at 50% 10%,
+          black,
+          transparent 76%
+        );
     }
 
-    .orb.one {
-      width: 560px;
-      height: 560px;
-      background: var(--cyan);
-      left: -260px;
-      top: 900px;
-    }
-
-    .orb.two {
-      width: 620px;
-      height: 620px;
-      background: var(--purple);
-      right: -320px;
-      top: 1800px;
-    }
-
-    .orb.three {
-      width: 520px;
-      height: 520px;
-      background: #4f75ff;
-      left: 50%;
-      top: 2750px;
-      transform: translateX(-50%);
-      opacity: .06;
-    }
-
-    /* NAV */
+    /* =========================================================
+       NAV
+       ========================================================= */
 
     nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 76px;
+      inset: 0 0 auto;
+
+      height: 74px;
+
       z-index: 50;
-      border-bottom: 1px solid transparent;
-      transition: background .18s ease, border-color .18s ease, backdrop-filter .18s ease;
+
+      border-bottom:
+        1px solid transparent;
+
+      transition:
+        background .2s ease,
+        border-color .2s ease,
+        backdrop-filter .2s ease;
     }
 
     nav.scrolled {
-      background: rgba(6,8,13,.78);
-      border-color: var(--border);
-      backdrop-filter: blur(18px);
+      background:
+        rgba(6,8,13,.78);
+
+      border-color:
+        var(--border);
+
+      backdrop-filter:
+        blur(22px);
     }
 
     .nav-inner {
       height: 100%;
+
       display: flex;
       align-items: center;
-      gap: 28px;
+
+      gap: 30px;
     }
 
     .brand {
+      margin-right: auto;
+
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-right: auto;
+
+      gap: 11px;
     }
 
-    .brand img {
-      width: 38px;
-      height: 38px;
+    .brand-mark {
+      width: 39px;
+      height: 39px;
+
+      position: relative;
+
+      display: grid;
+      place-items: center;
+
+      overflow: hidden;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 11px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(82,215,255,.18),
+          rgba(121,105,255,.24)
+        );
+
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .brand-mark img {
+      position: absolute;
+      inset: 4px;
+
+      width: calc(100% - 8px);
+      height: calc(100% - 8px);
+
       object-fit: contain;
-      border-radius: 10px;
+
+      z-index: 2;
     }
 
-    .brand-wordmark {
+    .brand-text {
       display: flex;
       align-items: baseline;
+
       gap: 6px;
-      font-weight: 900;
-      letter-spacing: -.4px;
+
+      font-weight: 950;
     }
 
-    .brand-wordmark strong {
-      font-size: 17px;
+    .brand-text strong {
+      font-size: 16px;
     }
 
-    .brand-wordmark span {
-      font-size: 10px;
+    .brand-text span {
       color: var(--cyan);
-      letter-spacing: 1.3px;
+
+      font-size: 10px;
+
+      letter-spacing: 1.4px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
+
       gap: 26px;
     }
 
     .nav-links a {
       color: var(--soft);
+
       font-size: 13px;
       font-weight: 650;
-      transition: color .15s ease;
+
+      transition:
+        color .15s ease;
     }
 
     .nav-links a:hover {
       color: white;
     }
 
-    .nav-download {
+    .download-small {
       height: 42px;
+
       padding: 0 18px;
+
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid rgba(122,105,255,.48);
+
+      border:
+        1px solid rgba(121,105,255,.5);
+
       border-radius: 12px;
-      background: linear-gradient(135deg, rgba(71,212,255,.1), rgba(122,105,255,.18));
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(82,215,255,.09),
+          rgba(121,105,255,.18)
+        );
+
       font-size: 12px;
       font-weight: 850;
-      transition: transform .15s ease, border-color .15s ease;
+
+      transition:
+        transform .16s ease,
+        border-color .16s ease;
     }
 
-    .nav-download:hover {
+    .download-small:hover {
       transform: translateY(-1px);
-      border-color: rgba(122,105,255,.8);
+
+      border-color:
+        rgba(121,105,255,.85);
     }
 
-    /* HERO */
-
-    .hero {
-      position: relative;
-      min-height: 1000px;
-      padding-top: 150px;
-      overflow: hidden;
-    }
-
-    .hero-copy {
-      text-align: center;
-      max-width: 980px;
-      margin: 0 auto;
-    }
-
-    .hero-badge {
-      width: fit-content;
-      margin: 0 auto 28px;
-      padding: 8px 13px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      color: #c3cad5;
-      background: rgba(255,255,255,.025);
-      font-size: 11px;
-      font-weight: 750;
-      letter-spacing: .2px;
-    }
-
-    .hero-badge i {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 14px rgba(78,226,155,.6);
-    }
-
-    .hero h1 {
-      margin: 0 0 24px;
-      font-size: clamp(58px, 8.6vw, 114px);
-      line-height: .9;
-      letter-spacing: -5px;
-      font-weight: 950;
-    }
-
-    .hero h1 .grad {
-      color: transparent;
-      background: linear-gradient(90deg, #66deff, #7c96ff 44%, #9772ff);
-      background-clip: text;
-      -webkit-background-clip: text;
-    }
-
-    .hero p {
-      max-width: 700px;
-      margin: 0 auto;
-      color: var(--soft);
-      font-size: 18px;
-      line-height: 1.75;
-    }
-
-    .hero-actions {
-      margin-top: 34px;
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+    /* =========================================================
+       BUTTONS
+       ========================================================= */
 
     .button-primary,
     .button-secondary {
-      height: 54px;
-      padding: 0 23px;
+      min-height: 53px;
+
+      padding: 0 22px;
+
       display: inline-flex;
       align-items: center;
       justify-content: center;
+
       gap: 9px;
+
       border-radius: 14px;
+
       font-size: 13px;
       font-weight: 850;
-      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+
+      cursor: pointer;
+
+      transition:
+        transform .17s ease,
+        border-color .17s ease,
+        filter .17s ease;
     }
 
     .button-primary {
       border: 0;
+
       color: white;
-      background: linear-gradient(120deg, var(--cyan), var(--purple));
-      box-shadow: 0 18px 55px rgba(88,104,255,.24);
+
+      background:
+        linear-gradient(
+          120deg,
+          #4bd4ff,
+          #7868ff
+        );
+
+      box-shadow:
+        0 18px 50px
+        rgba(92,101,255,.23);
     }
 
     .button-primary:hover {
       transform: translateY(-2px);
+
+      filter: brightness(1.08);
     }
 
     .button-secondary {
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.026);
-      color: #d7dce4;
+      border:
+        1px solid var(--border);
+
+      background:
+        rgba(255,255,255,.025);
+
+      color: #d8dde6;
     }
 
     .button-secondary:hover {
       transform: translateY(-2px);
-      border-color: var(--border-strong);
+
+      border-color:
+        var(--border2);
     }
 
-    .hero-note {
-      margin-top: 15px;
-      color: var(--muted);
-      font-size: 11px;
-      letter-spacing: .2px;
-    }
+    /* =========================================================
+       HERO
+       ========================================================= */
 
-    .hero-preview {
-      width: min(1180px, calc(100% - 18px));
-      margin: 72px auto 0;
+    .hero {
+      min-height: 1080px;
+
       position: relative;
-    }
 
-    .hero-glow {
-      position: absolute;
-      inset: 14% 14% -10% 14%;
-      filter: blur(70px);
-      opacity: .24;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      z-index: -1;
-    }
+      padding-top: 158px;
 
-    .window {
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,.09);
-      border-radius: 30px;
-      background: linear-gradient(145deg, #0b1018, #080b11);
-      box-shadow: var(--shadow-soft);
     }
 
-    .launcher-window {
+    .hero::before {
+      content: "";
+
+      position: absolute;
+
+      width: 900px;
+      height: 900px;
+
+      top: -650px;
+      left: 50%;
+
+      transform:
+        translateX(-50%);
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(82,215,255,.25),
+          rgba(121,105,255,.1) 42%,
+          transparent 72%
+        );
+
+      pointer-events: none;
+    }
+
+    .hero-copy {
+      max-width: 930px;
+
+      margin-inline: auto;
+
+      text-align: center;
+    }
+
+    .status-pill {
+      width: fit-content;
+
+      margin:
+        0 auto 27px;
+
+      padding:
+        8px 12px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 8px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 999px;
+
+      color: #bdc5d1;
+
+      background:
+        rgba(255,255,255,.025);
+
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background:
+        var(--green);
+
+      box-shadow:
+        0 0 13px
+        rgba(81,223,162,.65);
+    }
+
+    h1 {
+      margin: 0;
+
+      font-size:
+        clamp(
+          62px,
+          9vw,
+          116px
+        );
+
+      line-height: .9;
+
+      letter-spacing: -6px;
+
+      font-weight: 950;
+    }
+
+    h1 span {
+      color: transparent;
+
+      background:
+        linear-gradient(
+          90deg,
+          #63e0ff,
+          #7e9aff 44%,
+          #9571ff
+        );
+
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .hero-copy > p {
+      max-width: 690px;
+
+      margin:
+        27px auto 0;
+
+      color: var(--soft);
+
+      font-size: 17px;
+      line-height: 1.72;
+    }
+
+    .hero-actions {
+      margin-top: 34px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 11px;
+
+      flex-wrap: wrap;
+    }
+
+    .hero-meta {
+      margin-top: 15px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    /* =========================================================
+       HERO PRODUCT WINDOW
+       ========================================================= */
+
+    .product-wrap {
+      position: relative;
+
+      width: min(
+        1180px,
+        calc(100% - 20px)
+      );
+
+      margin:
+        74px auto 0;
+    }
+
+    .product-wrap::before {
+      content: "";
+
+      position: absolute;
+
+      inset:
+        15% 12% -12%;
+
+      z-index: -1;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--cyan),
+          var(--purple)
+        );
+
+      filter: blur(90px);
+
+      opacity: .2;
+    }
+
+    .launcher {
+      min-height: 645px;
+
       display: grid;
-      grid-template-columns: 86px minmax(0, 1fr);
-      min-height: 640px;
+
+      grid-template-columns:
+        84px
+        minmax(0,1fr);
+
+      overflow: hidden;
+
+      border:
+        1px solid rgba(255,255,255,.1);
+
+      border-radius: 30px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #0c1119,
+          #080b10
+        );
+
+      box-shadow:
+        var(--shadow);
     }
 
-    .side-rail {
-      border-right: 1px solid var(--border);
-      background: linear-gradient(180deg, #0e131c, #090c12);
-      padding: 18px 12px;
+    .launcher-sidebar {
+      padding:
+        17px 11px;
+
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 13px;
+
+      gap: 12px;
+
+      border-right:
+        1px solid var(--border);
+
+      background:
+        linear-gradient(
+          180deg,
+          #10151f,
+          #090c12
+        );
     }
 
-    .side-rail .rail-logo {
-      width: 46px;
-      height: 46px;
-      padding: 7px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #4dcfff, #7867ff);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+    .launcher-logo {
+      width: 47px;
+      height: 47px;
+
+      padding: 6px;
+
       margin-bottom: 10px;
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #4dd7ff,
+          #7767ff
+        );
     }
 
-    .side-rail .rail-logo img {
+    .launcher-logo img {
       width: 100%;
       height: 100%;
+
       object-fit: contain;
     }
 
-    .rail-item {
-      width: 52px;
+    .launcher-nav {
+      width: 51px;
       height: 50px;
+
       border-radius: 14px;
-      background: rgba(255,255,255,.04);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+
+      background:
+        rgba(255,255,255,.035);
+
+      border:
+        1px solid transparent;
     }
 
-    .rail-item.active {
-      border: 1px solid rgba(122,105,255,.35);
-      background: rgba(122,105,255,.16);
+    .launcher-nav.active {
+      border-color:
+        rgba(121,105,255,.34);
+
+      background:
+        rgba(121,105,255,.15);
     }
 
-    .window-main {
+    .launcher-content {
+      min-width: 0;
+
       display: flex;
       flex-direction: column;
-      min-width: 0;
     }
 
-    .window-topbar {
+    .launcher-top {
       min-height: 70px;
-      padding: 0 22px;
+
+      padding:
+        0 20px;
+
       display: flex;
       align-items: center;
-      gap: 14px;
-      border-bottom: 1px solid var(--border);
+
+      gap: 12px;
+
+      border-bottom:
+        1px solid var(--border);
     }
 
-    .word-bar {
-      width: 158px;
-      height: 12px;
+    .fake-wordmark {
+      width: 150px;
+      height: 11px;
+
       border-radius: 999px;
-      background: linear-gradient(90deg, rgba(255,255,255,.95) 0 72%, var(--cyan) 72%);
-      opacity: .9;
+
+      background:
+        linear-gradient(
+          90deg,
+          white 0 72%,
+          var(--cyan) 72%
+        );
+
+      opacity: .84;
     }
 
-    .top-progress {
-      width: 122px;
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.1);
-      overflow: hidden;
-    }
-
-    .top-progress > i {
-      display: block;
-      width: 72%;
-      height: 100%;
-      background: linear-gradient(90deg, rgba(255,255,255,.85), var(--cyan));
-    }
-
-    .top-search {
-      margin-left: auto;
-      width: 280px;
+    .fake-search {
+      width: 270px;
       height: 40px;
-      border: 1px solid var(--border);
+
+      margin-left: auto;
+
+      border:
+        1px solid var(--border);
+
       border-radius: 11px;
-      background: rgba(255,255,255,.02);
+
+      background:
+        rgba(255,255,255,.025);
     }
 
-    .top-avatar {
+    .fake-avatar {
       width: 40px;
       height: 40px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
-    }
 
-    .window-body {
-      flex: 1;
-      padding: 20px;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 320px;
-      gap: 16px;
-    }
-
-    .hero-panel {
-      position: relative;
       overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 22px;
+
+      border-radius: 11px;
+
       background:
-        radial-gradient(circle at 76% 50%, rgba(122,105,255,.16), transparent 30%),
-        radial-gradient(circle at 22% 74%, rgba(71,212,255,.12), transparent 20%),
-        linear-gradient(145deg, #111721, #0b1017);
-      min-height: 450px;
-      padding: 34px;
+        linear-gradient(
+          135deg,
+          var(--cyan),
+          var(--purple)
+        );
     }
 
-    .tiny-line {
-      width: 98px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--cyan);
-      opacity: .85;
+    .fake-avatar img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      image-rendering: pixelated;
     }
 
-    .panel-title {
-      width: 58%;
-      height: 60px;
-      border-radius: 14px;
-      margin-top: 28px;
-      background: linear-gradient(90deg, rgba(255,255,255,.95), #9ab0ff);
+    .launcher-body {
+      min-height: 0;
+
+      flex: 1;
+
+      padding: 18px;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(0,1fr)
+        310px;
+
+      gap: 15px;
     }
 
-    .panel-copy {
-      width: 52%;
-      height: 9px;
-      border-radius: 999px;
-      margin-top: 16px;
-      background: rgba(255,255,255,.12);
+    .play-card {
+      min-height: 500px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 33px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 22px;
+
+      background:
+        radial-gradient(
+          circle at 78% 50%,
+          rgba(121,105,255,.19),
+          transparent 31%
+        ),
+        radial-gradient(
+          circle at 20% 78%,
+          rgba(82,215,255,.09),
+          transparent 22%
+        ),
+        linear-gradient(
+          145deg,
+          #111823,
+          #0b1017
+        );
     }
 
-    .panel-copy.short {
-      width: 39%;
-      margin-top: 10px;
-    }
+    .play-card::after {
+      content: "";
 
-    .panel-btn {
-      width: 170px;
-      height: 50px;
-      border-radius: 14px;
-      margin-top: 38px;
-      background: linear-gradient(120deg, var(--cyan), var(--purple));
-      box-shadow: 0 16px 38px rgba(101,100,255,.25);
-    }
-
-    .steve-wrap {
       position: absolute;
-      right: 56px;
-      top: 52px;
-      width: 190px;
-      height: 340px;
-      filter: drop-shadow(0 26px 30px rgba(0,0,0,.45));
-      animation: floaty 4s ease-in-out infinite;
+
+      width: 260px;
+      height: 260px;
+
+      right: 16px;
+      top: 80px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(121,105,255,.11),
+          transparent 68%
+        );
     }
 
-    @keyframes floaty {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+    .launcher-label {
+      color: var(--cyan);
+
+      font-size: 10px;
+      font-weight: 850;
+
+      letter-spacing: 1.2px;
     }
 
-    .side-stack {
+    .launcher-heading {
+      max-width: 380px;
+
+      margin-top: 17px;
+
+      font-size:
+        clamp(
+          31px,
+          4vw,
+          48px
+        );
+
+      line-height: 1;
+
+      letter-spacing: -2px;
+
+      font-weight: 900;
+    }
+
+    .launcher-sub {
+      width: min(
+        390px,
+        60%
+      );
+
+      margin-top: 17px;
+
+      color: var(--soft);
+
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .play-button {
+      width: 168px;
+      height: 48px;
+
+      margin-top: 28px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 13px;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          120deg,
+          var(--cyan),
+          var(--purple)
+        );
+
+      box-shadow:
+        0 15px 35px
+        rgba(102,101,255,.23);
+
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .hero-steve {
+      position: absolute;
+
+      z-index: 2;
+
+      height: 385px;
+      width: auto;
+
+      right: 54px;
+      bottom: 45px;
+
+      object-fit: contain;
+
+      image-rendering: pixelated;
+
+      filter:
+        drop-shadow(
+          0 28px 22px
+          rgba(0,0,0,.42)
+        );
+
+      animation:
+        steveFloat
+        4.5s ease-in-out
+        infinite;
+    }
+
+    @keyframes steveFloat {
+      0%,100% {
+        transform:
+          translateY(0);
+      }
+
+      50% {
+        transform:
+          translateY(-8px);
+      }
+    }
+
+    .launcher-sidecards {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+
+      gap: 11px;
     }
 
-    .mini-card {
-      border: 1px solid var(--border);
+    .launcher-mini {
+      min-height: 138px;
+
+      padding: 17px;
+
+      border:
+        1px solid var(--border);
+
       border-radius: 18px;
-      background: rgba(255,255,255,.024);
-      min-height: 128px;
-      padding: 16px;
+
+      background:
+        rgba(255,255,255,.025);
     }
 
-    .mini-card-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(71,212,255,.24), rgba(122,105,255,.38));
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+    .mini-icon {
+      width: 40px;
+      height: 40px;
+
       margin-bottom: 16px;
+
+      display: grid;
+      place-items: center;
+
+      overflow: hidden;
+
+      border-radius: 11px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(82,215,255,.22),
+          rgba(121,105,255,.33)
+        );
     }
 
-    .mini-card-line {
-      width: 68%;
-      height: 8px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.34);
+    .mini-icon img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      image-rendering: pixelated;
     }
 
-    .mini-card-line.two {
-      margin-top: 10px;
-      width: 86%;
-      height: 6px;
-      background: rgba(255,255,255,.1);
+    .mini-title {
+      font-size: 12px;
+      font-weight: 800;
     }
 
-    /* sections */
+    .mini-copy {
+      margin-top: 6px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    /* =========================================================
+       GLOBAL SECTION
+       ========================================================= */
 
     .section {
       position: relative;
-      padding: 125px 0;
+
+      padding:
+        128px 0;
     }
 
-    .section-header {
-      max-width: 760px;
-      margin-bottom: 56px;
+    .section-heading {
+      max-width: 740px;
+
+      margin-bottom: 52px;
     }
 
-    .section-header.center {
+    .section-heading.center {
       margin-inline: auto;
+
       text-align: center;
     }
 
     .eyebrow {
       color: var(--cyan);
+
       font-size: 11px;
-      font-weight: 850;
-      letter-spacing: 1.7px;
+      font-weight: 900;
+
+      letter-spacing: 1.6px;
     }
 
-    .section-header h2 {
-      margin: 12px 0 16px;
-      font-size: clamp(42px, 5vw, 72px);
+    h2 {
+      margin:
+        13px 0 17px;
+
+      font-size:
+        clamp(
+          42px,
+          5.6vw,
+          74px
+        );
+
       line-height: .98;
-      letter-spacing: -3.4px;
+
+      letter-spacing: -3.5px;
     }
 
-    .section-header p {
+    .section-heading p {
       margin: 0;
+
       color: var(--soft);
+
       font-size: 16px;
       line-height: 1.72;
     }
 
-    /* quick feature strip */
+    /* =========================================================
+       BENEFITS
+       ========================================================= */
 
-    .feature-strip {
+    .benefits {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-top: 26px;
-    }
 
-    .feature-chip {
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: rgba(255,255,255,.025);
-      display: flex;
-      align-items: center;
+      grid-template-columns:
+        repeat(4,1fr);
+
       gap: 13px;
     }
 
-    .feature-chip-icon {
-      width: 42px;
-      height: 42px;
+    .benefit {
+      padding: 20px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 18px;
+
+      background:
+        rgba(255,255,255,.025);
+    }
+
+    .benefit-icon {
+      width: 41px;
+      height: 41px;
+
+      margin-bottom: 28px;
+
+      display: grid;
+      place-items: center;
+
       border-radius: 12px;
-      background: linear-gradient(135deg, rgba(71,212,255,.18), rgba(122,105,255,.25));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.07);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(82,215,255,.17),
+          rgba(121,105,255,.25)
+        );
+
       font-weight: 900;
-      color: white;
     }
 
-    .feature-chip-text strong {
+    .benefit strong {
       display: block;
-      font-size: 13px;
+
+      font-size: 14px;
     }
 
-    .feature-chip-text span {
+    .benefit span {
       display: block;
-      font-size: 11px;
+
+      margin-top: 6px;
+
       color: var(--muted);
-      margin-top: 3px;
+
+      font-size: 11px;
+      line-height: 1.55;
     }
 
-    /* java + bedrock */
+    /* =========================================================
+       PROFILE
+       ========================================================= */
 
-    .edition-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .edition-card {
-      position: relative;
+    .profile-window {
       overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      min-height: 420px;
-      background: linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.018));
-      padding: 34px;
-      box-shadow: var(--shadow-glow);
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 27px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #0e131b,
+          #090c11
+        );
+
+      box-shadow:
+        var(--shadow);
     }
 
-    .edition-card::after {
-      content: "";
-      position: absolute;
-      width: 280px;
-      height: 280px;
-      border-radius: 50%;
-      top: -90px;
-      right: -100px;
-      opacity: .14;
-      filter: blur(20px);
+    .profile-tabs {
+      min-height: 72px;
+
+      padding:
+        0 18px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 7px;
+
+      border-bottom:
+        1px solid var(--border);
     }
 
-    .edition-card.java::after { background: var(--cyan); }
-    .edition-card.bedrock::after { background: var(--purple); }
+    .profile-tab {
+      height: 35px;
 
-    .edition-badge {
-      width: fit-content;
-      padding: 7px 10px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(255,255,255,.02);
-      color: var(--soft);
+      padding:
+        0 13px;
+
+      display: flex;
+      align-items: center;
+
+      border-radius: 9px;
+
+      color: var(--muted);
+
+      background:
+        rgba(255,255,255,.025);
+
       font-size: 10px;
-      font-weight: 800;
+      font-weight: 850;
     }
 
-    .edition-card h3 {
-      margin: 24px 0 12px;
-      font-size: 34px;
-      letter-spacing: -1.5px;
-    }
-
-    .edition-card > p {
-      margin: 0 0 24px;
-      color: var(--soft);
-      max-width: 500px;
-      line-height: 1.7;
-    }
-
-    .edition-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .edition-list div {
-      min-height: 48px;
-      padding: 0 14px;
-      display: flex;
-      align-items: center;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: rgba(255,255,255,.02);
-      color: #ccd2dc;
-      font-size: 12px;
-      font-weight: 650;
-    }
-
-    /* profiles */
-
-    .profile-showcase {
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      background: linear-gradient(145deg, #0d121a, #090c12);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .showcase-topbar {
-      min-height: 74px;
-      padding: 0 18px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .showcase-tab {
-      height: 36px;
-      padding: 0 14px;
-      display: inline-flex;
-      align-items: center;
-      border-radius: 10px;
-      color: var(--muted);
-      background: rgba(255,255,255,.02);
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-    .showcase-tab.active {
+    .profile-tab.active {
       color: white;
-      background: rgba(122,105,255,.15);
+
+      background:
+        rgba(121,105,255,.16);
     }
 
-    .showcase-search {
-      width: 250px;
-      height: 38px;
+    .profile-search {
+      width: 245px;
+      height: 37px;
+
       margin-left: auto;
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      background: rgba(255,255,255,.02);
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 10px;
+
+      background:
+        rgba(255,255,255,.02);
     }
 
     .profile-list {
-      padding: 10px;
+      padding: 9px;
     }
 
     .profile-row {
-      min-height: 95px;
-      padding: 14px;
+      min-height: 96px;
+
+      padding:
+        13px 14px;
+
       display: flex;
       align-items: center;
+
       gap: 14px;
-      border-bottom: 1px solid rgba(255,255,255,.045);
+
+      border-bottom:
+        1px solid rgba(255,255,255,.05);
     }
 
     .profile-row:last-child {
       border-bottom: 0;
     }
 
-    .profile-icon {
-      width: 56px;
-      height: 56px;
-      flex-shrink: 0;
-      border-radius: 15px;
+    .profile-image {
+      width: 58px;
+      height: 58px;
+
+      flex: 0 0 auto;
+
       overflow: hidden;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 14px;
+
+      background:
+        #111723;
     }
 
-    .profile-icon img {
+    .profile-image img {
       width: 100%;
       height: 100%;
+
       object-fit: cover;
+
+      image-rendering: pixelated;
     }
 
-    .profile-info {
+    .profile-data {
       flex: 1;
-      min-width: 0;
     }
 
-    .profile-name {
+    .profile-title {
       display: flex;
       align-items: center;
-      gap: 9px;
-      flex-wrap: wrap;
+
+      gap: 8px;
     }
 
-    .profile-name strong {
+    .profile-title strong {
       font-size: 14px;
     }
 
-    .badge-java,
-    .badge-bedrock {
-      padding: 4px 7px;
-      border-radius: 7px;
+    .edition {
+      padding:
+        4px 7px;
+
+      border-radius: 6px;
+
       font-size: 8px;
       font-weight: 900;
+
       letter-spacing: .5px;
     }
 
-    .badge-java {
-      background: rgba(71,212,255,.1);
-      color: #67dfff;
+    .edition.java {
+      color: #6ddfff;
+
+      background:
+        rgba(82,215,255,.1);
     }
 
-    .badge-bedrock {
-      background: rgba(122,105,255,.12);
-      color: #a79aff;
+    .edition.bedrock {
+      color: #a497ff;
+
+      background:
+        rgba(121,105,255,.12);
     }
 
-    .profile-info span {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
+    .profile-meta {
       margin-top: 5px;
+
+      color: var(--muted);
+
+      font-size: 11px;
     }
 
     .profile-actions {
       display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+
+      gap: 7px;
     }
 
-    .profile-button {
-      height: 38px;
-      padding: 0 13px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: rgba(255,255,255,.024);
-      color: #d0d5de;
-      font-size: 10px;
-      font-weight: 800;
+    .profile-action {
+      height: 37px;
+
+      padding:
+        0 13px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 9px;
+
+      color: #cad1dc;
+
+      background:
+        rgba(255,255,255,.025);
+
+      font-size: 9px;
+      font-weight: 850;
     }
 
-    .profile-button.play {
+    .profile-action.main {
       border: 0;
+
       color: white;
-      background: linear-gradient(120deg, var(--cyan), var(--purple));
+
+      background:
+        linear-gradient(
+          120deg,
+          var(--cyan),
+          var(--purple)
+        );
     }
 
-    /* discover */
+    /* =========================================================
+       PROFILE DETAIL
+       ========================================================= */
+
+    .detail-window {
+      margin-top: 17px;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(0,1fr)
+        220px;
+
+      overflow: hidden;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 27px;
+
+      background:
+        #090d13;
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .detail-main {
+      padding: 22px;
+    }
+
+    .detail-head {
+      padding-bottom: 20px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 14px;
+
+      border-bottom:
+        1px solid var(--border);
+    }
+
+    .detail-head-image {
+      width: 68px;
+      height: 68px;
+
+      overflow: hidden;
+
+      border-radius: 15px;
+
+      background:
+        #131a25;
+    }
+
+    .detail-head-image img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      image-rendering: pixelated;
+    }
+
+    .detail-name {
+      flex: 1;
+    }
+
+    .detail-name strong {
+      display: block;
+
+      font-size: 21px;
+    }
+
+    .detail-name span {
+      display: block;
+
+      margin-top: 6px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    .detail-play {
+      height: 43px;
+
+      padding:
+        0 20px;
+
+      border: 0;
+
+      border-radius: 11px;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          120deg,
+          var(--cyan),
+          var(--purple)
+        );
+
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .mods-toolbar {
+      margin-top: 17px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 9px;
+    }
+
+    .mods-search {
+      height: 40px;
+
+      flex: 1;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 10px;
+
+      background:
+        rgba(255,255,255,.02);
+    }
+
+    .toolbar-button {
+      height: 40px;
+
+      padding:
+        0 13px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 10px;
+
+      background:
+        rgba(255,255,255,.025);
+
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .mod-grid {
+      margin-top: 13px;
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 9px;
+    }
+
+    .mod-card {
+      min-height: 72px;
+
+      padding: 10px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 11px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 12px;
+
+      background:
+        rgba(255,255,255,.018);
+    }
+
+    .mod-icon {
+      width: 46px;
+      height: 46px;
+
+      flex: 0 0 auto;
+
+      overflow: hidden;
+
+      border-radius: 10px;
+
+      background:
+        #151b27;
+    }
+
+    .mod-icon img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    .mod-info {
+      min-width: 0;
+
+      flex: 1;
+    }
+
+    .mod-info strong {
+      display: block;
+
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+
+      white-space: nowrap;
+
+      font-size: 11px;
+    }
+
+    .mod-info span {
+      display: block;
+
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+    }
+
+    .toggle {
+      width: 28px;
+      height: 16px;
+
+      position: relative;
+
+      flex: 0 0 auto;
+
+      border-radius: 999px;
+
+      background:
+        rgba(82,215,255,.25);
+    }
+
+    .toggle::after {
+      content: "";
+
+      position: absolute;
+
+      width: 12px;
+      height: 12px;
+
+      right: 2px;
+      top: 2px;
+
+      border-radius: 50%;
+
+      background:
+        #d9f8ff;
+    }
+
+    .detail-nav {
+      padding: 20px;
+
+      border-left:
+        1px solid var(--border);
+
+      background:
+        rgba(255,255,255,.012);
+    }
+
+    .detail-nav-title {
+      margin-bottom: 10px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 900;
+
+      letter-spacing: 1px;
+    }
+
+    .detail-nav-item {
+      height: 37px;
+
+      padding:
+        0 10px;
+
+      display: flex;
+      align-items: center;
+
+      margin-bottom: 5px;
+
+      border-radius: 9px;
+
+      color: #9ca6b5;
+
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .detail-nav-item.active {
+      color: white;
+
+      background:
+        rgba(255,255,255,.07);
+    }
+
+    /* =========================================================
+       DISCOVER
+       ========================================================= */
 
     .discover-window {
-      overflow: hidden;
       display: grid;
-      grid-template-columns: minmax(0,1fr) 255px;
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      background: #0a0d13;
-      box-shadow: var(--shadow-soft);
+
+      grid-template-columns:
+        minmax(0,1fr)
+        250px;
+
+      overflow: hidden;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 27px;
+
+      background:
+        #090d13;
+
+      box-shadow:
+        var(--shadow);
     }
 
     .discover-main {
-      padding: 20px;
       min-width: 0;
+
+      padding: 20px;
     }
 
     .discover-tabs {
       display: flex;
+
       gap: 7px;
-      margin-bottom: 16px;
+
+      margin-bottom: 15px;
+
       overflow-x: auto;
     }
 
     .discover-tab {
-      height: 36px;
-      padding: 0 14px;
-      border-radius: 10px;
-      display: inline-flex;
+      height: 35px;
+
+      padding:
+        0 13px;
+
+      display: flex;
       align-items: center;
-      background: rgba(255,255,255,.025);
+
+      border-radius: 9px;
+
       color: var(--muted);
-      font-size: 10px;
-      font-weight: 850;
+
+      background:
+        rgba(255,255,255,.025);
+
       white-space: nowrap;
+
+      font-size: 9px;
+      font-weight: 850;
     }
 
     .discover-tab.active {
       color: white;
-      background: rgba(122,105,255,.15);
+
+      background:
+        rgba(121,105,255,.16);
     }
 
     .discover-search {
-      height: 44px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: rgba(255,255,255,.02);
-      margin-bottom: 12px;
-    }
+      height: 43px;
 
-    .project-row {
-      min-height: 115px;
-      padding: 14px 0;
+      margin-bottom: 11px;
+
+      padding:
+        0 14px;
+
       display: flex;
       align-items: center;
-      gap: 14px;
-      border-bottom: 1px solid rgba(255,255,255,.06);
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 11px;
+
+      color: var(--muted);
+
+      background:
+        rgba(255,255,255,.02);
+
+      font-size: 11px;
     }
 
-    .project-row:last-child {
+    .project-list {
+      min-height: 390px;
+    }
+
+    .project {
+      min-height: 112px;
+
+      padding:
+        12px 0;
+
+      display: flex;
+      align-items: center;
+
+      gap: 14px;
+
+      border-bottom:
+        1px solid var(--border);
+    }
+
+    .project:last-child {
       border-bottom: 0;
     }
 
-    .project-icon {
-      width: 74px;
-      height: 74px;
-      flex-shrink: 0;
-      border-radius: 18px;
+    .project-image {
+      width: 73px;
+      height: 73px;
+
+      flex: 0 0 auto;
+
+      display: grid;
+      place-items: center;
+
       overflow: hidden;
-      background: linear-gradient(135deg, rgba(71,212,255,.26), rgba(122,105,255,.36));
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+
+      border-radius: 16px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(82,215,255,.24),
+          rgba(121,105,255,.34)
+        );
+
+      font-size: 23px;
+      font-weight: 900;
     }
 
-    .project-body {
-      flex: 1;
+    .project-image img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    .project-data {
       min-width: 0;
+
+      flex: 1;
     }
 
-    .project-body strong {
+    .project-data strong {
       display: block;
-      font-size: 15px;
+
+      font-size: 14px;
     }
 
-    .project-body small {
+    .project-data small {
       display: block;
-      margin-top: 4px;
+
+      margin-top: 3px;
+
       color: var(--muted);
-      font-size: 10px;
+
+      font-size: 9px;
     }
 
-    .project-body p {
-      margin: 8px 0 0;
-      max-width: 620px;
+    .project-data p {
+      max-width: 640px;
+
+      margin:
+        7px 0 0;
+
       color: var(--soft);
-      font-size: 12px;
-      line-height: 1.55;
+
+      font-size: 11px;
+      line-height: 1.5;
     }
 
-    .install-button {
-      height: 40px;
-      padding: 0 16px;
+    .install {
+      height: 37px;
+
+      padding:
+        0 14px;
+
+      flex: 0 0 auto;
+
       border: 0;
-      border-radius: 10px;
-      background: linear-gradient(120deg, #7a6bff, #6d58ff);
+
+      border-radius: 9px;
+
       color: white;
-      font-size: 10px;
-      font-weight: 850;
-      flex-shrink: 0;
+
+      background:
+        #7563ff;
+
+      font-size: 9px;
+      font-weight: 900;
     }
 
     .filters {
       padding: 20px;
-      border-left: 1px solid var(--border);
-      background: rgba(255,255,255,.012);
+
+      border-left:
+        1px solid var(--border);
+
+      background:
+        rgba(255,255,255,.012);
     }
 
-    .filters > strong {
+    .filters strong {
       display: block;
+
       margin-bottom: 20px;
-      font-size: 12px;
-      letter-spacing: .2px;
+
+      font-size: 11px;
     }
 
-    .filter-block {
-      margin-bottom: 24px;
-    }
+    .filter-title {
+      margin:
+        19px 0 8px;
 
-    .filter-block span {
-      display: block;
-      margin-bottom: 10px;
       color: var(--muted);
-      font-size: 10px;
+
+      font-size: 9px;
       font-weight: 850;
     }
 
     .filter-option {
-      height: 34px;
-      padding: 0 10px;
+      height: 33px;
+
+      padding:
+        0 10px;
+
       display: flex;
       align-items: center;
-      border-radius: 10px;
-      background: rgba(255,255,255,.025);
-      color: #aeb6c3;
-      font-size: 10px;
-      margin-bottom: 6px;
+
+      margin-bottom: 5px;
+
+      border-radius: 9px;
+
+      color: #aab2bf;
+
+      background:
+        rgba(255,255,255,.025);
+
+      font-size: 9px;
     }
 
-    /* Studio cards */
+    /* =========================================================
+       SKINS
+       ========================================================= */
 
-    .studio-grid {
+    .skin-layout {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+
+      grid-template-columns:
+        .8fr 1.2fr;
+
       gap: 16px;
     }
 
-    .studio-card {
+    .skin-characters,
+    .skin-editor {
+      min-height: 530px;
+
       position: relative;
+
       overflow: hidden;
-      min-height: 360px;
-      padding: 28px;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      background: linear-gradient(145deg, rgba(255,255,255,.042), rgba(255,255,255,.018));
-      transition: transform .18s ease, border-color .18s ease;
-      box-shadow: var(--shadow-glow);
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 26px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #101620,
+          #090d13
+        );
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .skin-characters {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+
+      gap: 8px;
+
+      padding:
+        32px 20px 0;
+    }
+
+    .skin-character {
+      height: 430px;
+
+      width: auto;
+
+      object-fit: contain;
+
+      image-rendering: pixelated;
+
+      filter:
+        drop-shadow(
+          0 30px 28px
+          rgba(0,0,0,.42)
+        );
+    }
+
+    .skin-character.alex {
+      height: 390px;
+
+      opacity: .76;
+    }
+
+    .skin-caption {
+      position: absolute;
+
+      inset:
+        24px 24px auto;
+
+      z-index: 2;
+    }
+
+    .skin-caption strong {
+      display: block;
+
+      font-size: 23px;
+    }
+
+    .skin-caption span {
+      display: block;
+
+      margin-top: 5px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    .skin-editor {
+      padding: 22px;
+
+      display: grid;
+
+      grid-template-columns:
+        74px
+        minmax(0,1fr)
+        170px;
+
+      gap: 12px;
+    }
+
+    .editor-toolbar {
+      padding: 9px;
+
+      display: flex;
+      flex-direction: column;
+
+      gap: 8px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 14px;
+
+      background:
+        rgba(255,255,255,.02);
+    }
+
+    .editor-tool {
+      height: 46px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 10px;
+
+      background:
+        rgba(255,255,255,.035);
+
+      color: #afb7c4;
+
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .editor-tool.active {
+      color: white;
+
+      background:
+        rgba(121,105,255,.17);
+    }
+
+    .editor-canvas {
+      display: grid;
+      place-items: center;
+
+      overflow: hidden;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 16px;
+
+      background:
+        linear-gradient(
+          45deg,
+          rgba(255,255,255,.025) 25%,
+          transparent 25%
+        ),
+        linear-gradient(
+          -45deg,
+          rgba(255,255,255,.025) 25%,
+          transparent 25%
+        ),
+        linear-gradient(
+          45deg,
+          transparent 75%,
+          rgba(255,255,255,.025) 75%
+        ),
+        linear-gradient(
+          -45deg,
+          transparent 75%,
+          rgba(255,255,255,.025) 75%
+        ),
+        #0a0e15;
+
+      background-size:
+        24px 24px;
+
+      background-position:
+        0 0,
+        0 12px,
+        12px -12px,
+        -12px 0;
+    }
+
+    .skin-texture {
+      width: min(
+        82%,
+        330px
+      );
+
+      image-rendering: pixelated;
+
+      filter:
+        drop-shadow(
+          0 20px 28px
+          rgba(0,0,0,.35)
+        );
+    }
+
+    .editor-properties {
+      padding: 13px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 14px;
+
+      background:
+        rgba(255,255,255,.02);
+    }
+
+    .editor-properties strong {
+      display: block;
+
+      font-size: 11px;
+    }
+
+    .color-grid {
+      margin-top: 13px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4,1fr);
+
+      gap: 6px;
+    }
+
+    .color {
+      aspect-ratio: 1;
+
+      border-radius: 7px;
+    }
+
+    .property {
+      margin-top: 18px;
+    }
+
+    .property span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+    }
+
+    .property-box {
+      height: 34px;
+
+      margin-top: 7px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 8px;
+
+      background:
+        rgba(255,255,255,.025);
+    }
+
+    /* =========================================================
+       STUDIO
+       ========================================================= */
+
+    .studio-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2,1fr);
+
+      gap: 15px;
+    }
+
+    .studio-card {
+      min-height: 340px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 27px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 23px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.04),
+          rgba(255,255,255,.018)
+        );
+
+      transition:
+        transform .18s ease,
+        border-color .18s ease;
     }
 
     .studio-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--border-strong);
+      transform:
+        translateY(-4px);
+
+      border-color:
+        var(--border2);
     }
 
-    .studio-icon {
-      width: 48px;
-      height: 48px;
-      margin-bottom: 20px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(71,212,255,.18), rgba(122,105,255,.28));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
-      font-size: 20px;
+    .studio-symbol {
+      width: 46px;
+      height: 46px;
+
+      margin-bottom: 44px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 13px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(82,215,255,.17),
+          rgba(121,105,255,.27)
+        );
+
       font-weight: 900;
     }
 
     .studio-card h3 {
-      margin: 0 0 9px;
-      font-size: 28px;
+      margin:
+        0 0 8px;
+
+      font-size: 27px;
+
       letter-spacing: -1.2px;
     }
 
     .studio-card p {
-      max-width: 430px;
+      max-width: 420px;
+
       margin: 0;
+
       color: var(--soft);
-      line-height: 1.68;
-      font-size: 14px;
+
+      font-size: 13px;
+      line-height: 1.65;
     }
 
-    .studio-card .help-pill {
-      margin-top: 18px;
+    .help {
       width: fit-content;
-      padding: 8px 11px;
-      border: 1px solid var(--border);
+
+      margin-top: 17px;
+
+      padding:
+        7px 10px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 7px;
+
+      border:
+        1px solid var(--border);
+
       border-radius: 999px;
-      background: rgba(255,255,255,.025);
-      color: #cad1db;
-      font-size: 11px;
+
+      color: #c6ced9;
+
+      background:
+        rgba(255,255,255,.025);
+
+      font-size: 10px;
       font-weight: 700;
     }
 
-    .studio-visual {
+    .question {
+      width: 17px;
+      height: 17px;
+
+      display: grid;
+      place-items: center;
+
+      border:
+        1px solid rgba(255,255,255,.25);
+
+      border-radius: 50%;
+
+      font-size: 9px;
+    }
+
+    .studio-preview {
+      width: 190px;
+      height: 130px;
+
       position: absolute;
+
       right: 20px;
       top: 20px;
-      width: 205px;
-      height: 130px;
-      border: 1px solid var(--border);
-      border-radius: 16px;
+
       overflow: hidden;
-      background: linear-gradient(145deg, #0f141d, #0b1017);
-      transform: rotate(3deg);
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 15px;
+
+      background:
+        #0a0f16;
+
+      transform:
+        rotate(2deg);
+
       opacity: .92;
     }
 
-    .studio-visual.texture {
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      grid-template-rows: repeat(5, 1fr);
-    }
+    .studio-steve {
+      width: 100%;
+      height: 100%;
 
-    .studio-visual.texture i:nth-child(3n) { background: rgba(71,212,255,.23); }
-    .studio-visual.texture i:nth-child(5n) { background: rgba(122,105,255,.28); }
-    .studio-visual.texture i:nth-child(7n) { background: rgba(255,255,255,.08); }
-    .studio-visual.texture i { border: 1px solid rgba(255,255,255,.02); }
-
-    .studio-visual.hud {
-      padding: 16px;
-    }
-
-    .hud-line {
-      height: 16px;
-      border-radius: 8px;
-      background: rgba(255,255,255,.08);
-      margin-bottom: 11px;
-    }
-
-    .hud-box {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-top: 18px;
-    }
-
-    .hud-box i {
-      height: 32px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, rgba(71,212,255,.18), rgba(122,105,255,.3));
-    }
-
-    .studio-visual.theme {
-      padding: 16px;
-    }
-
-    .theme-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .theme-row i {
-      width: 30px;
-      height: 30px;
-      border-radius: 10px;
-    }
-
-    .theme-row i:nth-child(1) { background: #101826; }
-    .theme-row i:nth-child(2) { background: #47d4ff; }
-    .theme-row i:nth-child(3) { background: #6794ff; }
-    .theme-row i:nth-child(4) { background: #7a69ff; }
-
-    /* gallery */
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr;
-      gap: 16px;
-    }
-
-    .gallery-card {
-      position: relative;
-      overflow: hidden;
-      min-height: 260px;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      background: linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.018));
-      box-shadow: var(--shadow-glow);
-    }
-
-    .gallery-card .label {
-      position: absolute;
-      top: 18px;
-      left: 18px;
-      z-index: 2;
-      padding: 7px 10px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(0,0,0,.22);
-      font-size: 10px;
-      font-weight: 800;
-      color: #dde2ea;
-      backdrop-filter: blur(12px);
-    }
-
-    .gallery-copy {
-      position: absolute;
-      left: 20px;
-      right: 20px;
-      bottom: 20px;
-      z-index: 2;
-    }
-
-    .gallery-copy h4 {
-      margin: 0 0 8px;
-      font-size: 24px;
-      letter-spacing: -1px;
-    }
-
-    .gallery-copy p {
-      margin: 0;
-      color: var(--soft);
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    /* Local-first */
-
-    .local-card {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      background:
-        radial-gradient(circle at 78% 50%, rgba(71,212,255,.12), transparent 30%),
-        radial-gradient(circle at 85% 35%, rgba(122,105,255,.14), transparent 22%),
-        linear-gradient(145deg, #10151e, #0a0d13);
-      padding: 60px;
-      min-height: 420px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .local-card h2 {
-      margin: 12px 0 18px;
-      max-width: 660px;
-      font-size: clamp(42px, 5vw, 72px);
-      line-height: .98;
-      letter-spacing: -3px;
-    }
-
-    .local-card > p {
-      max-width: 600px;
-      margin: 0;
-      color: var(--soft);
-      font-size: 15px;
-      line-height: 1.75;
-    }
-
-    .local-points {
-      margin-top: 30px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .local-point {
-      padding: 10px 13px;
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      background: rgba(255,255,255,.024);
-      color: #c8d0da;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    /* download */
-
-    .download-section {
-      padding: 120px 0 150px;
-      text-align: center;
-    }
-
-    .download-box {
-      position: relative;
-      overflow: hidden;
-      padding: 84px 30px;
-      border: 1px solid var(--border);
-      border-radius: 32px;
-      background:
-        radial-gradient(circle at 50% -5%, rgba(71,212,255,.18), transparent 30%),
-        radial-gradient(circle at 50% 108%, rgba(122,105,255,.18), transparent 40%),
-        linear-gradient(145deg, #10151e, #090c12);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .download-logo {
-      width: 76px;
-      height: 76px;
-      margin: 0 auto 24px;
       object-fit: contain;
-      filter: drop-shadow(0 18px 35px rgba(98,112,255,.3));
+
+      image-rendering: pixelated;
     }
 
-    .download-box h2 {
-      margin: 0 0 15px;
-      font-size: clamp(46px, 6vw, 82px);
-      letter-spacing: -4px;
+    .pixel-editor {
+      display: grid;
+
+      grid-template-columns:
+        repeat(8,1fr);
+
+      grid-template-rows:
+        repeat(6,1fr);
     }
 
-    .download-box p {
-      max-width: 600px;
-      margin: 0 auto 28px;
+    .pixel-editor i {
+      border:
+        1px solid rgba(255,255,255,.02);
+
+      background:
+        rgba(255,255,255,.03);
+    }
+
+    .pixel-editor i:nth-child(3n) {
+      background:
+        rgba(82,215,255,.22);
+    }
+
+    .pixel-editor i:nth-child(5n) {
+      background:
+        rgba(121,105,255,.28);
+    }
+
+    .hud-preview {
+      padding: 14px;
+    }
+
+    .hud-bar {
+      height: 12px;
+
+      margin-bottom: 10px;
+
+      border-radius: 6px;
+
+      background:
+        rgba(255,255,255,.12);
+    }
+
+    .hud-keys {
+      margin-top: 18px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4,1fr);
+
+      gap: 6px;
+    }
+
+    .hud-keys i {
+      height: 28px;
+
+      border-radius: 7px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(82,215,255,.18),
+          rgba(121,105,255,.26)
+        );
+    }
+
+    /* =========================================================
+       JAVA BEDROCK
+       ========================================================= */
+
+    .edition-grid {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 15px;
+    }
+
+    .edition-card {
+      min-height: 410px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 33px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 24px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.04),
+          rgba(255,255,255,.018)
+        );
+    }
+
+    .edition-card::after {
+      content: "";
+
+      position: absolute;
+
+      width: 300px;
+      height: 300px;
+
+      top: -100px;
+      right: -110px;
+
+      border-radius: 50%;
+
+      opacity: .13;
+
+      filter: blur(25px);
+    }
+
+    .edition-card.java::after {
+      background:
+        var(--cyan);
+    }
+
+    .edition-card.bedrock::after {
+      background:
+        var(--purple);
+    }
+
+    .edition-pill {
+      width: fit-content;
+
+      padding:
+        7px 10px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 999px;
+
       color: var(--soft);
-      font-size: 15px;
-      line-height: 1.72;
-    }
 
-    .download-meta {
-      margin-top: 14px;
-      color: var(--muted);
+      background:
+        rgba(255,255,255,.02);
+
       font-size: 10px;
+      font-weight: 850;
     }
 
-    .notice {
-      max-width: 620px;
-      margin: 16px auto 0;
-      padding: 11px 14px;
-      border: 1px solid rgba(246,195,108,.18);
+    .edition-card h3 {
+      margin:
+        24px 0 11px;
+
+      font-size: 34px;
+
+      letter-spacing: -1.5px;
+    }
+
+    .edition-card p {
+      max-width: 490px;
+
+      margin:
+        0 0 24px;
+
+      color: var(--soft);
+
+      line-height: 1.7;
+    }
+
+    .edition-features {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 9px;
+    }
+
+    .edition-feature {
+      min-height: 47px;
+
+      padding:
+        0 13px;
+
+      display: flex;
+      align-items: center;
+
+      border:
+        1px solid var(--border);
+
       border-radius: 11px;
-      background: rgba(246,195,108,.05);
-      color: #ecc37d;
+
+      color: #c9d0da;
+
+      background:
+        rgba(255,255,255,.02);
+
       font-size: 11px;
-      line-height: 1.5;
+    }
+
+    /* =========================================================
+       FAQ
+       ========================================================= */
+
+    .faq {
+      max-width: 850px;
+
+      margin-inline: auto;
+    }
+
+    details {
+      margin-bottom: 9px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 15px;
+
+      background:
+        rgba(255,255,255,.022);
+    }
+
+    summary {
+      padding:
+        18px 20px;
+
+      cursor: pointer;
+
+      list-style: none;
+
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    summary::-webkit-details-marker {
       display: none;
     }
 
-    .notice.show {
+    details p {
+      margin: 0;
+
+      padding:
+        0 20px 20px;
+
+      color: var(--soft);
+
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    /* =========================================================
+       CTA
+       ========================================================= */
+
+    .download-section {
+      padding:
+        120px 0 150px;
+
+      text-align: center;
+    }
+
+    .download-panel {
+      padding:
+        80px 25px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 31px;
+
+      background:
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(82,215,255,.16),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 50% 110%,
+          rgba(121,105,255,.17),
+          transparent 40%
+        ),
+        linear-gradient(
+          145deg,
+          #10151e,
+          #090c12
+        );
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .download-logo {
+      width: 75px;
+      height: 75px;
+
+      margin:
+        0 auto 23px;
+
+      object-fit: contain;
+
+      filter:
+        drop-shadow(
+          0 18px 30px
+          rgba(92,103,255,.27)
+        );
+    }
+
+    .download-panel h2 {
+      margin:
+        10px 0 16px;
+    }
+
+    .download-panel > p {
+      max-width: 600px;
+
+      margin:
+        0 auto 28px;
+
+      color: var(--soft);
+
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .release-meta {
+      margin-top: 14px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+    .release-message {
+      max-width: 600px;
+
+      margin:
+        15px auto 0;
+
+      padding:
+        10px 13px;
+
+      display: none;
+
+      border:
+        1px solid rgba(255,197,92,.18);
+
+      border-radius: 10px;
+
+      color: #e8c77f;
+
+      background:
+        rgba(255,197,92,.045);
+
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .release-message.show {
       display: block;
     }
 
-    /* footer */
+    /* =========================================================
+       FOOTER
+       ========================================================= */
 
     footer {
-      border-top: 1px solid var(--border);
+      border-top:
+        1px solid var(--border);
     }
 
-    .footer-inner {
-      min-height: 126px;
+    .footer {
+      min-height: 128px;
+
       display: flex;
       align-items: center;
-      gap: 16px;
+
+      gap: 18px;
     }
 
     .footer-brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+
+      gap: 9px;
+
       font-size: 12px;
       font-weight: 850;
     }
 
     .footer-brand img {
-      width: 31px;
-      height: 31px;
+      width: 30px;
+      height: 30px;
+
       object-fit: contain;
     }
 
     .footer-links {
-      display: flex;
-      gap: 18px;
       margin-left: auto;
+
+      display: flex;
+      align-items: center;
+
+      gap: 18px;
+
       flex-wrap: wrap;
-      justify-content: flex-end;
     }
 
     .footer-links a,
-    .footer-copy {
+    .footer-links span {
       color: var(--muted);
+
       font-size: 10px;
     }
 
@@ -1400,260 +2792,305 @@
       color: white;
     }
 
-    /* reveal */
+    /* =========================================================
+       REVEAL
+       ========================================================= */
 
     .reveal {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .72s ease, transform .72s ease;
+
+      transform:
+        translateY(22px);
+
+      transition:
+        opacity .7s ease,
+        transform .7s ease;
     }
 
     .reveal.visible {
       opacity: 1;
-      transform: translateY(0);
+
+      transform:
+        translateY(0);
     }
 
-    /* helper */
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
 
-    .pixel-svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    /* responsive */
-
-    @media (max-width: 1120px) {
-      .feature-strip {
-        grid-template-columns: repeat(2, 1fr);
+    @media (max-width: 1080px) {
+      .benefits {
+        grid-template-columns:
+          repeat(2,1fr);
       }
 
-      .window-body {
-        grid-template-columns: 1fr;
+      .launcher-body {
+        grid-template-columns:
+          1fr;
       }
 
-      .side-stack {
+      .launcher-sidecards {
         display: none;
       }
 
+      .discover-window,
+      .detail-window {
+        grid-template-columns:
+          1fr;
+      }
+
+      .filters,
+      .detail-nav {
+        display: none;
+      }
+
+      .skin-layout,
       .edition-grid,
       .studio-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .gallery-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .discover-window {
-        grid-template-columns: 1fr;
-      }
-
-      .filters {
-        display: none;
+        grid-template-columns:
+          1fr;
       }
     }
 
-    @media (max-width: 860px) {
+    @media (max-width: 790px) {
       .nav-links {
         display: none;
       }
 
-      .launcher-window {
-        grid-template-columns: 68px 1fr;
-        min-height: 520px;
-      }
-
-      .top-search {
-        width: 140px;
-      }
-
-      .steve-wrap {
-        right: 20px;
-        top: 68px;
-        transform: scale(.82);
-        transform-origin: top right;
-      }
-
-      .local-card {
-        padding: 38px 24px;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .page {
-        width: min(calc(100% - 24px), var(--page));
-      }
-
-      .brand-wordmark {
-        display: none;
-      }
-
-      .hero {
-        min-height: 860px;
-        padding-top: 135px;
-      }
-
-      .hero h1 {
+      h1 {
         letter-spacing: -3px;
       }
 
-      .hero p {
-        font-size: 15px;
+      .launcher {
+        min-height: 520px;
+
+        grid-template-columns:
+          66px 1fr;
       }
 
-      .hero-preview {
-        margin-top: 52px;
+      .launcher-sidebar {
+        padding-inline: 7px;
       }
 
-      .launcher-window {
-        min-height: 430px;
+      .launcher-nav {
+        width: 43px;
+        height: 43px;
       }
 
-      .side-rail {
-        gap: 10px;
-      }
-
-      .side-rail .rail-logo {
+      .launcher-logo {
         width: 42px;
         height: 42px;
       }
 
-      .rail-item {
-        width: 44px;
-        height: 44px;
+      .fake-search {
+        width: 135px;
       }
 
-      .window-topbar {
-        min-height: 54px;
+      .hero-steve {
+        height: 270px;
+
+        right: 10px;
+        bottom: 45px;
       }
 
-      .word-bar {
-        width: 88px;
-        height: 10px;
+      .launcher-sub {
+        width: 65%;
+
+        font-size: 10px;
       }
 
-      .top-progress {
+      .mod-grid {
+        grid-template-columns:
+          1fr;
+      }
+
+      .skin-editor {
+        grid-template-columns:
+          62px minmax(0,1fr);
+      }
+
+      .editor-properties {
+        display: none;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .page {
+        width:
+          min(
+            calc(100% - 22px),
+            var(--page)
+          );
+      }
+
+      .brand-text {
         display: none;
       }
 
-      .window-body {
-        padding: 12px;
+      .hero {
+        min-height: 920px;
+
+        padding-top: 132px;
       }
 
-      .hero-panel {
-        min-height: 300px;
+      .hero-copy > p {
+        font-size: 14px;
+      }
+
+      .product-wrap {
+        margin-top: 55px;
+      }
+
+      .launcher {
+        min-height: 430px;
+
+        border-radius: 20px;
+      }
+
+      .launcher-top {
+        min-height: 53px;
+
+        padding:
+          0 10px;
+      }
+
+      .fake-wordmark {
+        width: 80px;
+      }
+
+      .fake-avatar {
+        width: 32px;
+        height: 32px;
+      }
+
+      .launcher-body {
+        padding: 10px;
+      }
+
+      .play-card {
+        min-height: 340px;
+
         padding: 20px;
       }
 
-      .panel-title {
-        width: 66%;
-        height: 40px;
+      .launcher-heading {
+        max-width: 230px;
+
+        font-size: 27px;
       }
 
-      .panel-copy {
-        width: 70%;
+      .launcher-sub {
+        width: 58%;
       }
 
-      .panel-copy.short {
-        width: 55%;
-      }
-
-      .panel-btn {
-        width: 128px;
-        height: 42px;
-        margin-top: 24px;
-      }
-
-      .steve-wrap {
-        width: 120px;
+      .hero-steve {
         height: 220px;
-        right: 8px;
-        top: 48px;
+
+        right: -8px;
+      }
+
+      .benefits {
+        grid-template-columns:
+          1fr;
       }
 
       .section {
-        padding: 84px 0;
+        padding:
+          82px 0;
       }
 
-      .section-header h2,
-      .local-card h2,
-      .download-box h2 {
+      h2 {
         letter-spacing: -2px;
       }
 
-      .feature-strip {
-        grid-template-columns: 1fr;
-      }
-
-      .edition-list {
-        grid-template-columns: 1fr;
-      }
-
-      .showcase-topbar {
+      .profile-tabs {
         overflow-x: auto;
       }
 
-      .showcase-search {
+      .profile-search {
         display: none;
       }
 
       .profile-row {
         align-items: flex-start;
+
         flex-wrap: wrap;
       }
 
       .profile-actions {
         width: 100%;
-        padding-left: 70px;
+
+        padding-left: 72px;
       }
 
-      .project-row {
+      .project {
         align-items: flex-start;
+
         flex-wrap: wrap;
       }
 
-      .install-button {
-        margin-left: 88px;
+      .install {
+        margin-left: 87px;
       }
 
-      .studio-card {
-        min-height: 320px;
+      .skin-characters {
+        min-height: 430px;
       }
 
-      .studio-visual {
-        opacity: .38;
+      .skin-character {
+        height: 340px;
       }
 
-      .download-box {
-        padding: 60px 20px;
+      .skin-character.alex {
+        height: 305px;
       }
 
-      .footer-inner {
-        min-height: unset;
-        padding: 26px 0;
-        align-items: flex-start;
+      .edition-features {
+        grid-template-columns:
+          1fr;
+      }
+
+      .download-panel {
+        padding:
+          58px 18px;
+      }
+
+      .footer {
+        padding:
+          27px 0;
+
         flex-direction: column;
+
+        align-items: flex-start;
       }
 
       .footer-links {
         margin-left: 0;
-        justify-content: flex-start;
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
+    @media (
+      prefers-reduced-motion: reduce
+    ) {
       *,
       *::before,
       *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-        scroll-behavior: auto !important;
+        scroll-behavior:
+          auto !important;
+
+        transition-duration:
+          .01ms !important;
+
+        animation-duration:
+          .01ms !important;
+
+        animation-iteration-count:
+          1 !important;
       }
 
       .reveal {
         opacity: 1;
+
         transform: none;
       }
     }
@@ -1661,839 +3098,2069 @@
 </head>
 
 <body>
-  <div class="noise"></div>
-  <div class="grid-bg"></div>
-  <div class="orb one"></div>
-  <div class="orb two"></div>
-  <div class="orb three"></div>
 
-  <nav id="navbar">
-    <div class="page nav-inner">
-      <a class="brand" href="#top">
-        <img src="logo.png" alt="Perfect Client logo" />
-        <div class="brand-wordmark">
-          <strong>PERFECT</strong>
-          <span>CLIENT</span>
-        </div>
+<div class="noise"></div>
+<div class="grid"></div>
+
+
+<nav id="navbar">
+
+  <div class="page nav-inner">
+
+    <a
+      class="brand"
+      href="#top"
+      aria-label="Perfect Client"
+    >
+
+      <div class="brand-mark">
+
+        PC
+
+        <img
+          src="./logo.png"
+          alt="Perfect Client"
+          onerror="this.style.display='none'"
+        >
+
+      </div>
+
+      <div class="brand-text">
+        <strong>PERFECT</strong>
+        <span>CLIENT</span>
+      </div>
+
+    </a>
+
+
+    <div class="nav-links">
+
+      <a href="#profiles">
+        Profiles
       </a>
 
-      <div class="nav-links">
-        <a href="#profiles">Profiles</a>
-        <a href="#discover">Discover</a>
-        <a href="#studio">Studio</a>
-        <a href="#gallery">Preview</a>
-        <a href="#editions">Java + Bedrock</a>
-      </div>
+      <a href="#discover">
+        Discover
+      </a>
 
-      <a class="nav-download" href="#download">Download</a>
+      <a href="#skins">
+        Skins
+      </a>
+
+      <a href="#studio">
+        Studio
+      </a>
+
+      <a href="#editions">
+        Java + Bedrock
+      </a>
+
     </div>
-  </nav>
 
-  <main id="top">
-    <section class="hero">
-      <div class="page">
-        <div class="hero-copy">
-          <div class="hero-badge">
-            <i></i>
-            BUILT FOR MINECRAFT PLAYERS
-          </div>
 
-          <h1>
-            MINECRAFT.
-            <br />
-            <span class="grad">PERFECTED.</span>
-          </h1>
+    <a
+      class="download-small"
+      href="#download"
+    >
+      Download
+    </a>
 
-          <p>
-            One client for Java and Bedrock.
-            Build profiles, install content, manage your skins
-            and create your own Minecraft experience.
-          </p>
+  </div>
 
-          <div class="hero-actions">
-            <a class="button-primary" href="#download">Download for Windows</a>
-            <a class="button-secondary" href="#profiles">Explore Perfect Client</a>
-          </div>
+</nav>
 
-          <div class="hero-note">
-            Windows 10 / 11 • Local First • No subscription required
-          </div>
 
-          <div class="feature-strip reveal">
-            <div class="feature-chip">
-              <div class="feature-chip-icon">P</div>
-              <div class="feature-chip-text">
-                <strong>Profiles</strong>
-                <span>Version, mods, worlds and settings together</span>
-              </div>
-            </div>
-            <div class="feature-chip">
-              <div class="feature-chip-icon">D</div>
-              <div class="feature-chip-text">
-                <strong>Discover</strong>
-                <span>Mods, packs and shaders in one place</span>
-              </div>
-            </div>
-            <div class="feature-chip">
-              <div class="feature-chip-icon">S</div>
-              <div class="feature-chip-text">
-                <strong>Skins</strong>
-                <span>Import, preview and organize your skins</span>
-              </div>
-            </div>
-            <div class="feature-chip">
-              <div class="feature-chip-icon">+</div>
-              <div class="feature-chip-text">
-                <strong>Studio</strong>
-                <span>Create skins, themes and texture packs</span>
-              </div>
-            </div>
-          </div>
-        </div>
+<main id="top">
+
+  <!-- ======================================================
+       HERO
+       ====================================================== -->
+
+  <section class="hero">
+
+    <div class="page hero-copy">
+
+      <div class="status-pill">
+
+        <span class="status-dot"></span>
+
+        PERFECT CLIENT IS IN DEVELOPMENT
+
       </div>
 
-      <div class="hero-preview reveal">
-        <div class="hero-glow"></div>
 
-        <div class="window launcher-window">
-          <aside class="side-rail">
-            <div class="rail-logo">
-              <img src="logo.png" alt="" />
+      <h1>
+        MINECRAFT.
+        <br>
+        <span>PERFECTED.</span>
+      </h1>
+
+
+      <p>
+        Java and Bedrock in one modern launcher.
+        Build profiles, manage mods, discover content,
+        organize skins and create your own Minecraft experience.
+      </p>
+
+
+      <div class="hero-actions">
+
+        <a
+          href="#download"
+          class="button-primary"
+        >
+          Download for Windows
+        </a>
+
+        <a
+          href="#profiles"
+          class="button-secondary"
+        >
+          Explore the client
+        </a>
+
+      </div>
+
+
+      <div class="hero-meta">
+        Windows 10 / 11 · Local first · No subscription required
+      </div>
+
+    </div>
+
+
+    <div class="product-wrap reveal">
+
+      <div class="launcher">
+
+        <aside class="launcher-sidebar">
+
+          <div class="launcher-logo">
+
+            <img
+              src="./logo.png"
+              alt=""
+              onerror="this.style.display='none'"
+            >
+
+          </div>
+
+          <div class="launcher-nav active"></div>
+          <div class="launcher-nav"></div>
+          <div class="launcher-nav"></div>
+          <div class="launcher-nav"></div>
+          <div class="launcher-nav"></div>
+
+        </aside>
+
+
+        <section class="launcher-content">
+
+          <header class="launcher-top">
+
+            <div class="fake-wordmark"></div>
+
+            <div class="fake-search"></div>
+
+
+            <div class="fake-avatar">
+
+              <img
+                src="https://mc-heads.net/avatar/MHF_Steve/80"
+                alt="Steve"
+                loading="lazy"
+              >
+
             </div>
-            <div class="rail-item active"></div>
-            <div class="rail-item"></div>
-            <div class="rail-item"></div>
-            <div class="rail-item"></div>
-            <div class="rail-item"></div>
+
+          </header>
+
+
+          <div class="launcher-body">
+
+            <div class="play-card">
+
+              <div class="launcher-label">
+                PERFECT CLIENT
+              </div>
+
+
+              <div class="launcher-heading">
+                Your Minecraft.
+                Your way.
+              </div>
+
+
+              <div class="launcher-sub">
+                Perfect PvP · Java Edition · Fabric · 18 Mods
+              </div>
+
+
+              <div class="play-button">
+                ▶ PLAY
+              </div>
+
+
+              <!-- REAL STEVE RENDER -->
+
+              <img
+                class="hero-steve"
+                src="https://mc-heads.net/body/MHF_Steve/500/right"
+                alt="Minecraft Steve skin"
+              >
+
+            </div>
+
+
+            <aside class="launcher-sidecards">
+
+              <div class="launcher-mini">
+
+                <div class="mini-icon">
+
+                  <img
+                    src="https://mc-heads.net/avatar/MHF_Steve/80"
+                    alt=""
+                  >
+
+                </div>
+
+                <div class="mini-title">
+                  Perfect PvP
+                </div>
+
+                <div class="mini-copy">
+                  Java · Fabric · 18 Mods
+                </div>
+
+              </div>
+
+
+              <div class="launcher-mini">
+
+                <div class="mini-icon">
+
+                  <img
+                    src="https://mc-heads.net/avatar/MHF_Alex/80"
+                    alt=""
+                  >
+
+                </div>
+
+                <div class="mini-title">
+                  Bedrock Survival
+                </div>
+
+                <div class="mini-copy">
+                  Bedrock · 5 Add-Ons · Survival
+                </div>
+
+              </div>
+
+
+              <div class="launcher-mini">
+
+                <div class="mini-icon">
+                  ✦
+                </div>
+
+                <div class="mini-title">
+                  Perfect Studio
+                </div>
+
+                <div class="mini-copy">
+                  Skins · Textures · HUD · Themes
+                </div>
+
+              </div>
+
+            </aside>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       WHY
+       ====================================================== -->
+
+  <section class="section">
+
+    <div class="page">
+
+      <div class="benefits">
+
+        <article class="benefit reveal">
+
+          <div class="benefit-icon">
+            ▶
+          </div>
+
+          <strong>
+            One-click play
+          </strong>
+
+          <span>
+            Profiles keep every Minecraft setup separate and ready.
+          </span>
+
+        </article>
+
+
+        <article class="benefit reveal">
+
+          <div class="benefit-icon">
+            +
+          </div>
+
+          <strong>
+            Content built in
+          </strong>
+
+          <span>
+            Discover compatible mods, packs and shaders without leaving the launcher.
+          </span>
+
+        </article>
+
+
+        <article class="benefit reveal">
+
+          <div class="benefit-icon">
+            ◈
+          </div>
+
+          <strong>
+            Real skin tools
+          </strong>
+
+          <span>
+            Import, preview, organize and eventually edit your skins directly.
+          </span>
+
+        </article>
+
+
+        <article class="benefit reveal">
+
+          <div class="benefit-icon">
+            ✦
+          </div>
+
+          <strong>
+            Perfect Studio
+          </strong>
+
+          <span>
+            Create skins, textures, HUD layouts and client themes.
+          </span>
+
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       PROFILES
+       ====================================================== -->
+
+  <section
+    class="section"
+    id="profiles"
+  >
+
+    <div class="page">
+
+      <header class="section-heading reveal">
+
+        <span class="eyebrow">
+          PROFILES
+        </span>
+
+        <h2>
+          Everything belongs
+          to a profile.
+        </h2>
+
+        <p>
+          Every setup keeps its own Minecraft version,
+          loader, mods, packs, shaders, worlds and settings.
+          No rebuilding your installation whenever you want to play something else.
+        </p>
+
+      </header>
+
+
+      <div class="profile-window reveal">
+
+        <div class="profile-tabs">
+
+          <div class="profile-tab active">
+            ALL
+          </div>
+
+          <div class="profile-tab">
+            JAVA
+          </div>
+
+          <div class="profile-tab">
+            BEDROCK
+          </div>
+
+          <div class="profile-tab">
+            PVP
+          </div>
+
+          <div class="profile-tab">
+            SURVIVAL
+          </div>
+
+          <div class="profile-tab">
+            MODPACKS
+          </div>
+
+          <div class="profile-search"></div>
+
+        </div>
+
+
+        <div class="profile-list">
+
+          <div class="profile-row">
+
+            <div class="profile-image">
+
+              <img
+                src="https://mc-heads.net/avatar/MHF_Steve/100"
+                alt="Steve profile"
+              >
+
+            </div>
+
+
+            <div class="profile-data">
+
+              <div class="profile-title">
+
+                <strong>
+                  Perfect PvP
+                </strong>
+
+                <span class="edition java">
+                  JAVA
+                </span>
+
+              </div>
+
+              <div class="profile-meta">
+                1.8.9 · Fabric · 18 Mods · Played 49m ago
+              </div>
+
+            </div>
+
+
+            <div class="profile-actions">
+
+              <button class="profile-action main">
+                PLAY
+              </button>
+
+              <button class="profile-action">
+                MODS
+              </button>
+
+              <button class="profile-action">
+                SETTINGS
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="profile-row">
+
+            <div class="profile-image">
+
+              <img
+                src="https://mc-heads.net/avatar/MHF_Alex/100"
+                alt="Alex profile"
+              >
+
+            </div>
+
+
+            <div class="profile-data">
+
+              <div class="profile-title">
+
+                <strong>
+                  Perfect Survival
+                </strong>
+
+                <span class="edition java">
+                  JAVA
+                </span>
+
+              </div>
+
+              <div class="profile-meta">
+                1.21.x · Fabric · 34 Mods · Shader enabled
+              </div>
+
+            </div>
+
+
+            <div class="profile-actions">
+
+              <button class="profile-action main">
+                PLAY
+              </button>
+
+              <button class="profile-action">
+                MODS
+              </button>
+
+              <button class="profile-action">
+                SETTINGS
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="profile-row">
+
+            <div class="profile-image">
+
+              <img
+                src="https://mc-heads.net/head/MHF_Steve/100"
+                alt=""
+              >
+
+            </div>
+
+
+            <div class="profile-data">
+
+              <div class="profile-title">
+
+                <strong>
+                  Bedrock Survival
+                </strong>
+
+                <span class="edition bedrock">
+                  BEDROCK
+                </span>
+
+              </div>
+
+              <div class="profile-meta">
+                Latest · 5 Add-Ons · 2 Packs · Survival World
+              </div>
+
+            </div>
+
+
+            <div class="profile-actions">
+
+              <button class="profile-action main">
+                PLAY
+              </button>
+
+              <button class="profile-action">
+                CONTENT
+              </button>
+
+              <button class="profile-action">
+                SETTINGS
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PROFILE DETAIL -->
+
+      <div class="detail-window reveal">
+
+        <div class="detail-main">
+
+          <div class="detail-head">
+
+            <div class="detail-head-image">
+
+              <img
+                src="https://mc-heads.net/avatar/MHF_Steve/110"
+                alt=""
+              >
+
+            </div>
+
+
+            <div class="detail-name">
+
+              <strong>
+                Perfect PvP
+              </strong>
+
+              <span>
+                Java Edition · 1.21.x · Fabric · 18 installed mods
+              </span>
+
+            </div>
+
+
+            <button class="detail-play">
+              ▶ PLAY
+            </button>
+
+          </div>
+
+
+          <div class="mods-toolbar">
+
+            <div class="mods-search"></div>
+
+            <button class="toolbar-button">
+              UPDATE ALL (3)
+            </button>
+
+            <button class="toolbar-button">
+              + ADD MODS
+            </button>
+
+          </div>
+
+
+          <div
+            class="mod-grid"
+            id="profileMods"
+          >
+
+            <div class="mod-card">
+
+              <div class="mod-icon"></div>
+
+              <div class="mod-info">
+
+                <strong>
+                  Loading project…
+                </strong>
+
+                <span>
+                  Modrinth
+                </span>
+
+              </div>
+
+              <div class="toggle"></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <aside class="detail-nav">
+
+          <div class="detail-nav-title">
+            CONTENT
+          </div>
+
+          <div class="detail-nav-item active">
+            MODS
+          </div>
+
+          <div class="detail-nav-item">
+            RESOURCE PACKS
+          </div>
+
+          <div class="detail-nav-item">
+            SHADERS
+          </div>
+
+          <div class="detail-nav-item">
+            DATAPACKS
+          </div>
+
+
+          <div
+            class="detail-nav-title"
+            style="margin-top:22px"
+          >
+            WORLD
+          </div>
+
+          <div class="detail-nav-item">
+            WORLDS
+          </div>
+
+          <div class="detail-nav-item">
+            SCREENSHOTS
+          </div>
+
+          <div class="detail-nav-item">
+            LOGS
+          </div>
+
+        </aside>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       DISCOVER
+       ====================================================== -->
+
+  <section
+    class="section"
+    id="discover"
+  >
+
+    <div class="page">
+
+      <header class="section-heading reveal">
+
+        <span class="eyebrow">
+          DISCOVER
+        </span>
+
+        <h2>
+          Find it.
+          Install it.
+          Play.
+        </h2>
+
+        <p>
+          Browse Minecraft content without bouncing between websites.
+          Discover can already understand the version and loader of your selected profile.
+        </p>
+
+      </header>
+
+
+      <div class="discover-window reveal">
+
+        <div class="discover-main">
+
+          <div class="discover-tabs">
+
+            <div class="discover-tab">
+              MODPACKS
+            </div>
+
+            <div class="discover-tab active">
+              MODS
+            </div>
+
+            <div class="discover-tab">
+              RESOURCE PACKS
+            </div>
+
+            <div class="discover-tab">
+              SHADERS
+            </div>
+
+            <div class="discover-tab">
+              DATAPACKS
+            </div>
+
+          </div>
+
+
+          <div class="discover-search">
+            Search Minecraft content…
+          </div>
+
+
+          <div
+            class="project-list"
+            id="projectList"
+          >
+
+            <div class="project">
+
+              <div class="project-image">
+                …
+              </div>
+
+              <div class="project-data">
+
+                <strong>
+                  Loading real Modrinth projects…
+                </strong>
+
+                <small>
+                  MODRINTH
+                </small>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <aside class="filters">
+
+          <strong>
+            FILTERS
+          </strong>
+
+
+          <div class="filter-title">
+            GAME VERSION
+          </div>
+
+          <div class="filter-option">
+            1.21.x
+          </div>
+
+          <div class="filter-option">
+            1.20.x
+          </div>
+
+          <div class="filter-option">
+            1.8.9
+          </div>
+
+
+          <div class="filter-title">
+            MOD LOADER
+          </div>
+
+          <div class="filter-option">
+            Fabric
+          </div>
+
+          <div class="filter-option">
+            Forge
+          </div>
+
+          <div class="filter-option">
+            NeoForge
+          </div>
+
+
+          <div class="filter-title">
+            SORT
+          </div>
+
+          <div class="filter-option">
+            Downloads
+          </div>
+
+          <div class="filter-option">
+            Updated
+          </div>
+
+        </aside>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       SKINS
+       ====================================================== -->
+
+  <section
+    class="section"
+    id="skins"
+  >
+
+    <div class="page">
+
+      <header class="section-heading reveal">
+
+        <span class="eyebrow">
+          SKINS
+        </span>
+
+        <h2>
+          Actually look like
+          Minecraft.
+        </h2>
+
+        <p>
+          Real blocky player renders.
+          Real Minecraft skin textures.
+          No generic human-shaped placeholder pretending to be Steve.
+        </p>
+
+      </header>
+
+
+      <div class="skin-layout">
+
+        <div class="skin-characters reveal">
+
+          <div class="skin-caption">
+
+            <strong>
+              Your skin. Your identity.
+            </strong>
+
+            <span>
+              Preview classic and slim skins before using them.
+            </span>
+
+          </div>
+
+
+          <img
+            class="skin-character"
+            src="https://mc-heads.net/body/MHF_Steve/500/right"
+            alt="Steve Minecraft skin"
+            loading="lazy"
+          >
+
+
+          <img
+            class="skin-character alex"
+            src="https://mc-heads.net/body/MHF_Alex/500/left"
+            alt="Alex Minecraft skin"
+            loading="lazy"
+          >
+
+        </div>
+
+
+        <div class="skin-editor reveal">
+
+          <aside class="editor-toolbar">
+
+            <div class="editor-tool active">
+              ✎
+            </div>
+
+            <div class="editor-tool">
+              ◇
+            </div>
+
+            <div class="editor-tool">
+              ▣
+            </div>
+
+            <div class="editor-tool">
+              ↶
+            </div>
+
+            <div class="editor-tool">
+              ?
+            </div>
+
           </aside>
 
-          <section class="window-main">
-            <div class="window-topbar">
-              <div class="word-bar"></div>
-              <div class="top-progress"><i></i></div>
-              <div class="top-search"></div>
-              <div class="top-avatar"></div>
-            </div>
 
-            <div class="window-body">
-              <div class="hero-panel">
-                <div class="tiny-line"></div>
-                <div class="panel-title"></div>
-                <div class="panel-copy"></div>
-                <div class="panel-copy short"></div>
-                <div class="panel-btn"></div>
+          <div class="editor-canvas">
 
-                <div class="steve-wrap">
-                  <svg class="pixel-svg" viewBox="0 0 160 300" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="48" y="0" width="64" height="64" fill="#8d5a3b"/>
-                    <rect x="56" y="12" width="48" height="18" fill="#6e472f"/>
-                    <rect x="56" y="26" width="48" height="30" fill="#c08d67"/>
-                    <rect x="62" y="32" width="10" height="10" fill="#30476c"/>
-                    <rect x="88" y="32" width="10" height="10" fill="#30476c"/>
-                    <rect x="64" y="34" width="6" height="6" fill="#a7c9ff"/>
-                    <rect x="90" y="34" width="6" height="6" fill="#a7c9ff"/>
-                    <rect x="70" y="46" width="20" height="6" fill="#6a4330"/>
-                    <rect x="42" y="64" width="76" height="88" fill="#3f7fd0"/>
-                    <rect x="10" y="68" width="32" height="82" fill="#d1a07a"/>
-                    <rect x="118" y="68" width="32" height="82" fill="#d1a07a"/>
-                    <rect x="14" y="68" width="28" height="28" fill="#2a8fd2"/>
-                    <rect x="118" y="68" width="28" height="28" fill="#2a8fd2"/>
-                    <rect x="50" y="152" width="28" height="104" fill="#384b9a"/>
-                    <rect x="82" y="152" width="28" height="104" fill="#30458e"/>
-                    <rect x="50" y="256" width="28" height="20" fill="#5a6dc6"/>
-                    <rect x="82" y="256" width="28" height="20" fill="#5266bc"/>
-                    <rect x="44" y="144" width="72" height="10" fill="#306dba"/>
-                  </svg>
-                </div>
-              </div>
+            <img
+              class="skin-texture"
+              src="https://mc-heads.net/skin/MHF_Steve"
+              alt="Steve skin texture"
+              loading="lazy"
+            >
 
-              <aside class="side-stack">
-                <div class="mini-card">
-                  <div class="mini-card-icon"></div>
-                  <div class="mini-card-line"></div>
-                  <div class="mini-card-line two"></div>
-                </div>
-                <div class="mini-card">
-                  <div class="mini-card-icon"></div>
-                  <div class="mini-card-line"></div>
-                  <div class="mini-card-line two"></div>
-                </div>
-                <div class="mini-card">
-                  <div class="mini-card-icon"></div>
-                  <div class="mini-card-line"></div>
-                  <div class="mini-card-line two"></div>
-                </div>
-              </aside>
-            </div>
-          </section>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="editions">
-      <div class="page">
-        <header class="section-header center reveal">
-          <span class="eyebrow">ONE CLIENT. TWO EDITIONS.</span>
-          <h2>
-            Java and Bedrock.
-            <br />
-            Finally together.
-          </h2>
-          <p>
-            Perfect Client understands the difference.
-            Java profiles get Java content.
-            Bedrock profiles get Bedrock content.
-            No messy mixing.
-          </p>
-        </header>
-
-        <div class="edition-grid">
-          <article class="edition-card java reveal">
-            <div class="edition-badge">JAVA EDITION</div>
-            <h3>Built for modded Minecraft.</h3>
-            <p>
-              Create separate Java profiles with their own versions, loaders,
-              mods, packs, shaders and settings.
-            </p>
-            <div class="edition-list">
-              <div>Fabric</div>
-              <div>Forge</div>
-              <div>NeoForge</div>
-              <div>Mods</div>
-              <div>Shaders</div>
-              <div>Modpacks</div>
-            </div>
-          </article>
-
-          <article class="edition-card bedrock reveal">
-            <div class="edition-badge">BEDROCK EDITION</div>
-            <h3>Bedrock without the chaos.</h3>
-            <p>
-              Manage Bedrock profiles separately with their own Add-Ons,
-              packs, worlds and supported Bedrock content.
-            </p>
-            <div class="edition-list">
-              <div>Add-Ons</div>
-              <div>Behavior Packs</div>
-              <div>Resource Packs</div>
-              <div>Worlds</div>
-              <div>Skins</div>
-              <div>Backups</div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="profiles">
-      <div class="page">
-        <header class="section-header reveal">
-          <span class="eyebrow">PROFILES</span>
-          <h2>
-            Everything stays
-            <br />
-            where it belongs.
-          </h2>
-          <p>
-            Every profile owns its version, loader, mods, packs, shaders,
-            worlds and settings. Switch your setup without rebuilding everything.
-          </p>
-        </header>
-
-        <div class="profile-showcase reveal">
-          <div class="showcase-topbar">
-            <div class="showcase-tab active">ALL</div>
-            <div class="showcase-tab">JAVA</div>
-            <div class="showcase-tab">BEDROCK</div>
-            <div class="showcase-tab">PVP</div>
-            <div class="showcase-tab">MODPACKS</div>
-            <div class="showcase-search"></div>
           </div>
 
-          <div class="profile-list">
-            <div class="profile-row">
-              <div class="profile-icon">
-                <svg class="pixel-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="64" height="64" fill="#131924"/>
-                  <rect x="20" y="6" width="24" height="24" fill="#8d5a3b"/>
-                  <rect x="24" y="12" width="16" height="6" fill="#6e472f"/>
-                  <rect x="24" y="18" width="16" height="10" fill="#c08d67"/>
-                  <rect x="26" y="20" width="4" height="4" fill="#a7c9ff"/>
-                  <rect x="34" y="20" width="4" height="4" fill="#a7c9ff"/>
-                  <rect x="21" y="31" width="22" height="18" fill="#3f7fd0"/>
-                  <rect x="14" y="32" width="7" height="16" fill="#d1a07a"/>
-                  <rect x="43" y="32" width="7" height="16" fill="#d1a07a"/>
-                  <rect x="24" y="49" width="8" height="13" fill="#3b4ca3"/>
-                  <rect x="32" y="49" width="8" height="13" fill="#314596"/>
-                </svg>
-              </div>
 
-              <div class="profile-info">
-                <div class="profile-name">
-                  <strong>Perfect PvP</strong>
-                  <div class="badge-java">JAVA</div>
-                </div>
-                <span>1.8.9 • Fabric • 18 Mods • played 49m ago</span>
-              </div>
+          <aside class="editor-properties">
 
-              <div class="profile-actions">
-                <button class="profile-button play">PLAY</button>
-                <button class="profile-button">MODS</button>
-                <button class="profile-button">SETTINGS</button>
-              </div>
+            <strong>
+              COLOR
+            </strong>
+
+
+            <div class="color-grid">
+
+              <div
+                class="color"
+                style="background:#52d7ff"
+              ></div>
+
+              <div
+                class="color"
+                style="background:#7969ff"
+              ></div>
+
+              <div
+                class="color"
+                style="background:#c59572"
+              ></div>
+
+              <div
+                class="color"
+                style="background:#3d77c2"
+              ></div>
+
+              <div
+                class="color"
+                style="background:#202d58"
+              ></div>
+
+              <div
+                class="color"
+                style="background:#2d3447"
+              ></div>
+
+              <div
+                class="color"
+                style="background:#ffffff"
+              ></div>
+
+              <div
+                class="color"
+                style="background:#11151e"
+              ></div>
+
             </div>
 
-            <div class="profile-row">
-              <div class="profile-icon">
-                <svg class="pixel-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-                      <stop stop-color="#5dd7ff"/>
-                      <stop offset="1" stop-color="#7a69ff"/>
-                    </linearGradient>
-                  </defs>
-                  <rect width="64" height="64" fill="#121925"/>
-                  <rect x="8" y="8" width="48" height="48" rx="10" fill="url(#g1)" opacity=".3"/>
-                  <rect x="14" y="18" width="36" height="28" rx="8" fill="url(#g1)"/>
-                  <rect x="20" y="24" width="24" height="4" rx="2" fill="white" opacity=".8"/>
-                  <rect x="20" y="32" width="18" height="4" rx="2" fill="white" opacity=".5"/>
-                </svg>
-              </div>
 
-              <div class="profile-info">
-                <div class="profile-name">
-                  <strong>Perfect Survival</strong>
-                  <div class="badge-java">JAVA</div>
-                </div>
-                <span>1.21.x • Fabric • 34 Mods • Complementary Shader</span>
-              </div>
+            <div class="property">
 
-              <div class="profile-actions">
-                <button class="profile-button play">PLAY</button>
-                <button class="profile-button">MODS</button>
-                <button class="profile-button">SETTINGS</button>
-              </div>
+              <span>
+                MODEL
+              </span>
+
+              <div class="property-box"></div>
+
             </div>
 
-            <div class="profile-row">
-              <div class="profile-icon">
-                <svg class="pixel-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="64" height="64" fill="#131a27"/>
-                  <rect x="10" y="39" width="44" height="12" fill="#5ab05a"/>
-                  <rect x="10" y="29" width="44" height="10" fill="#8b5b39"/>
-                  <rect x="26" y="16" width="12" height="13" fill="#87cbff"/>
-                  <rect x="22" y="12" width="20" height="4" fill="#5eb6ff"/>
-                  <rect x="16" y="20" width="4" height="4" fill="#87cbff"/>
-                  <rect x="44" y="20" width="4" height="4" fill="#87cbff"/>
-                </svg>
-              </div>
 
-              <div class="profile-info">
-                <div class="profile-name">
-                  <strong>Bedrock Survival</strong>
-                  <div class="badge-bedrock">BEDROCK</div>
-                </div>
-                <span>Latest • 5 Add-Ons • 2 Packs • Survival World</span>
-              </div>
+            <div class="property">
 
-              <div class="profile-actions">
-                <button class="profile-button play">PLAY</button>
-                <button class="profile-button">CONTENT</button>
-                <button class="profile-button">SETTINGS</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+              <span>
+                LAYER
+              </span>
 
-    <section class="section" id="discover">
-      <div class="page">
-        <header class="section-header reveal">
-          <span class="eyebrow">DISCOVER</span>
-          <h2>
-            Find it.
-            <br />
-            Install it.
-          </h2>
-          <p>
-            Mods, modpacks, resource packs and shaders in one content browser.
-            Perfect Client already knows your active profile.
-          </p>
-        </header>
+              <div class="property-box"></div>
 
-        <div class="discover-window reveal">
-          <div class="discover-main">
-            <div class="discover-tabs">
-              <div class="discover-tab">MODPACKS</div>
-              <div class="discover-tab active">MODS</div>
-              <div class="discover-tab">RESOURCE PACKS</div>
-              <div class="discover-tab">SHADERS</div>
-              <div class="discover-tab">DATAPACKS</div>
             </div>
 
-            <div class="discover-search"></div>
-
-            <div class="project-row">
-              <div class="project-icon">
-                <svg class="pixel-svg" viewBox="0 0 74 74" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="74" height="74" fill="url(#bgSodium)"/>
-                  <defs>
-                    <linearGradient id="bgSodium" x1="0" y1="0" x2="1" y2="1">
-                      <stop stop-color="#4fbfff"/>
-                      <stop offset="1" stop-color="#705fff"/>
-                    </linearGradient>
-                  </defs>
-                  <text x="37" y="48" text-anchor="middle" font-size="32" font-family="Arial" font-weight="700" fill="white">S</text>
-                </svg>
-              </div>
-
-              <div class="project-body">
-                <strong>Sodium</strong>
-                <small>Performance • Fabric</small>
-                <p>
-                  Modern rendering optimization built for smooth Minecraft performance.
-                </p>
-              </div>
-
-              <button class="install-button">INSTALL</button>
-            </div>
-
-            <div class="project-row">
-              <div class="project-icon">
-                <svg class="pixel-svg" viewBox="0 0 74 74" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="bgIris" x1="0" y1="0" x2="1" y2="1">
-                      <stop stop-color="#5dcaff"/>
-                      <stop offset="1" stop-color="#6a57ff"/>
-                    </linearGradient>
-                  </defs>
-                  <rect width="74" height="74" fill="url(#bgIris)"/>
-                  <text x="37" y="48" text-anchor="middle" font-size="31" font-family="Arial" font-weight="700" fill="white">I</text>
-                </svg>
-              </div>
-
-              <div class="project-body">
-                <strong>Iris Shaders</strong>
-                <small>Shaders • Fabric</small>
-                <p>
-                  Shader compatibility with a modern, performance-focused rendering stack.
-                </p>
-              </div>
-
-              <button class="install-button">INSTALL</button>
-            </div>
-
-            <div class="project-row">
-              <div class="project-icon">
-                <svg class="pixel-svg" viewBox="0 0 74 74" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="bgLithium" x1="0" y1="0" x2="1" y2="1">
-                      <stop stop-color="#50d4ff"/>
-                      <stop offset="1" stop-color="#7057ff"/>
-                    </linearGradient>
-                  </defs>
-                  <rect width="74" height="74" fill="url(#bgLithium)"/>
-                  <text x="37" y="48" text-anchor="middle" font-size="31" font-family="Arial" font-weight="700" fill="white">L</text>
-                </svg>
-              </div>
-
-              <div class="project-body">
-                <strong>Lithium</strong>
-                <small>Performance • Fabric</small>
-                <p>
-                  Game logic optimization designed to improve tick performance.
-                </p>
-              </div>
-
-              <button class="install-button">INSTALL</button>
-            </div>
-          </div>
-
-          <aside class="filters">
-            <strong>FILTERS</strong>
-
-            <div class="filter-block">
-              <span>GAME VERSION</span>
-              <div class="filter-option">1.21.x</div>
-              <div class="filter-option">1.20.x</div>
-              <div class="filter-option">1.8.9</div>
-            </div>
-
-            <div class="filter-block">
-              <span>MOD LOADER</span>
-              <div class="filter-option">Fabric</div>
-              <div class="filter-option">Forge</div>
-              <div class="filter-option">NeoForge</div>
-            </div>
-
-            <div class="filter-block">
-              <span>SORT</span>
-              <div class="filter-option">Downloads</div>
-              <div class="filter-option">Updated</div>
-            </div>
           </aside>
+
         </div>
-      </div>
-    </section>
 
-    <section class="section" id="studio">
-      <div class="page">
-        <header class="section-header center reveal">
-          <span class="eyebrow">PERFECT STUDIO</span>
-          <h2>
-            Don’t just download.
-            <br />
-            Create.
-          </h2>
-          <p>
-            Perfect Client is more than a launcher.
-            Create skins, texture packs, HUD layouts and launcher themes
-            without leaving the app.
-          </p>
-        </header>
-
-        <div class="studio-grid">
-          <article class="studio-card reveal">
-            <div class="studio-visual">
-              <svg class="pixel-svg" viewBox="0 0 205 130" xmlns="http://www.w3.org/2000/svg">
-                <rect width="205" height="130" fill="#0f141d"/>
-                <rect x="20" y="15" width="55" height="95" fill="#111a27"/>
-                <rect x="95" y="12" width="84" height="106" rx="10" fill="#0c121b" stroke="rgba(255,255,255,.08)"/>
-                <rect x="32" y="24" width="30" height="30" fill="#8d5a3b"/>
-                <rect x="32" y="54" width="30" height="40" fill="#3f7fd0"/>
-                <rect x="104" y="25" width="18" height="18" fill="#47d4ff"/>
-                <rect x="122" y="25" width="18" height="18" fill="#7a69ff"/>
-                <rect x="140" y="25" width="18" height="18" fill="#ffffff" opacity=".8"/>
-                <rect x="104" y="43" width="18" height="18" fill="#c08d67"/>
-                <rect x="122" y="43" width="18" height="18" fill="#314596"/>
-                <rect x="140" y="43" width="18" height="18" fill="#2a8fd2"/>
-              </svg>
-            </div>
-
-            <div class="studio-icon">◈</div>
-            <h3>Skin Studio</h3>
-            <p>
-              Create, edit, preview and organize Minecraft skins with a dedicated
-              2D and 3D workspace.
-            </p>
-            <div class="help-pill">Need help? Built-in tool guides included.</div>
-          </article>
-
-          <article class="studio-card reveal">
-            <div class="studio-visual texture">
-              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-            </div>
-
-            <div class="studio-icon">▦</div>
-            <h3>Texture Studio</h3>
-            <p>
-              Browse Minecraft textures, edit pixels and build your own
-              resource pack from inside the client.
-            </p>
-            <div class="help-pill">Tooltips and step-by-step help built in.</div>
-          </article>
-
-          <article class="studio-card reveal">
-            <div class="studio-visual hud">
-              <div class="hud-line" style="width:70%;"></div>
-              <div class="hud-line" style="width:52%;"></div>
-              <div class="hud-box">
-                <i></i><i></i><i></i><i></i>
-              </div>
-            </div>
-
-            <div class="studio-icon">+</div>
-            <h3>HUD Studio</h3>
-            <p>
-              Drag FPS, coordinates, keystrokes, armor and other widgets
-              directly onto your own HUD layout.
-            </p>
-            <div class="help-pill">Every tool can explain itself.</div>
-          </article>
-
-          <article class="studio-card reveal">
-            <div class="studio-visual theme">
-              <div class="hud-line" style="width:68%;"></div>
-              <div class="theme-row">
-                <i></i><i></i><i></i><i></i>
-              </div>
-              <div class="hud-line" style="width:84%; margin-top:16px;"></div>
-              <div class="hud-line" style="width:58%;"></div>
-            </div>
-
-            <div class="studio-icon">✦</div>
-            <h3>Theme Studio</h3>
-            <p>
-              Change colors, surfaces, radius, blur and animation style
-              to make Perfect Client truly yours.
-            </p>
-            <div class="help-pill">Beginner friendly. Powerful when needed.</div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="gallery">
-      <div class="page">
-        <header class="section-header reveal">
-          <span class="eyebrow">VISUAL PREVIEW</span>
-          <h2>
-            A client that already
-            <br />
-            feels like a product.
-          </h2>
-          <p>
-            Clean, modern and distinctly Minecraft-focused —
-            with visuals that feel more premium than a basic launcher website.
-          </p>
-        </header>
-
-        <div class="gallery-grid">
-          <article class="gallery-card reveal">
-            <div class="label">SKINS</div>
-            <svg class="pixel-svg" viewBox="0 0 620 300" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="gc1" x1="0" y1="0" x2="1" y2="1">
-                  <stop stop-color="#101722"/>
-                  <stop offset="1" stop-color="#0b0f16"/>
-                </linearGradient>
-              </defs>
-              <rect width="620" height="300" fill="url(#gc1)"/>
-              <circle cx="200" cy="150" r="110" fill="#47d4ff" opacity=".06"/>
-              <circle cx="200" cy="150" r="75" fill="#7a69ff" opacity=".06"/>
-              <rect x="142" y="58" width="40" height="40" fill="#8d5a3b"/>
-              <rect x="148" y="66" width="28" height="10" fill="#6e472f"/>
-              <rect x="148" y="76" width="28" height="16" fill="#c08d67"/>
-              <rect x="154" y="81" width="5" height="5" fill="#a7c9ff"/>
-              <rect x="165" y="81" width="5" height="5" fill="#a7c9ff"/>
-              <rect x="138" y="98" width="48" height="56" fill="#3f7fd0"/>
-              <rect x="118" y="100" width="20" height="52" fill="#d1a07a"/>
-              <rect x="186" y="100" width="20" height="52" fill="#d1a07a"/>
-              <rect x="120" y="100" width="18" height="18" fill="#2a8fd2"/>
-              <rect x="186" y="100" width="18" height="18" fill="#2a8fd2"/>
-              <rect x="142" y="154" width="18" height="70" fill="#384b9a"/>
-              <rect x="164" y="154" width="18" height="70" fill="#30458e"/>
-              <rect x="350" y="56" width="180" height="52" rx="16" fill="url(#ctaGrad)"/>
-              <defs>
-                <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop stop-color="#ffffff"/>
-                  <stop offset="1" stop-color="#9faeff"/>
-                </linearGradient>
-              </defs>
-              <rect x="350" y="126" width="122" height="10" rx="5" fill="white" opacity=".18"/>
-              <rect x="350" y="144" width="94" height="10" rx="5" fill="white" opacity=".12"/>
-              <rect x="350" y="196" width="104" height="38" rx="12" fill="url(#btnGrad)"/>
-              <defs>
-                <linearGradient id="btnGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop stop-color="#47d4ff"/>
-                  <stop offset="1" stop-color="#7a69ff"/>
-                </linearGradient>
-              </defs>
-            </svg>
-            <div class="gallery-copy">
-              <h4>Skins that feel alive.</h4>
-              <p>Preview Minecraft skins in a clean, premium interface that still feels true to the game.</p>
-            </div>
-          </article>
-
-          <article class="gallery-card reveal">
-            <div class="label">MODS</div>
-            <svg class="pixel-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-              <rect width="300" height="300" fill="#0f141d"/>
-              <rect x="30" y="36" width="70" height="70" rx="18" fill="url(#m1)"/>
-              <defs>
-                <linearGradient id="m1" x1="0" y1="0" x2="1" y2="1">
-                  <stop stop-color="#50d5ff"/>
-                  <stop offset="1" stop-color="#6e5bff"/>
-                </linearGradient>
-              </defs>
-              <text x="65" y="80" text-anchor="middle" font-size="34" font-family="Arial" font-weight="700" fill="white">S</text>
-              <rect x="118" y="44" width="120" height="10" rx="5" fill="white" opacity=".72"/>
-              <rect x="118" y="66" width="92" height="8" rx="4" fill="white" opacity=".2"/>
-              <rect x="118" y="92" width="74" height="28" rx="10" fill="#705eff"/>
-
-              <rect x="30" y="146" width="70" height="70" rx="18" fill="url(#m2)"/>
-              <defs>
-                <linearGradient id="m2" x1="0" y1="0" x2="1" y2="1">
-                  <stop stop-color="#52d7ff"/>
-                  <stop offset="1" stop-color="#7d69ff"/>
-                </linearGradient>
-              </defs>
-              <text x="65" y="191" text-anchor="middle" font-size="34" font-family="Arial" font-weight="700" fill="white">I</text>
-              <rect x="118" y="154" width="120" height="10" rx="5" fill="white" opacity=".72"/>
-              <rect x="118" y="176" width="98" height="8" rx="4" fill="white" opacity=".2"/>
-              <rect x="118" y="202" width="74" height="28" rx="10" fill="#705eff"/>
-            </svg>
-            <div class="gallery-copy">
-              <h4>Discover fast.</h4>
-              <p>Browse Minecraft content without digging through messy launcher menus.</p>
-            </div>
-          </article>
-
-          <article class="gallery-card reveal">
-            <div class="label">STUDIO</div>
-            <svg class="pixel-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-              <rect width="300" height="300" fill="#0f141d"/>
-              <rect x="26" y="26" width="248" height="248" rx="18" fill="#0b1017" stroke="rgba(255,255,255,.08)"/>
-              <g transform="translate(42 42)">
-                <rect width="28" height="28" fill="#47d4ff" opacity=".65"/>
-                <rect x="28" width="28" height="28" fill="#7a69ff" opacity=".55"/>
-                <rect x="56" width="28" height="28" fill="#ffffff" opacity=".22"/>
-                <rect x="84" width="28" height="28" fill="#8d5a3b"/>
-                <rect x="112" width="28" height="28" fill="#c08d67"/>
-                <rect x="140" width="28" height="28" fill="#30458e"/>
-                <rect y="28" width="28" height="28" fill="#2a8fd2"/>
-                <rect x="28" y="28" width="28" height="28" fill="#314596"/>
-                <rect x="56" y="28" width="28" height="28" fill="#d1a07a"/>
-                <rect x="84" y="28" width="28" height="28" fill="#111923"/>
-                <rect x="112" y="28" width="28" height="28" fill="#47d4ff" opacity=".5"/>
-                <rect x="140" y="28" width="28" height="28" fill="#7a69ff" opacity=".45"/>
-              </g>
-              <rect x="42" y="140" width="180" height="14" rx="7" fill="white" opacity=".16"/>
-              <rect x="42" y="166" width="146" height="14" rx="7" fill="white" opacity=".11"/>
-              <rect x="42" y="210" width="92" height="34" rx="12" fill="url(#studioBtn)"/>
-              <defs>
-                <linearGradient id="studioBtn" x1="0" y1="0" x2="1" y2="1">
-                  <stop stop-color="#47d4ff"/>
-                  <stop offset="1" stop-color="#7a69ff"/>
-                </linearGradient>
-              </defs>
-            </svg>
-            <div class="gallery-copy">
-              <h4>Create inside the client.</h4>
-              <p>Skins, textures, HUD layouts and themes — not just downloads.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="page">
-        <div class="local-card reveal">
-          <span class="eyebrow">LOCAL FIRST</span>
-          <h2>
-            Your client.
-            <br />
-            Your computer.
-          </h2>
-          <p>
-            Perfect Client is designed so its core functionality does not depend
-            on a paid Perfect Client server.
-            Your profiles, skins and creator projects stay local.
-          </p>
-
-          <div class="local-points">
-            <div class="local-point">No subscription required</div>
-            <div class="local-point">Profiles stored locally</div>
-            <div class="local-point">Optional online services later</div>
-            <div class="local-point">Offline-friendly design</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="download-section" id="download">
-      <div class="page">
-        <div class="download-box reveal">
-          <img class="download-logo" src="logo.png" alt="Perfect Client" />
-
-          <span class="eyebrow">PERFECT CLIENT</span>
-          <h2>Ready to play?</h2>
-          <p>
-            Download Perfect Client for Windows.
-            Java and Bedrock profiles.
-            Discover content.
-            Create your own.
-          </p>
-
-          <button class="button-primary" id="downloadButton" type="button">
-            Download for Windows
-          </button>
-
-          <div class="download-meta">
-            Windows 10 / 11 • Free • Website is live now — desktop release comes next
-          </div>
-
-          <div class="notice" id="downloadNotice">
-            No Windows release is linked yet.
-            Once your GitHub Release exists, just paste its URL into the small
-            config at the bottom of this file and this button will go directly to your installer.
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="page footer-inner">
-      <div class="footer-brand">
-        <img src="logo.png" alt="" />
-        Perfect Client
       </div>
 
-      <div class="footer-links">
-        <a href="#profiles">Profiles</a>
-        <a href="#discover">Discover</a>
-        <a href="#studio">Studio</a>
-        <a href="#download">Download</a>
-        <span class="footer-copy">Not affiliated with Mojang Studios or Microsoft.</span>
-      </div>
     </div>
-  </footer>
 
-  <script>
-    const navbar = document.getElementById("navbar");
-    const downloadButton = document.getElementById("downloadButton");
-    const downloadNotice = document.getElementById("downloadNotice");
+  </section>
 
-    /*
-      IMPORTANT:
-      As soon as you have a real GitHub Release, replace the empty string below.
-      Example:
-      const DOWNLOAD_URL = "https://github.com/DEINNAME/DEINREPO/releases/latest";
-    */
-    const DOWNLOAD_URL = "";
 
-    window.addEventListener("scroll", () => {
-      navbar.classList.toggle("scrolled", window.scrollY > 18);
-    });
+  <!-- ======================================================
+       STUDIO
+       ====================================================== -->
 
-    downloadButton.addEventListener("click", () => {
-      if (DOWNLOAD_URL && DOWNLOAD_URL.trim() !== "") {
-        window.open(DOWNLOAD_URL, "_blank", "noopener,noreferrer");
+  <section
+    class="section"
+    id="studio"
+  >
+
+    <div class="page">
+
+      <header class="section-heading center reveal">
+
+        <span class="eyebrow">
+          PERFECT STUDIO
+        </span>
+
+        <h2>
+          Don't just download.
+          Create.
+        </h2>
+
+        <p>
+          Perfect Client is designed to become a launcher and creator toolkit in one.
+          Every important Studio tool includes contextual help for beginners.
+        </p>
+
+      </header>
+
+
+      <div class="studio-grid">
+
+        <article class="studio-card reveal">
+
+          <div class="studio-preview">
+
+            <img
+              class="studio-steve"
+              src="https://mc-heads.net/body/MHF_Steve/260/right"
+              alt=""
+              loading="lazy"
+            >
+
+          </div>
+
+
+          <div class="studio-symbol">
+            ◈
+          </div>
+
+          <h3>
+            Skin Studio
+          </h3>
+
+          <p>
+            Paint pixels, switch body parts and preview your skin in 3D.
+          </p>
+
+          <div class="help">
+
+            <span class="question">
+              ?
+            </span>
+
+            Need help?
+
+          </div>
+
+        </article>
+
+
+        <article class="studio-card reveal">
+
+          <div class="studio-preview pixel-editor">
+
+            <i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i>
+
+          </div>
+
+
+          <div class="studio-symbol">
+            ▦
+          </div>
+
+          <h3>
+            Texture Studio
+          </h3>
+
+          <p>
+            Edit Minecraft-style pixel textures and turn them into resource packs.
+          </p>
+
+          <div class="help">
+
+            <span class="question">
+              ?
+            </span>
+
+            Need help?
+
+          </div>
+
+        </article>
+
+
+        <article class="studio-card reveal">
+
+          <div class="studio-preview hud-preview">
+
+            <div
+              class="hud-bar"
+              style="width:72%"
+            ></div>
+
+            <div
+              class="hud-bar"
+              style="width:51%"
+            ></div>
+
+            <div class="hud-keys">
+
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+
+            </div>
+
+          </div>
+
+
+          <div class="studio-symbol">
+            +
+          </div>
+
+          <h3>
+            HUD Studio
+          </h3>
+
+          <p>
+            Drag FPS, coordinates, keystrokes, armor and other widgets around.
+          </p>
+
+          <div class="help">
+
+            <span class="question">
+              ?
+            </span>
+
+            Need help?
+
+          </div>
+
+        </article>
+
+
+        <article class="studio-card reveal">
+
+          <div class="studio-preview hud-preview">
+
+            <div
+              class="hud-bar"
+              style="
+                width:80%;
+                background:#52d7ff
+              "
+            ></div>
+
+            <div
+              class="hud-bar"
+              style="
+                width:60%;
+                background:#7969ff
+              "
+            ></div>
+
+            <div
+              class="hud-bar"
+              style="width:72%"
+            ></div>
+
+          </div>
+
+
+          <div class="studio-symbol">
+            ✦
+          </div>
+
+          <h3>
+            Theme Studio
+          </h3>
+
+          <p>
+            Customize Perfect Client's accent, surfaces, radius and motion.
+          </p>
+
+          <div class="help">
+
+            <span class="question">
+              ?
+            </span>
+
+            Need help?
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       JAVA BEDROCK
+       ====================================================== -->
+
+  <section
+    class="section"
+    id="editions"
+  >
+
+    <div class="page">
+
+      <header class="section-heading center reveal">
+
+        <span class="eyebrow">
+          ONE CLIENT · TWO EDITIONS
+        </span>
+
+        <h2>
+          Java and Bedrock
+          without mixing them up.
+        </h2>
+
+        <p>
+          A Java profile behaves like Java.
+          A Bedrock profile behaves like Bedrock.
+          Perfect Client adapts its content and controls automatically.
+        </p>
+
+      </header>
+
+
+      <div class="edition-grid">
+
+        <article class="edition-card java reveal">
+
+          <div class="edition-pill">
+            JAVA EDITION
+          </div>
+
+          <h3>
+            Made for modded Minecraft.
+          </h3>
+
+          <p>
+            Keep different versions and mod loaders completely separated,
+            each with their own content and settings.
+          </p>
+
+
+          <div class="edition-features">
+
+            <div class="edition-feature">
+              Fabric
+            </div>
+
+            <div class="edition-feature">
+              Forge
+            </div>
+
+            <div class="edition-feature">
+              NeoForge
+            </div>
+
+            <div class="edition-feature">
+              Mods
+            </div>
+
+            <div class="edition-feature">
+              Shaders
+            </div>
+
+            <div class="edition-feature">
+              Modpacks
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <article class="edition-card bedrock reveal">
+
+          <div class="edition-pill">
+            BEDROCK EDITION
+          </div>
+
+          <h3>
+            Bedrock gets its own system.
+          </h3>
+
+          <p>
+            No pretending Java mods work on Bedrock.
+            Bedrock profiles instead focus on the content that actually belongs there.
+          </p>
+
+
+          <div class="edition-features">
+
+            <div class="edition-feature">
+              Add-Ons
+            </div>
+
+            <div class="edition-feature">
+              Behavior Packs
+            </div>
+
+            <div class="edition-feature">
+              Resource Packs
+            </div>
+
+            <div class="edition-feature">
+              Worlds
+            </div>
+
+            <div class="edition-feature">
+              Skins
+            </div>
+
+            <div class="edition-feature">
+              Backups
+            </div>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       FAQ
+       ====================================================== -->
+
+  <section class="section">
+
+    <div class="page">
+
+      <header class="section-heading center reveal">
+
+        <span class="eyebrow">
+          FAQ
+        </span>
+
+        <h2>
+          The important stuff.
+        </h2>
+
+      </header>
+
+
+      <div class="faq reveal">
+
+        <details>
+
+          <summary>
+            Is Perfect Client free?
+          </summary>
+
+          <p>
+            The current goal is for the core launcher to be free,
+            local-first and not dependent on a subscription.
+          </p>
+
+        </details>
+
+
+        <details>
+
+          <summary>
+            Does Perfect Client support Java and Bedrock?
+          </summary>
+
+          <p>
+            That is the planned architecture.
+            Java and Bedrock use separate profile types so incompatible content is not mixed together.
+          </p>
+
+        </details>
+
+
+        <details>
+
+          <summary>
+            Is the Windows client available yet?
+          </summary>
+
+          <p>
+            Not yet.
+            This website can go live before the first Windows release.
+            The download button can later point directly to your GitHub Release.
+          </p>
+
+        </details>
+
+
+        <details>
+
+          <summary>
+            Are the Modrinth projects on this page real?
+          </summary>
+
+          <p>
+            Yes.
+            The Discover preview requests real public project information from Modrinth.
+            It is only a website preview and does not install anything.
+          </p>
+
+        </details>
+
+
+        <details>
+
+          <summary>
+            Does the website collect my Minecraft login?
+          </summary>
+
+          <p>
+            No.
+            This static website has no Microsoft password form
+            and does not need your Minecraft account.
+          </p>
+
+        </details>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       DOWNLOAD
+       ====================================================== -->
+
+  <section
+    class="download-section"
+    id="download"
+  >
+
+    <div class="page">
+
+      <div class="download-panel reveal">
+
+        <img
+          class="download-logo"
+          src="./logo.png"
+          alt="Perfect Client logo"
+          onerror="this.style.display='none'"
+        >
+
+
+        <span class="eyebrow">
+          PERFECT CLIENT
+        </span>
+
+
+        <h2>
+          Ready to play?
+        </h2>
+
+
+        <p>
+          The website can launch now.
+          When the Windows build is ready,
+          this button can point directly to your latest GitHub release.
+        </p>
+
+
+        <button
+          class="button-primary"
+          id="downloadButton"
+          type="button"
+        >
+          Windows release coming soon
+        </button>
+
+
+        <div class="release-meta">
+          Windows 10 / 11 · Java + Bedrock · Local first
+        </div>
+
+
+        <div
+          class="release-message"
+          id="releaseMessage"
+        >
+          No Windows installer is linked yet.
+          The website itself is ready to be published.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+
+  <div class="page footer">
+
+    <div class="footer-brand">
+
+      <img
+        src="./logo.png"
+        alt=""
+        onerror="this.style.display='none'"
+      >
+
+      Perfect Client
+
+    </div>
+
+
+    <div class="footer-links">
+
+      <a href="#profiles">
+        Profiles
+      </a>
+
+      <a href="#discover">
+        Discover
+      </a>
+
+      <a href="#skins">
+        Skins
+      </a>
+
+      <a href="#studio">
+        Studio
+      </a>
+
+      <span>
+        Not affiliated with Mojang Studios or Microsoft.
+      </span>
+
+      <span>
+        Avatars powered by MCHeads.
+      </span>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script>
+  /*
+   * =========================================================
+   * PERFECT CLIENT WEBSITE CONFIG
+   * =========================================================
+   *
+   * When your GitHub Windows release exists,
+   * put the URL here.
+   *
+   * Example:
+   *
+   * const RELEASE_URL =
+   *   "https://github.com/USERNAME/REPOSITORY/releases/latest";
+   */
+
+  const RELEASE_URL = "";
+
+
+  const MODRINTH_PROJECTS = [
+    "sodium",
+    "iris",
+    "lithium",
+    "fabric-api"
+  ];
+
+
+  const navbar =
+    document.getElementById("navbar");
+
+
+  const downloadButton =
+    document.getElementById("downloadButton");
+
+
+  const releaseMessage =
+    document.getElementById("releaseMessage");
+
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      navbar.classList.toggle(
+        "scrolled",
+        window.scrollY > 15
+      );
+    }
+  );
+
+
+  downloadButton.addEventListener(
+    "click",
+    () => {
+      if (
+        RELEASE_URL &&
+        RELEASE_URL.trim() !== ""
+      ) {
+        window.open(
+          RELEASE_URL,
+          "_blank",
+          "noopener,noreferrer"
+        );
+
         return;
       }
 
-      downloadNotice.classList.add("show");
-      downloadNotice.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest"
-      });
-    });
+      releaseMessage.classList.add(
+        "show"
+      );
+    }
+  );
 
-    const observer = new IntersectionObserver(
+
+  /*
+   * =========================================================
+   * SCROLL REVEAL
+   * =========================================================
+   */
+
+  const observer =
+    new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
+        entries.forEach(
+          (entry) => {
+            if (
+              entry.isIntersecting
+            ) {
+              entry.target.classList.add(
+                "visible"
+              );
+
+              observer.unobserve(
+                entry.target
+              );
+            }
           }
-        });
+        );
       },
       {
-        threshold: 0.12
+        threshold: 0.1
       }
     );
 
-    document.querySelectorAll(".reveal").forEach((element) => {
-      observer.observe(element);
-    });
-  </script>
+
+  document
+    .querySelectorAll(
+      ".reveal"
+    )
+    .forEach(
+      (element) => {
+        observer.observe(
+          element
+        );
+      }
+    );
+
+
+  /*
+   * =========================================================
+   * MODRINTH
+   * =========================================================
+   */
+
+  const projectList =
+    document.getElementById(
+      "projectList"
+    );
+
+
+  const profileMods =
+    document.getElementById(
+      "profileMods"
+    );
+
+
+  function escapeHtml(value) {
+    return String(value)
+      .replaceAll(
+        "&",
+        "&amp;"
+      )
+      .replaceAll(
+        "<",
+        "&lt;"
+      )
+      .replaceAll(
+        ">",
+        "&gt;"
+      )
+      .replaceAll(
+        '"',
+        "&quot;"
+      )
+      .replaceAll(
+        "'",
+        "&#039;"
+      );
+  }
+
+
+  function formatDownloads(number) {
+    return new Intl.NumberFormat(
+      "en",
+      {
+        notation: "compact",
+        maximumFractionDigits: 1
+      }
+    ).format(
+      number || 0
+    );
+  }
+
+
+  async function loadProject(slug) {
+    const facets =
+      encodeURIComponent(
+        JSON.stringify(
+          [
+            [
+              "project_type:mod"
+            ]
+          ]
+        )
+      );
+
+
+    const url =
+      "https://api.modrinth.com/v2/search" +
+      "?query=" +
+      encodeURIComponent(slug) +
+      "&limit=8" +
+      "&facets=" +
+      facets;
+
+
+    const response =
+      await fetch(
+        url
+      );
+
+
+    if (
+      !response.ok
+    ) {
+      throw new Error(
+        "Modrinth request failed"
+      );
+    }
+
+
+    const data =
+      await response.json();
+
+
+    const exact =
+      data.hits.find(
+        (item) =>
+          item.slug === slug
+      );
+
+
+    return (
+      exact ||
+      data.hits[0]
+    );
+  }
+
+
+  async function loadModrinth() {
+    try {
+      const projects =
+        (
+          await Promise.all(
+            MODRINTH_PROJECTS.map(
+              loadProject
+            )
+          )
+        ).filter(
+          Boolean
+        );
+
+
+      projectList.innerHTML =
+        projects.map(
+          (project) => {
+            const icon =
+              project.icon_url
+                ?
+                `
+                <img
+                  src="${escapeHtml(project.icon_url)}"
+                  alt=""
+                  loading="lazy"
+                >
+                `
+                :
+                escapeHtml(
+                  project.title
+                    .slice(0,1)
+                );
+
+
+            return `
+              <article class="project">
+
+                <div class="project-image">
+                  ${icon}
+                </div>
+
+                <div class="project-data">
+
+                  <strong>
+                    ${escapeHtml(project.title)}
+                  </strong>
+
+                  <small>
+                    ${formatDownloads(project.downloads)}
+                    DOWNLOADS · MODRINTH
+                  </small>
+
+                  <p>
+                    ${escapeHtml(project.description)}
+                  </p>
+
+                </div>
+
+                <button
+                  class="install"
+                  type="button"
+                >
+                  INSTALL
+                </button>
+
+              </article>
+            `;
+          }
+        ).join("");
+
+
+      profileMods.innerHTML =
+        projects.slice(
+          0,
+          4
+        ).map(
+          (project) => {
+            const icon =
+              project.icon_url
+                ?
+                `
+                <img
+                  src="${escapeHtml(project.icon_url)}"
+                  alt=""
+                  loading="lazy"
+                >
+                `
+                :
+                "";
+
+
+            return `
+              <div class="mod-card">
+
+                <div class="mod-icon">
+                  ${icon}
+                </div>
+
+                <div class="mod-info">
+
+                  <strong>
+                    ${escapeHtml(project.title)}
+                  </strong>
+
+                  <span>
+                    MODRINTH · INSTALLED
+                  </span>
+
+                </div>
+
+                <div class="toggle"></div>
+
+              </div>
+            `;
+          }
+        ).join("");
+
+    } catch (
+      error
+    ) {
+      projectList.innerHTML =
+        `
+        <div class="project">
+
+          <div class="project-image">
+            !
+          </div>
+
+          <div class="project-data">
+
+            <strong>
+              Discover is temporarily unavailable
+            </strong>
+
+            <small>
+              MODRINTH
+            </small>
+
+            <p>
+              Real content could not be loaded right now.
+              The rest of Perfect Client remains available.
+            </p>
+
+          </div>
+
+        </div>
+        `;
+
+
+      profileMods.innerHTML =
+        `
+        <div class="mod-card">
+
+          <div class="mod-icon"></div>
+
+          <div class="mod-info">
+
+            <strong>
+              Installed content
+            </strong>
+
+            <span>
+              OFFLINE PREVIEW
+            </span>
+
+          </div>
+
+          <div class="toggle"></div>
+
+        </div>
+        `;
+    }
+  }
+
+
+  loadModrinth();
+</script>
+
 </body>
 </html>
